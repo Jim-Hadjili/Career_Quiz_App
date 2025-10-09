@@ -11,6 +11,8 @@
     <title>CareerPath - Discover Your Perfect Career</title>
 </head>
 
+<?php include 'Components/floatingButton.php'; ?>
+
 <body class="min-h-screen bg-cream text-dark smooth-scroll">
 
     <!-- Navigation Header -->
@@ -37,6 +39,7 @@
     <!-- Mobile menu toggle -->
     <script src="Content/Scripts/mobileMenuToggle.js"></script>
 
+    <script src="Assets/Scripts/floatingButtonScript.js"></script>
 </body>
 
 </html>

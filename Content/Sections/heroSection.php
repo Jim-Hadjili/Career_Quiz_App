@@ -9,11 +9,10 @@
                     Take our comprehensive personality quiz to uncover career paths that align with your unique traits, interests, and aspirations. Your dream career is just a few questions away.
                 </p>
                 <button onclick="startQuiz()" class="bg-dark text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-opacity-90 transition-all inline-flex items-center space-x-2">
-                    <span>Start Your Journey</span>
+                    <span>Start Quiz</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
-
             <div class="relative">
                 <img src="https://illustrations.popsy.co/amber/remote-work.svg" alt="Learning Illustration" class="w-full h-auto">
             </div>

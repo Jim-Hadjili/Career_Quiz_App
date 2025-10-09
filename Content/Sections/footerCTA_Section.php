@@ -11,8 +11,8 @@
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        <button onclick="startQuiz()" class="bg-dark text-white px-8 py-4 rounded-full text-md font-medium hover:bg-opacity-90 transition-all inline-flex items-center justify-center space-x-3">
-                            <span>Take the Free Quiz Now</span>
+                        <button onclick="startQuiz()" class="bg-dark text-white px-8 py-4 rounded-full text-md font-medium hover:bg-lime hover:text-black transition-all inline-flex items-center justify-center space-x-3">
+                            <span>Take Quiz Now</span>
                             <i class="fas fa-arrow-right"></i>
                         </button>
                         
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 
-                <div class="relative">
+                <div class="relative hidden md:block">
                     <div class="bg-white rounded-3xl p-8 border-2 border-dark shadow-lg">
                         <img src="https://illustrations.popsy.co/amber/success.svg" alt="Career Success Illustration" class="w-full h-[350px] mb-6">
                     </div>

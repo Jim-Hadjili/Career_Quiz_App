@@ -5,17 +5,25 @@
                 <div class="w-8 h-8 bg-dark rounded-full flex items-center justify-center">
                     <i class="fas fa-compass text-lime text-lg"></i>
                 </div>
-                <span class="text-2xl font-bold">CareerPath</span>
+                <span class="text-2xl md:text-xl lg:text-3xl font-bold">CareerPath</span>
             </div>
 
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#home" class="hover:text-lime transition-colors">Home</a>
-                <a href="#about" class="hover:text-lime transition-colors">About</a>
-                <a href="#how-it-works" class="hover:text-lime transition-colors">How It Works</a>
-                <a href="#quiz-guide" class="hover:text-lime transition-colors">Quiz Guide</a>
-                <a href="#careers" class="hover:text-lime transition-colors">Careers</a>
-                <button onclick="startQuiz()" class="bg-dark text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all">
-                    Sign Up
+                <a href="#home" class="hover:text-lime transition-colors text-base md:text-sm lg:text-lg">Home</a>
+                <a href="#about" class="hover:text-lime transition-colors text-base md:text-sm lg:text-lg">About</a>
+                <a href="#how-it-works" class="hover:text-lime transition-colors text-base md:text-sm lg:text-lg">How It Works</a>
+                <a href="#quiz-guide" class="hover:text-lime transition-colors text-base md:text-sm lg:text-lg">Quiz Guide</a>
+                <a href="#careers" class="hover:text-lime transition-colors text-base md:text-sm lg:text-lg">Careers</a>
+                <button
+                    type="button"
+                    onclick="startQuiz()"
+                    class="group relative inline-flex items-center justify-center gap-2 px-6 py-2 bg-dark text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-lime-500/30 focus:ring-offset-2 w-full md:w-auto transform hover:scale-105 overflow-hidden text-sm md:text-sm lg:text-lg"
+                    aria-label="Sign Up">
+                    <!-- Animated gradient overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    <span class="relative z-10 flex items-center gap-2">
+                        Sign Up
+                    </span>
                 </button>
             </div>
 
@@ -46,8 +54,16 @@
             <a href="#how-it-works" class="block py-2 hover:text-lime transition-colors">How It Works</a>
             <a href="#quiz-guide" class="block py-2 hover:text-lime transition-colors">Quiz Guide</a>
             <a href="#careers" class="block py-2 hover:text-lime transition-colors">Careers</a>
-            <button onclick="startQuiz()" class="w-full bg-dark text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all">
-                Sign Up
+            <button
+                type="button"
+                onclick="startQuiz()"
+                class="group relative inline-flex items-center justify-center gap-2 px-6 py-2 bg-dark text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-lime-500/30 focus:ring-offset-2 w-full md:w-auto transform hover:scale-105 overflow-hidden text-sm md:text-sm lg:text-lg"
+                aria-label="Sign Up">
+                <!-- Animated gradient overlay -->
+                <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <span class="relative z-10 flex items-center gap-2">
+                    Sign Up
+                </span>
             </button>
         </div>
     </div>

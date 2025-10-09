@@ -27,7 +27,7 @@
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="text-center">
                         <div class="w-16 h-16 bg-lime rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-target text-dark text-2xl"></i>
+                            <i class="fas fa-bullseye text-dark text-2xl"></i>
                         </div>
                         <h4 class="font-bold text-lg mb-3">Clarity & Focus</h4>
                         <p class="text-gray-600">Eliminate confusion and gain clear direction for your career decisions.</p>

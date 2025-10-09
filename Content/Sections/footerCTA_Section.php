@@ -1,20 +1,30 @@
 <section class="py-16 md:py-24 bg-white">
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-cream rounded-3xl p-8 md:p-16">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="text-center md:text-left">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="flex flex-col items-center text-center">
+                    <h2 class="text-2xl md:text-3xl lg:text-5xl font-bold mb-6">
+                        <!-- 
+                            - text-2xl on mobile
+                            - md:text-3xl on medium screens
+                            - lg:text-5xl on large screens
+                        -->
                         Ready to Find Your Path?
                     </h2>
-                    <p class="text-lg text-gray-600 mb-8 max-w-2xl">
+                    <p class="text-base md:text-md lg:text-lg text-gray-600 mb-8 max-w-2xl">
+                        <!-- 
+                            - text-base on mobile
+                            - md:text-md on medium screens
+                            - lg:text-lg on large screens
+                        -->
                         Join thousands of students who have discovered their ideal career direction. Your future starts with understanding yourself.
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center w-full">
                         <button
                             type="button"
                             onclick="startQuiz()"
-                            class="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-dark hover:bg-lime hover:text-black text-white font-medium rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-lime-500/30 focus:ring-offset-2 w-full md:w-auto transform hover:scale-105 overflow-hidden"
+                            class="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-dark hover:bg-lime hover:text-black text-white font-medium rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-lime-500/30 focus:ring-offset-2 w-full md:w-auto transform hover:scale-105 overflow-hidden text-base md:text-sm lg:text-base"
                             aria-label="Take Quiz Now"
                         >
                             <!-- Animated gradient overlay -->
@@ -29,7 +39,7 @@
                         <button
                             type="button"
                             onclick="createAccount()"
-                            class="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-dark border-2 border-dark font-medium rounded-xl transition-all duration-300 shadow-lg hover:bg-dark hover:text-white hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-lime-500/30 focus:ring-offset-2 w-full md:w-auto transform hover:scale-105 overflow-hidden"
+                            class="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-dark border-2 border-dark font-medium rounded-xl transition-all duration-300 shadow-lg hover:bg-dark hover:text-white hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-lime-500/30 focus:ring-offset-2 w-full md:w-auto transform hover:scale-105 overflow-hidden text-base md:text-sm lg:text-base"
                             aria-label="Create Account"
                         >
                             <!-- Animated gradient overlay -->
@@ -42,7 +52,7 @@
                         </button>
                     </div>
                     
-                    <div class="mt-8 flex items-center justify-center md:justify-start space-x-6 text-sm text-gray-500">
+                    <div class="mt-8 flex items-center justify-center space-x-6 text-xs md:text-xs lg:text-sm text-gray-500">
                         <div class="flex items-center space-x-2">
                             <i class="fas fa-check-circle text-lime"></i>
                             <span>Free to use</span>
@@ -58,7 +68,7 @@
                     </div>
                 </div>
                 
-                <div class="relative hidden md:block">
+                <div class="relative hidden lg:block">
                     <div class="bg-white rounded-3xl p-8 border-2 border-dark shadow-lg">
                         <img src="https://illustrations.popsy.co/amber/success.svg" alt="Career Success Illustration" class="w-full h-[350px] mb-6">
                     </div>

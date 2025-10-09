@@ -11,7 +11,7 @@
     <title>CareerPath - Discover Your Perfect Career</title>
 </head>
 
-<?php include 'Components/floatingButton.php'; ?>
+<?php include 'Assets/Components/floatingButton.php'; ?>
 
 <body class="min-h-screen bg-cream text-dark smooth-scroll">
 

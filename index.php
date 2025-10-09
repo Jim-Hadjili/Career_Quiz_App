@@ -19,6 +19,9 @@
     <!-- Hero Section -->
     <?php include 'Content/Sections/heroSection.php'; ?>
 
+    <!-- About Section -->
+    <?php include 'Content/Sections/aboutSection.php'; ?>
+
     <!-- How It Works Section -->
     <?php include 'Content/Sections/howItWorkSection.php'; ?>
 
@@ -30,8 +33,6 @@
 
     <!-- Footer CTA Section -->
     <?php include 'Content/Sections/footerCTA_Section.php'; ?>
-
-
 
     <!-- Mobile menu toggle -->
     <script src="Content/Scripts/mobileMenuToggle.js"></script>

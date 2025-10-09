@@ -10,6 +10,7 @@
 
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#home" class="hover:text-lime transition-colors">Home</a>
+                <a href="#about" class="hover:text-lime transition-colors">About</a>
                 <a href="#how-it-works" class="hover:text-lime transition-colors">How It Works</a>
                 <a href="#quiz-guide" class="hover:text-lime transition-colors">Quiz Guide</a>
                 <a href="#careers" class="hover:text-lime transition-colors">Careers</a>
@@ -27,6 +28,7 @@
     <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
         <div class="px-4 py-4 space-y-3">
             <a href="#home" class="block py-2 hover:text-lime transition-colors">Home</a>
+            <a href="#about" class="block py-2 hover:text-lime transition-colors">About</a>
             <a href="#how-it-works" class="block py-2 hover:text-lime transition-colors">How It Works</a>
             <a href="#quiz-guide" class="block py-2 hover:text-lime transition-colors">Quiz Guide</a>
             <a href="#careers" class="block py-2 hover:text-lime transition-colors">Careers</a>

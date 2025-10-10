@@ -39,10 +39,10 @@
         class="fixed top-0 right-0 h-full w-1/2 max-w-xs bg-white border-l shadow-lg z-50 transform translate-x-full transition-transform duration-300 md:hidden">
         <div class="flex items-center justify-between px-4 py-4 border-b">
             <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 bg-dark rounded-full flex items-center justify-center">
+                <div class="w-6 h-6 bg-dark rounded-full flex items-center justify-center">
                     <i class="fas fa-compass text-lime text-lg"></i>
                 </div>
-                <span class="text-2xl font-bold">CareerPath</span>
+                <span class="text-lg font-bold">CareerPath</span>
             </div>
             <button id="mobile-menu-close" class="text-2xl focus:outline-none">
                 <i class="fas fa-times"></i>

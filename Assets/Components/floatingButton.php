@@ -1,5 +1,5 @@
 <button id="backToTopBtn" title="Back to Top"
-    class="fixed bottom-8 right-8 z-50 bg-dark hover:bg-lime hover:text-dark text-lime rounded-full shadow-2xl p-5 transition-all duration-300 hover:ring-lime focus:outline-none focus:ring-4 focus:ring-lime/60 no-print"
+    class="fixed bottom-2 right-2 z-50 bg-dark hover:bg-lime hover:text-dark text-lime rounded-full shadow-2xl p-5 transition-all duration-300 hover:ring-lime focus:outline-none focus:ring-4 focus:ring-lime/60 no-print"
     style="display: none;">
     <span class="flex items-center justify-center">
         <!-- Upward arrow with compass style for brand consistency -->

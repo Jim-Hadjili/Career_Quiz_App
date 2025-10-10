@@ -42,9 +42,11 @@ function resetForm() {
   // Reset password visibility
   const passwordInput = document.getElementById("password");
   const toggleButton = document.querySelector("#toggle-password i");
-  passwordInput.type = "password";
-  toggleButton.classList.remove("fa-eye-slash");
-  toggleButton.classList.add("fa-eye");
+  if (passwordInput && toggleButton) {
+    passwordInput.type = "password";
+    toggleButton.classList.remove("fa-eye-slash");
+    toggleButton.classList.add("fa-eye");
+  }
 }
 
 // Mode switching functions
@@ -52,28 +54,39 @@ function switchToSignIn() {
   currentMode = "signin";
 
   // Update modal title and description
-  document.getElementById("modal-title").textContent = "Welcome Back";
-  document.getElementById("modal-description").textContent =
-    "Sign in to access your saved quiz results and career recommendations.";
+  const modalTitle = document.getElementById("modal-title");
+  const modalDescription = document.getElementById("modal-description");
+  const submitText = document.getElementById("submit-text");
+  const switchText = document.getElementById("switch-text");
+  const switchMode = document.getElementById("switch-mode");
+  const fullnameField = document.getElementById("fullname-field");
+  const forgotPasswordLink = document.getElementById("forgot-password-link");
+  const passwordInput = document.getElementById("password");
+  const fullNameInput = document.getElementById("fullName");
+
+  if (modalTitle) modalTitle.textContent = "Welcome Back";
+  if (modalDescription)
+    modalDescription.textContent =
+      "Sign in to access your saved quiz results and career recommendations.";
 
   // Hide signup-only fields
-  document.getElementById("fullname-field").style.display = "none";
+  if (fullnameField) fullnameField.style.display = "none";
 
   // Show signin-only elements
-  document.getElementById("forgot-password-link").classList.remove("hidden");
+  if (forgotPasswordLink) forgotPasswordLink.classList.remove("hidden");
 
   // Update password placeholder
-  document.getElementById("password").placeholder = "Enter your password";
+  if (passwordInput) passwordInput.placeholder = "Enter your password";
 
-  // Update submit button
-  document.getElementById("submit-text").textContent = "Sign In";
+  // Update submit button text
+  if (submitText) submitText.textContent = "Sign In";
 
   // Update switch text
-  document.getElementById("switch-text").textContent = "Don't have an account?";
-  document.getElementById("switch-mode").textContent = "Sign up here";
+  if (switchText) switchText.textContent = "Don't have an account?";
+  if (switchMode) switchMode.textContent = "Sign up here";
 
   // Remove required attribute from signup-only fields
-  document.getElementById("fullName").removeAttribute("required");
+  if (fullNameInput) fullNameInput.removeAttribute("required");
 
   // Reset form
   resetForm();
@@ -83,29 +96,39 @@ function switchToSignUp() {
   currentMode = "signup";
 
   // Update modal title and description
-  document.getElementById("modal-title").textContent = "Join CareerPath";
-  document.getElementById("modal-description").textContent =
-    "Create your account to save quiz results and track your career journey.";
+  const modalTitle = document.getElementById("modal-title");
+  const modalDescription = document.getElementById("modal-description");
+  const submitText = document.getElementById("submit-text");
+  const switchText = document.getElementById("switch-text");
+  const switchMode = document.getElementById("switch-mode");
+  const fullnameField = document.getElementById("fullname-field");
+  const forgotPasswordLink = document.getElementById("forgot-password-link");
+  const passwordInput = document.getElementById("password");
+  const fullNameInput = document.getElementById("fullName");
+
+  if (modalTitle) modalTitle.textContent = "Join CareerPath";
+  if (modalDescription)
+    modalDescription.textContent =
+      "Create your account to save quiz results and track your career journey.";
 
   // Show signup-only fields
-  document.getElementById("fullname-field").style.display = "block";
+  if (fullnameField) fullnameField.style.display = "block";
 
   // Hide signin-only elements
-  document.getElementById("forgot-password-link").classList.add("hidden");
+  if (forgotPasswordLink) forgotPasswordLink.classList.add("hidden");
 
   // Update password placeholder
-  document.getElementById("password").placeholder = "Create a secure password";
+  if (passwordInput) passwordInput.placeholder = "Create a secure password";
 
-  // Update submit button
-  document.getElementById("submit-text").textContent = "Create Account";
+  // Update submit button text
+  if (submitText) submitText.textContent = "Create Account";
 
   // Update switch text
-  document.getElementById("switch-text").textContent =
-    "Already have an account?";
-  document.getElementById("switch-mode").textContent = "Sign in here";
+  if (switchText) switchText.textContent = "Already have an account?";
+  if (switchMode) switchMode.textContent = "Sign in here";
 
   // Add required attribute back to signup fields
-  document.getElementById("fullName").setAttribute("required", "");
+  if (fullNameInput) fullNameInput.setAttribute("required", "");
 
   // Reset form
   resetForm();
@@ -116,14 +139,16 @@ function togglePasswordVisibility() {
   const passwordInput = document.getElementById("password");
   const toggleIcon = document.querySelector("#toggle-password i");
 
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    toggleIcon.classList.remove("fa-eye");
-    toggleIcon.classList.add("fa-eye-slash");
-  } else {
-    passwordInput.type = "password";
-    toggleIcon.classList.remove("fa-eye-slash");
-    toggleIcon.classList.add("fa-eye");
+  if (passwordInput && toggleIcon) {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      toggleIcon.classList.remove("fa-eye");
+      toggleIcon.classList.add("fa-eye-slash");
+    } else {
+      passwordInput.type = "password";
+      toggleIcon.classList.remove("fa-eye-slash");
+      toggleIcon.classList.add("fa-eye");
+    }
   }
 }
 

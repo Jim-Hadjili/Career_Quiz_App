@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="Assets/Scripts/tailwindConfig.js"></script>
     <link rel="stylesheet" href="Assets/Styles/index.css">
+    <link rel="stylesheet" href="Assets/Styles/careerSectionCarousel.css">
     <title>CareerPath - Discover Your Perfect Career</title>
 </head>
 
@@ -38,6 +39,9 @@
 
     <!-- Mobile menu toggle -->
     <script src="Content/Scripts/mobileMenuToggle.js"></script>
+
+    <!-- Carousel Script for Career Section -->
+    <script src="Content/Scripts/careerSectionScripts/careerScript.js"></script>
 
     <script src="Assets/Scripts/floatingButtonScript.js"></script>
 </body>

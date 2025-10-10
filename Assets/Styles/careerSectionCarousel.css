@@ -1,0 +1,30 @@
+.carousel-card {
+  scroll-snap-align: start;
+}
+
+#careerCarousel.dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+#careerCarousel.dragging * {
+  pointer-events: none;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #d1d5db;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.indicator.active {
+  background-color: #84cc16;
+  width: 32px;
+  border-radius: 6px;
+}
+
+/* Remove the media query that hides buttons on desktop since they're now positioned below */
+/* Navigation buttons are now positioned below the carousel and only visible on mobile */

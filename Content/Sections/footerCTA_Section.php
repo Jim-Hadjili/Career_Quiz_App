@@ -1,13 +1,29 @@
+<?php
+// Check if session is already started, if not start it
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
+
 <section class="py-16 md:py-24 bg-white">
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-cream rounded-3xl p-8 md:p-16">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="flex flex-col items-center text-center">
                     <h2 class="text-2xl md:text-3xl lg:text-5xl font-bold mb-6">
-                        Ready to Find Your Path?
+                        <?php if ($isLoggedIn): ?>
+                            Ready to Take the Quiz?
+                        <?php else: ?>
+                            Ready to Find Your Path?
+                        <?php endif; ?>
                     </h2>
                     <p class="text-base md:text-md lg:text-lg text-gray-600 mb-8 max-w-2xl">
-                        Join thousands of students who have discovered their ideal career direction. Your future starts with understanding yourself.
+                        <?php if ($isLoggedIn): ?>
+                            Great! You're all set to discover your ideal career direction. Let's find out what path suits you best.
+                        <?php else: ?>
+                            Join thousands of students who have discovered their ideal career direction. Your future starts with understanding yourself.
+                        <?php endif; ?>
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4 justify-center w-full">
@@ -24,33 +40,50 @@
                             </svg>
                         </button>
                         
-                        <button
-                            type="button"
-                            onclick="openSignUpModal()"
-                            class="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-dark border-2 border-dark font-medium rounded-xl transition-all duration-300 shadow-lg hover:bg-dark hover:text-white hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-lime-500/30 focus:ring-offset-2 w-full md:w-auto transform hover:scale-105 overflow-hidden text-base md:text-sm lg:text-base"
-                            aria-label="Create Account"
-                        >
-                            <div class="absolute inset-0 bg-gradient-to-r from-black/0 via-black/10 to-black/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:rotate-12 transition-transform duration-300 relative z-10" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm0 2c-3.314 0-6 1.343-6 3v1a1 1 0 001 1h10a1 1 0 001-1v-1c0-1.657-2.686-3-6-3z"/>
-                            </svg>
-                            <span class="relative z-10">Create Account</span>
-                        </button>
+                        <?php if (!$isLoggedIn): ?>
+                            <button
+                                type="button"
+                                onclick="openSignUpModal()"
+                                class="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-dark border-2 border-dark font-medium rounded-xl transition-all duration-300 shadow-lg hover:bg-dark hover:text-white hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-lime-500/30 focus:ring-offset-2 w-full md:w-auto transform hover:scale-105 overflow-hidden text-base md:text-sm lg:text-base"
+                                aria-label="Create Account"
+                            >
+                                <div class="absolute inset-0 bg-gradient-to-r from-black/0 via-black/10 to-black/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:rotate-12 transition-transform duration-300 relative z-10" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm0 2c-3.314 0-6 1.343-6 3v1a1 1 0 001 1h10a1 1 0 001-1v-1c0-1.657-2.686-3-6-3z"/>
+                                </svg>
+                                <span class="relative z-10">Create Account</span>
+                            </button>
+                        <?php endif; ?>
                     </div>
                     
                     <div class="mt-8 flex items-center justify-center space-x-6 text-xs md:text-xs lg:text-sm text-gray-500">
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check-circle text-lime"></i>
-                            <span>Free to use</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check-circle text-lime"></i>
-                            <span>Save your results</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check-circle text-lime"></i>
-                            <span>Track progress</span>
-                        </div>
+                        <?php if ($isLoggedIn): ?>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-check-circle text-lime"></i>
+                                <span>Results will be saved</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-check-circle text-lime"></i>
+                                <span>Track your progress</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-check-circle text-lime"></i>
+                                <span>Personalized recommendations</span>
+                            </div>
+                        <?php else: ?>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-check-circle text-lime"></i>
+                                <span>Free to use</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-check-circle text-lime"></i>
+                                <span>Save your results</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-check-circle text-lime"></i>
+                                <span>Track progress</span>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 

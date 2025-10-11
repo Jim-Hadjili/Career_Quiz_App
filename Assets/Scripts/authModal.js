@@ -1,5 +1,40 @@
 // Modal state management
-let currentMode = "signup"; // 'signup' or 'signin'
+let currentMode = "signup";
+let currentUser = null;
+
+// Check authentication status on page load
+document.addEventListener("DOMContentLoaded", function () {
+  checkAuthenticationStatus();
+  initializeEventListeners();
+});
+
+// Check if user is authenticated
+async function checkAuthenticationStatus() {
+  try {
+    const response = await fetch("Config/Auth/auth_handler.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ action: "check_auth" }),
+    });
+
+    const data = await response.json();
+
+    if (data.success && data.authenticated) {
+      currentUser = data.user;
+      updateUIForAuthenticatedUser(data.user);
+    }
+  } catch (error) {
+    console.error("Auth check failed:", error);
+  }
+}
+
+// Update UI for authenticated user
+function updateUIForAuthenticatedUser(user) {
+  // This is handled by PHP in the navigation, but we can update any dynamic elements here
+  currentUser = user;
+}
 
 // Sign Up Modal Functions
 function openSignUpModal() {
@@ -7,9 +42,8 @@ function openSignUpModal() {
   const modalContent = document.getElementById("modal-content");
 
   modal.classList.remove("hidden");
-  document.body.style.overflow = "hidden"; // Prevent background scrolling
+  document.body.style.overflow = "hidden";
 
-  // Animate modal appearance
   setTimeout(() => {
     modalContent.classList.remove("scale-95", "opacity-0");
     modalContent.classList.add("scale-100", "opacity-100");
@@ -20,15 +54,13 @@ function closeSignUpModal() {
   const modal = document.getElementById("signup-modal");
   const modalContent = document.getElementById("modal-content");
 
-  // Animate modal disappearance
   modalContent.classList.remove("scale-100", "opacity-100");
   modalContent.classList.add("scale-95", "opacity-0");
 
   setTimeout(() => {
     modal.classList.add("hidden");
-    document.body.style.overflow = ""; // Restore scrolling
+    document.body.style.overflow = "";
     resetForm();
-    // Reset to signup mode when closing
     if (currentMode === "signin") {
       switchToSignUp();
     }
@@ -39,7 +71,6 @@ function resetForm() {
   const form = document.getElementById("signup-form");
   form.reset();
 
-  // Reset password visibility
   const passwordInput = document.getElementById("password");
   const toggleButton = document.querySelector("#toggle-password i");
   if (passwordInput && toggleButton) {
@@ -47,91 +78,85 @@ function resetForm() {
     toggleButton.classList.remove("fa-eye-slash");
     toggleButton.classList.add("fa-eye");
   }
+
+  // Clear any error messages
+  clearErrorMessages();
+}
+
+// Clear error messages
+function clearErrorMessages() {
+  const errorElements = document.querySelectorAll(".error-message");
+  errorElements.forEach((element) => element.remove());
+}
+
+// Show error message
+function showErrorMessage(message) {
+  clearErrorMessages();
+  const form = document.getElementById("signup-form");
+  const errorDiv = document.createElement("div");
+  errorDiv.className =
+    "error-message bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-4";
+  errorDiv.textContent = message;
+  form.insertBefore(errorDiv, form.firstChild);
+}
+
+// Show success message
+function showSuccessMessage(message) {
+  clearErrorMessages();
+  const form = document.getElementById("signup-form");
+  const successDiv = document.createElement("div");
+  successDiv.className =
+    "success-message bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-4";
+  successDiv.textContent = message;
+  form.insertBefore(successDiv, form.firstChild);
 }
 
 // Mode switching functions
 function switchToSignIn() {
   currentMode = "signin";
-
-  // Update modal title and description
-  const modalTitle = document.getElementById("modal-title");
-  const modalDescription = document.getElementById("modal-description");
-  const submitText = document.getElementById("submit-text");
-  const switchText = document.getElementById("switch-text");
-  const switchMode = document.getElementById("switch-mode");
-  const fullnameField = document.getElementById("fullname-field");
-  const forgotPasswordLink = document.getElementById("forgot-password-link");
-  const passwordInput = document.getElementById("password");
-  const fullNameInput = document.getElementById("fullName");
-
-  if (modalTitle) modalTitle.textContent = "Welcome Back";
-  if (modalDescription)
-    modalDescription.textContent =
-      "Sign in to access your saved quiz results and career recommendations.";
-
-  // Hide signup-only fields
-  if (fullnameField) fullnameField.style.display = "none";
-
-  // Show signin-only elements
-  if (forgotPasswordLink) forgotPasswordLink.classList.remove("hidden");
-
-  // Update password placeholder
-  if (passwordInput) passwordInput.placeholder = "Enter your password";
-
-  // Update submit button text
-  if (submitText) submitText.textContent = "Sign In";
-
-  // Update switch text
-  if (switchText) switchText.textContent = "Don't have an account?";
-  if (switchMode) switchMode.textContent = "Sign up here";
-
-  // Remove required attribute from signup-only fields
-  if (fullNameInput) fullNameInput.removeAttribute("required");
-
-  // Reset form
+  updateModalContent();
   resetForm();
 }
 
 function switchToSignUp() {
   currentMode = "signup";
+  updateModalContent();
+  resetForm();
+}
 
-  // Update modal title and description
+function updateModalContent() {
   const modalTitle = document.getElementById("modal-title");
   const modalDescription = document.getElementById("modal-description");
   const submitText = document.getElementById("submit-text");
   const switchText = document.getElementById("switch-text");
   const switchMode = document.getElementById("switch-mode");
   const fullnameField = document.getElementById("fullname-field");
-  const forgotPasswordLink = document.getElementById("forgot-password-link");
   const passwordInput = document.getElementById("password");
   const fullNameInput = document.getElementById("fullName");
 
-  if (modalTitle) modalTitle.textContent = "Join CareerPath";
-  if (modalDescription)
-    modalDescription.textContent =
-      "Create your account to save quiz results and track your career journey.";
-
-  // Show signup-only fields
-  if (fullnameField) fullnameField.style.display = "block";
-
-  // Hide signin-only elements
-  if (forgotPasswordLink) forgotPasswordLink.classList.add("hidden");
-
-  // Update password placeholder
-  if (passwordInput) passwordInput.placeholder = "Create a secure password";
-
-  // Update submit button text
-  if (submitText) submitText.textContent = "Create Account";
-
-  // Update switch text
-  if (switchText) switchText.textContent = "Already have an account?";
-  if (switchMode) switchMode.textContent = "Sign in here";
-
-  // Add required attribute back to signup fields
-  if (fullNameInput) fullNameInput.setAttribute("required", "");
-
-  // Reset form
-  resetForm();
+  if (currentMode === "signin") {
+    if (modalTitle) modalTitle.textContent = "Welcome Back";
+    if (modalDescription)
+      modalDescription.textContent =
+        "Sign in to access your saved quiz results and career recommendations.";
+    if (fullnameField) fullnameField.style.display = "none";
+    if (passwordInput) passwordInput.placeholder = "Enter your password";
+    if (submitText) submitText.textContent = "Sign In";
+    if (switchText) switchText.textContent = "Don't have an account?";
+    if (switchMode) switchMode.textContent = "Sign up here";
+    if (fullNameInput) fullNameInput.removeAttribute("required");
+  } else {
+    if (modalTitle) modalTitle.textContent = "Join CareerPath";
+    if (modalDescription)
+      modalDescription.textContent =
+        "Create your account to save quiz results and track your career journey.";
+    if (fullnameField) fullnameField.style.display = "block";
+    if (passwordInput) passwordInput.placeholder = "Create a secure password";
+    if (submitText) submitText.textContent = "Create Account";
+    if (switchText) switchText.textContent = "Already have an account?";
+    if (switchMode) switchMode.textContent = "Sign in here";
+    if (fullNameInput) fullNameInput.setAttribute("required", "");
+  }
 }
 
 // Password visibility toggle
@@ -153,60 +178,98 @@ function togglePasswordVisibility() {
 }
 
 // Form validation and submission
-function handleFormSubmission(event) {
+async function handleFormSubmission(event) {
   event.preventDefault();
+
+  const submitButton = document.getElementById("submit-button");
+  const originalText = submitButton.innerHTML;
+
+  // Disable button and show loading
+  submitButton.disabled = true;
+  submitButton.innerHTML = `
+    <div class="relative z-10 flex items-center gap-2">
+      <i class="fas fa-spinner fa-spin"></i>
+      Processing...
+    </div>
+  `;
 
   const formData = new FormData(event.target);
 
-  if (currentMode === "signup") {
-    const data = {
-      fullName: formData.get("fullName"),
+  try {
+    const requestData = {
+      action: currentMode === "signup" ? "signup" : "signin",
       email: formData.get("email"),
       password: formData.get("password"),
     };
 
-    // Basic validation for signup
-    if (!data.fullName || !data.email || !data.password) {
-      alert("Please fill in all required fields.");
-      return;
+    if (currentMode === "signup") {
+      requestData.fullName = formData.get("fullName");
     }
 
-    // Password strength validation
-    if (data.password.length < 8) {
-      alert("Password must be at least 8 characters long.");
-      return;
+    const response = await fetch("Config/Auth/auth_handler.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      showSuccessMessage(data.message);
+      currentUser = data.user;
+
+      // Close modal after short delay and reload page to update navigation
+      setTimeout(() => {
+        closeSignUpModal();
+        window.location.reload(); // Reload to update PHP session state in navigation
+      }, 1500);
+    } else {
+      showErrorMessage(data.message);
     }
-
-    // Here you would typically send the data to your backend
-    console.log("Sign up data:", data);
-
-    // Simulate successful account creation
-    alert("Account created successfully! You can now take the quiz.");
-    closeSignUpModal();
-  } else {
-    // Sign in mode
-    const data = {
-      email: formData.get("email"),
-      password: formData.get("password"),
-    };
-
-    // Basic validation for signin
-    if (!data.email || !data.password) {
-      alert("Please enter both email and password.");
-      return;
-    }
-
-    // Here you would typically send the data to your backend for authentication
-    console.log("Sign in data:", data);
-
-    // Simulate successful sign in
-    alert("Welcome back! You are now signed in.");
-    closeSignUpModal();
+  } catch (error) {
+    console.error("Form submission error:", error);
+    showErrorMessage("An error occurred. Please try again.");
+  } finally {
+    // Re-enable button
+    submitButton.disabled = false;
+    submitButton.innerHTML = originalText;
   }
 }
 
-// Event listeners
-document.addEventListener("DOMContentLoaded", function () {
+// Profile dropdown functions
+function toggleProfileDropdown() {
+  const dropdown = document.getElementById("dropdown-menu");
+  if (dropdown) {
+    dropdown.classList.toggle("hidden");
+  }
+}
+
+// Handle logout
+async function handleLogout() {
+  try {
+    const response = await fetch("Config/Auth/auth_handler.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ action: "logout" }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      currentUser = null;
+      window.location.reload(); // Reload to update navigation
+    }
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+}
+
+// Initialize event listeners
+function initializeEventListeners() {
   // Close modal button
   const closeButton = document.getElementById("close-modal");
   if (closeButton) {
@@ -251,9 +314,19 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
       const modal = document.getElementById("signup-modal");
-      if (!modal.classList.contains("hidden")) {
+      if (modal && !modal.classList.contains("hidden")) {
         closeSignUpModal();
       }
     }
   });
-});
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", function (e) {
+    const dropdown = document.getElementById("profile-dropdown");
+    const dropdownMenu = document.getElementById("dropdown-menu");
+
+    if (dropdown && dropdownMenu && !dropdown.contains(e.target)) {
+      dropdownMenu.classList.add("hidden");
+    }
+  });
+}

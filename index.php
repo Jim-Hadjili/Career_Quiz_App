@@ -40,6 +40,9 @@
     <!-- Sign Up Modal -->
     <?php include 'Assets/Components/authModal.php'; ?>
 
+    <!-- Logout Confirmation Modal -->
+    <?php include 'Assets/Components/logoutModal.php'; ?>
+
     <!-- Mobile menu toggle -->
     <script src="Content/Scripts/mobileMenuToggle.js"></script>
 
@@ -50,6 +53,9 @@
 
     <!-- Sign Up Modal Script -->
     <script src="Assets/Scripts/authModal.js"></script>
+
+    <!-- Logout Modal Script -->
+    <script src="Assets/Scripts/logoutModal.js"></script>
 </body>
 
 </html>

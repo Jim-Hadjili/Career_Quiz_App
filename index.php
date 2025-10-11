@@ -38,7 +38,7 @@
     <?php include 'Content/Sections/footerCTA_Section.php'; ?>
 
     <!-- Sign Up Modal -->
-    <?php include 'Assets/Components/signUpModal.php'; ?>
+    <?php include 'Assets/Components/authModal.php'; ?>
 
     <!-- Mobile menu toggle -->
     <script src="Content/Scripts/mobileMenuToggle.js"></script>
@@ -49,7 +49,7 @@
     <script src="Assets/Scripts/floatingButtonScript.js"></script>
 
     <!-- Sign Up Modal Script -->
-    <script src="Assets/Scripts/signUpModal.js"></script>
+    <script src="Assets/Scripts/authModal.js"></script>
 </body>
 
 </html>

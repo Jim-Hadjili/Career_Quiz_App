@@ -43,6 +43,9 @@
     <!-- Logout Confirmation Modal -->
     <?php include 'Assets/Components/logoutModal.php'; ?>
 
+    <!-- Quiz Access Modal -->
+    <?php include 'Assets/Components/quizAccessModal.php'; ?>
+
     <!-- Mobile menu toggle -->
     <script src="Content/Scripts/mobileMenuToggle.js"></script>
 
@@ -56,6 +59,9 @@
 
     <!-- Logout Modal Script -->
     <script src="Assets/Scripts/logoutModal.js"></script>
+
+    <!-- Quiz Access Modal Script -->
+    <script src="Assets/Scripts/quizAccessModal.js"></script>
 </body>
 
 </html>

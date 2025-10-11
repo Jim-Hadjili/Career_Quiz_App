@@ -1,6 +1,7 @@
 // Modal state management
 let currentMode = "signup";
 let currentUser = null;
+let isFromQuizAccess = false; // New flag to track context
 
 // Check authentication status on page load
 document.addEventListener("DOMContentLoaded", function () {
@@ -38,6 +39,18 @@ function updateUIForAuthenticatedUser(user) {
 
 // Sign Up Modal Functions
 function openSignUpModal() {
+  isFromQuizAccess = false; // Reset flag
+  showSignUpModal();
+}
+
+// New function for opening from quiz access
+function openSignUpModalFromQuiz() {
+  isFromQuizAccess = true;
+  showSignUpModal();
+}
+
+// Extracted common modal opening logic
+function showSignUpModal() {
   const modal = document.getElementById("signup-modal");
   const modalContent = document.getElementById("modal-content");
 
@@ -220,10 +233,19 @@ async function handleFormSubmission(event) {
       showSuccessMessage(data.message);
       currentUser = data.user;
 
-      // Close modal after short delay and reload page to update navigation
+      // Close modal and handle post-authentication action
       setTimeout(() => {
         closeSignUpModal();
-        window.location.reload(); // Reload to update PHP session state in navigation
+
+        if (isFromQuizAccess) {
+          // If user came from quiz access modal, start quiz after auth
+          setTimeout(() => {
+            proceedToQuiz();
+          }, 500);
+        } else {
+          // Normal flow - reload page
+          window.location.reload();
+        }
       }, 1500);
     } else {
       showErrorMessage(data.message);

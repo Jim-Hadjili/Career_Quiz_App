@@ -49,18 +49,13 @@ function continueAsGuest() {
         </div>
     `;
 
-  // Close modal and start quiz after brief delay
+  // Close modal and redirect to quiz page
   setTimeout(() => {
     closeQuizAccessModal();
 
-    // Here you would redirect to the actual quiz page
-    // For now, we'll show an alert
     setTimeout(() => {
-      alert("Starting quiz as guest... (This would redirect to quiz page)");
-
-      // Reset button state
-      guestButton.disabled = false;
-      guestButton.innerHTML = originalText;
+      // Redirect to quiz page
+      window.location.href = "Content/Pages/quizPage.php";
     }, 500);
   }, 1000);
 }
@@ -68,7 +63,6 @@ function continueAsGuest() {
 // Main function to handle quiz start
 function startQuiz() {
   // Check if user is logged in by looking for session indicators
-  // You can also make an AJAX call to check authentication status
   const isLoggedIn = checkIfUserIsLoggedIn();
 
   if (isLoggedIn) {
@@ -89,11 +83,8 @@ function checkIfUserIsLoggedIn() {
 
 // Function to proceed to quiz (for logged in users)
 function proceedToQuiz() {
-  // Here you would redirect to the actual quiz page
-  // For now, we'll show an alert
-  alert(
-    "Starting quiz for logged in user... (This would redirect to quiz page)"
-  );
+  // Redirect to quiz page for logged in users
+  window.location.href = "Content/Pages/quizPage.php";
 }
 
 // Initialize quiz access modal event listeners

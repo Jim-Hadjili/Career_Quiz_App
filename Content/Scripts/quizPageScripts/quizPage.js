@@ -118,10 +118,13 @@ class QuizApp {
 
     this.questions.forEach((question, index) => {
       const questionDiv = document.createElement("div");
-      questionDiv.className = `quiz-question bg-white rounded-2xl shadow-sm p-8 border-2 ${
-        index === 0 ? "" : "hidden"
-      }`;
+      questionDiv.className = `quiz-question bg-white rounded-2xl shadow-sm p-8 border-2`;
       questionDiv.dataset.questionId = question.id;
+
+      // Set display style instead of using hidden class
+      if (index !== 0) {
+        questionDiv.style.display = "none";
+      }
 
       questionDiv.innerHTML = `
                         <div class="mb-8">
@@ -245,9 +248,9 @@ class QuizApp {
 
     allQuestions.forEach((q, i) => {
       if (i === index) {
-        q.classList.remove("hidden");
+        q.style.display = "block";
       } else {
-        q.classList.add("hidden");
+        q.style.display = "none";
       }
     });
   }

@@ -1,85 +1,12 @@
-// Career Path Discovery Quiz Application
+// Import statements
+import { quizQuestions } from "./quizQuestions.js";
+import { QuestionRenderer } from "./questionRenderer.js";
+
 class QuizApp {
   constructor() {
     this.currentQuestion = 0;
     this.answers = {};
-    this.questions = [
-      {
-        id: 1,
-        text: "You regularly make new friends.",
-        category: "social",
-      },
-      {
-        id: 2,
-        text: "Complex and novel ideas excite you more than simple and straightforward ones.",
-        category: "analytical",
-      },
-      {
-        id: 3,
-        text: "You usually feel more persuaded by what resonates emotionally with you than by factual arguments.",
-        category: "emotional",
-      },
-      {
-        id: 4,
-        text: "Your living and working spaces are clean and organized.",
-        category: "organized",
-      },
-      {
-        id: 5,
-        text: "You usually stay calm, even under a lot of pressure.",
-        category: "stress-management",
-      },
-      {
-        id: 6,
-        text: "You find the idea of networking or promoting yourself to strangers very daunting.",
-        category: "social",
-      },
-      {
-        id: 7,
-        text: "You enjoy working with computers and technology to solve problems.",
-        category: "technology",
-      },
-      {
-        id: 8,
-        text: "You like leading teams and managing projects to achieve goals.",
-        category: "leadership",
-      },
-      {
-        id: 9,
-        text: "You find satisfaction in helping people with their health and well-being.",
-        category: "healthcare",
-      },
-      {
-        id: 10,
-        text: "You enjoy analyzing data and finding patterns to make decisions.",
-        category: "analytical",
-      },
-      {
-        id: 11,
-        text: "You are interested in teaching and sharing knowledge with others.",
-        category: "education",
-      },
-      {
-        id: 12,
-        text: "You enjoy working with numbers, budgets, and financial planning.",
-        category: "finance",
-      },
-      {
-        id: 13,
-        text: "You enjoy creative work like design, writing, or multimedia production.",
-        category: "creative",
-      },
-      {
-        id: 14,
-        text: "You prefer working independently rather than in a team environment.",
-        category: "work-style",
-      },
-      {
-        id: 15,
-        text: "You are comfortable with public speaking and presenting ideas to large groups.",
-        category: "communication",
-      },
-    ];
+    this.questions = quizQuestions;
     this.totalQuestions = this.questions.length;
 
     const quizModeEl = document.getElementById("quiz-mode");
@@ -94,7 +21,7 @@ class QuizApp {
   }
 
   init() {
-    this.renderAllQuestions();
+    QuestionRenderer.renderAllQuestions(this); // Use the external renderer
     this.setupEventListeners();
     this.updateProgress();
     this.updateNavigationButtons();
@@ -105,77 +32,6 @@ class QuizApp {
     if (totalQuestionsEl) {
       totalQuestionsEl.textContent = this.totalQuestions;
     }
-  }
-
-  renderAllQuestions() {
-    const container = document.getElementById("quiz-container");
-    if (!container) {
-      console.error("[v0] Quiz container not found");
-      return;
-    }
-
-    container.innerHTML = "";
-
-    this.questions.forEach((question, index) => {
-      const questionDiv = document.createElement("div");
-      questionDiv.className = `quiz-question bg-white rounded-2xl shadow-sm p-8 border-2`;
-      questionDiv.dataset.questionId = question.id;
-
-      // Set display style instead of using hidden class
-      if (index !== 0) {
-        questionDiv.style.display = "none";
-      }
-
-      questionDiv.innerHTML = `
-                        <div class="mb-8">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="stage-badge stage-personality">
-                                    <i class="fas fa-user"></i>
-                                    <span>Personality Assessment</span>
-                                </span>
-                                <span class="text-sm text-gray-600 font-sans">Question ${
-                                  index + 1
-                                } of ${this.totalQuestions}</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-dark font-sans">
-                                ${question.text}
-                            </h3>
-                        </div>
-                        
-                        <div class="mb-8">
-                            <div class="flex items-center justify-between mb-4 max-w-4xl mx-auto">
-                                <div class="flex items-center space-x-4">
-                                    <span class="text-sm font-bold text-red-600 font-sans">Disagree</span>
-                                </div>
-                                <div class="flex items-center space-x-4">
-                                    <span class="text-sm font-bold text-green-600 font-sans">Agree</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center justify-between max-w-2xl mx-auto">
-                                ${[1, 2, 3, 4, 5, 6, 7]
-                                  .map(
-                                    (scale) => `
-                                    <label class="cursor-pointer">
-                                        <input 
-                                            type="radio" 
-                                            name="question_${question.id}" 
-                                            value="${scale}"
-                                            class="sr-only quiz-option"
-                                            data-question-id="${question.id}"
-                                            data-scale="${scale}"
-                                        >
-                                        <div class="scale-option" data-scale="${scale}"></div>
-                                    </label>
-                                `
-                                  )
-                                  .join("")}
-                            </div>
-                        </div>
-                    `;
-
-      container.appendChild(questionDiv);
-    });
   }
 
   setupEventListeners() {
@@ -273,9 +129,7 @@ class QuizApp {
   }
 
   updateStageInfo() {
-    // Update stage badge if needed
     const stageBadge = document.getElementById("stage-badge");
-    // You can customize this based on question categories if needed
   }
 
   updateNavigationButtons() {

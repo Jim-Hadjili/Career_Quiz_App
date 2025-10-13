@@ -30,8 +30,7 @@ include "../Functions/quizPageFunctions/quizPageFunction.php";
 
     </div>
 
-    <!-- Updated Quiz JavaScript -->
-    <script src="../Scripts/quizPageScripts/quizPage.js"></script>
+    <script type="module" src="../Scripts/quizPageScripts/quizPage.js"></script>
 
 </body>
 

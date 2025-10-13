@@ -1,4 +1,4 @@
-// Quiz Application Logic
+// Career Path Discovery Quiz Application
 class QuizApp {
   constructor() {
     this.currentQuestion = 0;
@@ -6,78 +6,78 @@ class QuizApp {
     this.questions = [
       {
         id: 1,
-        text: "I enjoy working with computers and technology to solve problems",
-        category: "technology",
+        text: "You regularly make new friends.",
+        category: "social",
       },
       {
         id: 2,
-        text: "I like leading teams and managing projects to achieve goals",
-        category: "business",
+        text: "Complex and novel ideas excite you more than simple and straightforward ones.",
+        category: "analytical",
       },
       {
         id: 3,
-        text: "I find satisfaction in helping people with their health and well-being",
-        category: "healthcare",
+        text: "You usually feel more persuaded by what resonates emotionally with you than by factual arguments.",
+        category: "emotional",
       },
       {
         id: 4,
-        text: "I enjoy analyzing data and finding patterns to make decisions",
-        category: "technology",
+        text: "Your living and working spaces are clean and organized.",
+        category: "organized",
       },
       {
         id: 5,
-        text: "I like developing business strategies and marketing plans",
-        category: "business",
+        text: "You usually stay calm, even under a lot of pressure.",
+        category: "stress-management",
       },
       {
         id: 6,
-        text: "I am interested in teaching and sharing knowledge with others",
-        category: "education",
+        text: "You find the idea of networking or promoting yourself to strangers very daunting.",
+        category: "social",
       },
       {
         id: 7,
-        text: "I enjoy working with numbers, budgets, and financial planning",
-        category: "finance",
+        text: "You enjoy working with computers and technology to solve problems.",
+        category: "technology",
       },
       {
         id: 8,
-        text: "I am interested in law, legal procedures, and helping people with legal matters",
-        category: "legal",
+        text: "You like leading teams and managing projects to achieve goals.",
+        category: "leadership",
       },
       {
         id: 9,
-        text: "I enjoy creative work like design, writing, or multimedia production",
-        category: "creative",
-      },
-      {
-        id: 10,
-        text: "I prefer working in healthcare settings like hospitals or clinics",
+        text: "You find satisfaction in helping people with their health and well-being.",
         category: "healthcare",
       },
       {
+        id: 10,
+        text: "You enjoy analyzing data and finding patterns to make decisions.",
+        category: "analytical",
+      },
+      {
         id: 11,
-        text: "I am comfortable presenting ideas and training groups of people",
+        text: "You are interested in teaching and sharing knowledge with others.",
         category: "education",
       },
       {
         id: 12,
-        text: "I enjoy investigating financial records and ensuring accuracy",
+        text: "You enjoy working with numbers, budgets, and financial planning.",
         category: "finance",
       },
       {
         id: 13,
-        text: "I am interested in researching laws and helping clients understand their rights",
-        category: "legal",
-      },
-      {
-        id: 14,
-        text: "I like creating visual content and managing social media accounts",
+        text: "You enjoy creative work like design, writing, or multimedia production.",
         category: "creative",
       },
       {
+        id: 14,
+        text: "You prefer working independently rather than in a team environment.",
+        category: "work-style",
+      },
+      {
         id: 15,
-        text: "I am interested in software development and programming applications",
-        category: "technology",
+        text: "You are comfortable with public speaking and presenting ideas to large groups.",
+        category: "communication",
       },
     ];
     this.totalQuestions = this.questions.length;
@@ -89,123 +89,123 @@ class QuizApp {
   }
 
   init() {
-    this.loadQuestion();
+    this.renderAllQuestions();
     this.setupEventListeners();
     this.updateProgress();
+    this.updateNavigationButtons();
 
-    // Auto-save for registered users
-    if (this.quizMode === "user") {
-      this.setupAutoSave();
-    }
+    // Update total questions display
+    document.getElementById("total-questions").textContent =
+      this.totalQuestions;
+  }
+
+  renderAllQuestions() {
+    const container = document.getElementById("quiz-container");
+    container.innerHTML = "";
+
+    this.questions.forEach((question, index) => {
+      const questionDiv = document.createElement("div");
+      questionDiv.className = `question-item ${index === 0 ? "fade-in" : ""}`;
+      questionDiv.dataset.questionId = question.id;
+      questionDiv.style.display = index === 0 ? "block" : "none";
+
+      questionDiv.innerHTML = `
+        <div class="space-y-8">
+          <p class="question-text ${
+            index === 0 ? "active" : ""
+          } text-center max-w-3xl mx-auto">
+            ${question.text}
+          </p>
+          
+          <div class="flex items-center justify-between max-w-2xl mx-auto px-4">
+            <span class="text-sm font-medium text-gray-400 mr-4">Disagree</span>
+            
+            <div class="flex items-center justify-center gap-3 flex-1">
+              ${[1, 2, 3, 4, 5, 6, 7]
+                .map(
+                  (value) => `
+                <div class="radio-option" data-value="${value}" data-question="${question.id}"></div>
+              `
+                )
+                .join("")}
+            </div>
+            
+            <span class="text-sm font-medium text-emerald-500 ml-4">Agree</span>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(questionDiv);
+    });
   }
 
   setupEventListeners() {
-    document
-      .getElementById("next-btn")
-      .addEventListener("click", () => this.nextQuestion());
-    document
-      .getElementById("prev-btn")
-      .addEventListener("click", () => this.prevQuestion());
-    document
-      .getElementById("submit-btn")
-      .addEventListener("click", () => this.submitQuiz());
-  }
+    // Radio button clicks
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("radio-option")) {
+        const questionId = parseInt(e.target.dataset.question);
+        const value = parseInt(e.target.dataset.value);
 
-  setupAutoSave() {
-    // Auto-save every 30 seconds for registered users
-    setInterval(() => {
-      if (Object.keys(this.answers).length > 0) {
-        this.autoSaveProgress();
+        // Remove selected class from all options for this question
+        document
+          .querySelectorAll(`.radio-option[data-question="${questionId}"]`)
+          .forEach((opt) => opt.classList.remove("selected"));
+
+        // Add selected class to clicked option
+        e.target.classList.add("selected");
+
+        // Store answer
+        this.answers[questionId] = value;
+
+        // Enable next button
+        this.updateNavigationButtons();
       }
-    }, 30000);
+    });
+
+    // Navigation buttons
+    document.getElementById("prev-btn").addEventListener("click", () => {
+      if (this.currentQuestion > 0) {
+        this.currentQuestion--;
+        this.showQuestion(this.currentQuestion);
+        this.updateProgress();
+        this.updateNavigationButtons();
+      }
+    });
+
+    document.getElementById("next-btn").addEventListener("click", () => {
+      if (this.currentQuestion < this.totalQuestions - 1) {
+        this.currentQuestion++;
+        this.showQuestion(this.currentQuestion);
+        this.updateProgress();
+        this.updateNavigationButtons();
+      }
+    });
   }
 
-  loadQuestion() {
-    const question = this.questions[this.currentQuestion];
-    const questionContainer = document.getElementById("question-container");
+  showQuestion(index) {
+    const allQuestions = document.querySelectorAll(".question-item");
+    const allTexts = document.querySelectorAll(".question-text");
 
-    questionContainer.innerHTML = `
-            <div class="mb-6">
-                <h3 class="text-xl font-bold text-dark mb-4">Question ${
-                  this.currentQuestion + 1
-                }</h3>
-                <p class="text-lg text-gray-700 mb-6">${question.text}</p>
-                
-                <div class="space-y-3">
-                    <label class="text-sm font-medium text-gray-600 block mb-2">
-                        How much do you agree with this statement?
-                    </label>
-                    <div class="grid grid-cols-7 gap-2">
-                        ${this.generateScaleOptions(question.id)}
-                    </div>
-                    <div class="flex justify-between text-xs text-gray-500 mt-2">
-                        <span>Strongly Disagree</span>
-                        <span>Neutral</span>
-                        <span>Strongly Agree</span>
-                    </div>
-                </div>
-            </div>
-        `;
-
-    // Restore previous answer if exists
-    if (this.answers[question.id]) {
-      const radio = document.querySelector(
-        `input[name="question_${question.id}"][value="${
-          this.answers[question.id]
-        }"]`
-      );
-      if (radio) radio.checked = true;
-    }
-
-    this.updateNavigationButtons();
-  }
-
-  generateScaleOptions(questionId) {
-    let options = "";
-    for (let i = 1; i <= 7; i++) {
-      options += `
-                <label class="relative cursor-pointer">
-                    <input type="radio" name="question_${questionId}" value="${i}" 
-                           class="sr-only peer" onchange="quiz.saveAnswer(${questionId}, ${i})">
-                    <div class="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center 
-                                peer-checked:border-lime peer-checked:bg-lime peer-checked:text-dark 
-                                hover:border-gray-400 transition-all duration-200 font-medium">
-                        ${i}
-                    </div>
-                </label>
-            `;
-    }
-    return options;
-  }
-
-  saveAnswer(questionId, value) {
-    this.answers[questionId] = value;
-    this.updateNavigationButtons();
-  }
-
-  nextQuestion() {
-    if (this.currentQuestion < this.totalQuestions - 1) {
-      this.currentQuestion++;
-      this.loadQuestion();
-      this.updateProgress();
-    }
-  }
-
-  prevQuestion() {
-    if (this.currentQuestion > 0) {
-      this.currentQuestion--;
-      this.loadQuestion();
-      this.updateProgress();
-    }
+    allQuestions.forEach((q, i) => {
+      if (i === index) {
+        q.style.display = "block";
+        q.classList.add("fade-in");
+        allTexts[i].classList.add("active");
+      } else {
+        q.style.display = "none";
+        q.classList.remove("fade-in");
+        allTexts[i].classList.remove("active");
+      }
+    });
   }
 
   updateProgress() {
-    document.getElementById("current-question").textContent =
-      this.currentQuestion + 1;
-    document.getElementById("total-questions").textContent =
-      this.totalQuestions;
     const progress = ((this.currentQuestion + 1) / this.totalQuestions) * 100;
     document.getElementById("progress-bar").style.width = `${progress}%`;
+    document.getElementById("progress-percentage").textContent =
+      Math.round(progress);
+    document.getElementById("current-question").textContent =
+      this.currentQuestion + 1;
   }
 
   updateNavigationButtons() {
@@ -213,115 +213,26 @@ class QuizApp {
     const nextBtn = document.getElementById("next-btn");
     const submitBtn = document.getElementById("submit-btn");
 
+    // Previous button
     prevBtn.disabled = this.currentQuestion === 0;
 
+    // Check if current question is answered
+    const currentQuestionId = this.questions[this.currentQuestion].id;
+    const isAnswered = this.answers.hasOwnProperty(currentQuestionId);
+
+    // Next button
     if (this.currentQuestion === this.totalQuestions - 1) {
-      nextBtn.classList.add("hidden");
+      nextBtn.style.display = "none";
       submitBtn.classList.remove("hidden");
     } else {
-      nextBtn.classList.remove("hidden");
+      nextBtn.style.display = "block";
       submitBtn.classList.add("hidden");
-    }
-
-    // Enable next/submit only if current question is answered
-    const currentQuestionId = this.questions[this.currentQuestion].id;
-    const isAnswered = this.answers[currentQuestionId] !== undefined;
-
-    nextBtn.disabled = !isAnswered;
-    submitBtn.disabled =
-      !isAnswered || Object.keys(this.answers).length !== this.totalQuestions;
-  }
-
-  async autoSaveProgress() {
-    if (this.quizMode !== "user") return;
-
-    try {
-      const response = await fetch(
-        "../Functions/quizPageFunctions/saveProgress.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user_id: this.userId,
-            answers: this.answers,
-            current_question: this.currentQuestion,
-          }),
-        }
-      );
-
-      const result = await response.json();
-      if (!result.success) {
-        console.error("Auto-save failed:", result.error);
-      }
-    } catch (error) {
-      console.error("Auto-save error:", error);
-    }
-  }
-
-  async submitQuiz() {
-    if (Object.keys(this.answers).length !== this.totalQuestions) {
-      alert("Please answer all questions before submitting.");
-      return;
-    }
-
-    document.getElementById("loading-overlay").classList.remove("hidden");
-
-    try {
-      const quizData = this.questions.map((q) => ({
-        question_id: q.id.toString(),
-        scale_value: this.answers[q.id],
-        option_value: this.answers[q.id],
-        category: q.category,
-      }));
-
-      // Prepare submission data with proper null handling
-      const submissionData = {
-        quiz_mode: this.quizMode,
-        quiz_data: quizData,
-      };
-
-      // Add user_id only for logged-in users
-      if (this.quizMode === "user" && this.userId) {
-        submissionData.user_id = this.userId;
-      }
-
-      // Add session_id only for guest users
-      if (this.quizMode === "guest" && this.sessionId) {
-        submissionData.session_id = this.sessionId;
-      }
-
-      const response = await fetch(
-        "../Functions/quizPageFunctions/submitQuiz.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(submissionData),
-        }
-      );
-
-      const result = await response.json();
-
-      if (result.success) {
-        // Redirect to results page
-        window.location.href = `quizResults.php?result_id=${result.result_id}&mode=${this.quizMode}`;
-      } else {
-        throw new Error(result.error || "Failed to submit quiz");
-      }
-    } catch (error) {
-      console.error("Quiz submission error:", error);
-      alert("Failed to submit quiz. Please try again.");
-    } finally {
-      document.getElementById("loading-overlay").classList.add("hidden");
+      nextBtn.disabled = !isAnswered;
     }
   }
 }
 
-// Initialize quiz when page loads
-let quiz;
-document.addEventListener("DOMContentLoaded", function () {
-  quiz = new QuizApp();
+// Initialize quiz when DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+  new QuizApp();
 });

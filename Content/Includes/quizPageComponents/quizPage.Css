@@ -168,27 +168,23 @@ body {
 }
 
 .stage-personality {
-  background-color: #f3f3f3;
-  color: #191a23;
-  border-color: #808080;
+  background-color: #d4f164; /* lime background */
+  color: #1f2937; /* dark text */
 }
 
 .stage-interests {
-  background-color: #b9ff66;
-  color: #191a23;
-  border-color: #191a23;
+  background-color: #1f2937; /* dark background */
+  color: #d4f164; /* lime text */
 }
 
 .stage-values {
-  background-color: #191a23;
-  color: #b9ff66;
-  border-color: #b9ff66;
+  background-color: #1f2937; /* dark background */
+  color: #d4f164; /* lime text */
 }
 
-.stage-skills {
-  background-color: #f3f3f3;
-  color: #191a23;
-  border-color: #b9ff66;
+.stage-abilities {
+  background-color: #d4f164; /* lime background */
+  color: #1f2937; /* dark text */
 }
 
 /* Hide all questions except first by default */

@@ -5,8 +5,8 @@ include "../../Config/Connection/conn.php";
 // Determine quiz mode and user info
 $isLoggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
 $quizMode = $isLoggedIn ? 'user' : 'guest';
-$userName = $isLoggedIn ? $_SESSION['userName'] : 'Guest User';
-$userEmail = $isLoggedIn ? $_SESSION['userEmail'] : null;
+$userName = $isLoggedIn ? ($_SESSION['userName'] ?? 'User') : 'Guest User';
+$userEmail = $isLoggedIn ? ($_SESSION['userEmail'] ?? null) : null;
 
 // Generate session ID for guest users
 if (!$isLoggedIn && !isset($_SESSION['guest_session_id'])) {

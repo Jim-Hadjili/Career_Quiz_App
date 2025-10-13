@@ -118,7 +118,7 @@ class QuizApp {
 
     this.questions.forEach((question, index) => {
       const questionDiv = document.createElement("div");
-      questionDiv.className = `quiz-question bg-white rounded-2xl shadow-sm p-8 border-2 border-dark ${
+      questionDiv.className = `quiz-question bg-white rounded-2xl shadow-sm p-8 border-2 ${
         index === 0 ? "" : "hidden"
       }`;
       questionDiv.dataset.questionId = question.id;
@@ -128,7 +128,7 @@ class QuizApp {
                             <div class="flex items-center justify-between mb-4">
                                 <span class="stage-badge stage-personality">
                                     <i class="fas fa-user"></i>
-                                    <span>Assessment</span>
+                                    <span>Personality Assessment</span>
                                 </span>
                                 <span class="text-sm text-gray-600 font-sans">Question ${
                                   index + 1
@@ -142,10 +142,10 @@ class QuizApp {
                         <div class="mb-8">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center space-x-4">
-                                    <span class="text-sm font-medium text-dark font-sans">Disagree</span>
+                                    <span class="text-sm font-bold text-red-600 font-sans">Disagree</span>
                                 </div>
                                 <div class="flex items-center space-x-4">
-                                    <span class="text-sm font-medium text-lime font-sans">Agree</span>
+                                    <span class="text-sm font-bold text-green-600 font-sans">Agree</span>
                                 </div>
                             </div>
                             

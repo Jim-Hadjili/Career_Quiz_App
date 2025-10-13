@@ -4,20 +4,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="../../../Assets/Scripts/tailwindConfig.js"></script>
+    <script src="../../Assets/Scripts/tailwindConfig.js"></script>
     <link rel="stylesheet" href="../Includes/quizPageComponents/quizPage.css">
     <title>CareerPath Quiz - <?php echo $is_registered ? 'Registered User' : 'Guest Mode'; ?></title>
-    <style>
-        /* Updated design system colors to match index.php (lime #B9FF66) */
-        :root {
-            --color-cream: #F3F3F3;
-            --color-dark: #191A23;
-            --color-lime: #B9FF66;
-        }
-        
-        /* Applied Space Grotesk font globally */
-        body {
-            font-family: "Space Grotesk", sans-serif;
-        }
-    </style>
 </head>

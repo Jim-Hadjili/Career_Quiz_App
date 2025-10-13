@@ -81,9 +81,14 @@ class QuizApp {
       },
     ];
     this.totalQuestions = this.questions.length;
-    this.quizMode = document.getElementById("quiz-mode").value;
-    this.userId = document.getElementById("user-id").value;
-    this.sessionId = document.getElementById("session-id").value;
+
+    const quizModeEl = document.getElementById("quiz-mode");
+    const userIdEl = document.getElementById("user-id");
+    const sessionIdEl = document.getElementById("session-id");
+
+    this.quizMode = quizModeEl ? quizModeEl.value : "guest";
+    this.userId = userIdEl ? userIdEl.value : "";
+    this.sessionId = sessionIdEl ? sessionIdEl.value : "";
 
     this.init();
   }
@@ -96,17 +101,24 @@ class QuizApp {
     this.updateStageInfo();
 
     // Update total questions display
-    document.getElementById("total-questions").textContent =
-      this.totalQuestions;
+    const totalQuestionsEl = document.getElementById("total-questions");
+    if (totalQuestionsEl) {
+      totalQuestionsEl.textContent = this.totalQuestions;
+    }
   }
 
   renderAllQuestions() {
     const container = document.getElementById("quiz-container");
+    if (!container) {
+      console.error("[v0] Quiz container not found");
+      return;
+    }
+
     container.innerHTML = "";
 
     this.questions.forEach((question, index) => {
       const questionDiv = document.createElement("div");
-      questionDiv.className = `quiz-question bg-white rounded-2xl shadow-sm p-8 ${
+      questionDiv.className = `quiz-question bg-white rounded-2xl shadow-sm p-8 border-2 border-dark ${
         index === 0 ? "" : "hidden"
       }`;
       questionDiv.dataset.questionId = question.id;
@@ -118,11 +130,11 @@ class QuizApp {
                                     <i class="fas fa-user"></i>
                                     <span>Assessment</span>
                                 </span>
-                                <span class="text-sm text-gray-500">Question ${
+                                <span class="text-sm text-gray-600 font-sans">Question ${
                                   index + 1
                                 } of ${this.totalQuestions}</span>
                             </div>
-                            <h3 class="text-xl font-semibold text-gray-900">
+                            <h3 class="text-xl font-bold text-dark font-sans">
                                 ${question.text}
                             </h3>
                         </div>
@@ -130,10 +142,10 @@ class QuizApp {
                         <div class="mb-8">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center space-x-4">
-                                    <span class="text-sm font-medium text-red-600">Disagree</span>
+                                    <span class="text-sm font-medium text-dark font-sans">Disagree</span>
                                 </div>
                                 <div class="flex items-center space-x-4">
-                                    <span class="text-sm font-medium text-green-600">Agree</span>
+                                    <span class="text-sm font-medium text-lime font-sans">Agree</span>
                                 </div>
                             </div>
                             
@@ -186,36 +198,46 @@ class QuizApp {
         input.checked = true;
 
         // Store answer
-        this.answers[questionId] = parseInt(scale);
+        this.answers[questionId] = Number.parseInt(scale);
 
         this.updateNavigationButtons();
       }
     });
 
     // Navigation buttons
-    document.getElementById("prev-btn").addEventListener("click", () => {
-      if (this.currentQuestion > 0) {
-        this.currentQuestion--;
-        this.showQuestion(this.currentQuestion);
-        this.updateProgress();
-        this.updateNavigationButtons();
-        this.updateStageInfo();
-      }
-    });
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const submitBtn = document.getElementById("submit-btn");
 
-    document.getElementById("next-btn").addEventListener("click", () => {
-      if (this.currentQuestion < this.totalQuestions - 1) {
-        this.currentQuestion++;
-        this.showQuestion(this.currentQuestion);
-        this.updateProgress();
-        this.updateNavigationButtons();
-        this.updateStageInfo();
-      }
-    });
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        if (this.currentQuestion > 0) {
+          this.currentQuestion--;
+          this.showQuestion(this.currentQuestion);
+          this.updateProgress();
+          this.updateNavigationButtons();
+          this.updateStageInfo();
+        }
+      });
+    }
 
-    document.getElementById("submit-btn").addEventListener("click", () => {
-      this.submitQuiz();
-    });
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (this.currentQuestion < this.totalQuestions - 1) {
+          this.currentQuestion++;
+          this.showQuestion(this.currentQuestion);
+          this.updateProgress();
+          this.updateNavigationButtons();
+          this.updateStageInfo();
+        }
+      });
+    }
+
+    if (submitBtn) {
+      submitBtn.addEventListener("click", () => {
+        this.submitQuiz();
+      });
+    }
   }
 
   showQuestion(index) {
@@ -232,9 +254,19 @@ class QuizApp {
 
   updateProgress() {
     const progress = ((this.currentQuestion + 1) / this.totalQuestions) * 100;
-    document.getElementById("progress-bar").style.width = `${progress}%`;
-    document.getElementById("current-question").textContent =
-      this.currentQuestion + 1;
+    const progressBar = document.getElementById("progress-bar");
+    const currentQuestionEl = document.getElementById("current-question");
+
+    if (progressBar) {
+      progressBar.style.width = `${progress}%`;
+      console.log("[v0] Progress updated:", progress + "%");
+    } else {
+      console.error("[v0] Progress bar element not found");
+    }
+
+    if (currentQuestionEl) {
+      currentQuestionEl.textContent = this.currentQuestion + 1;
+    }
   }
 
   updateStageInfo() {
@@ -247,6 +279,11 @@ class QuizApp {
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
     const submitBtn = document.getElementById("submit-btn");
+
+    if (!prevBtn || !nextBtn || !submitBtn) {
+      console.error("[v0] Navigation buttons not found");
+      return;
+    }
 
     // Previous button
     prevBtn.disabled = this.currentQuestion === 0;
@@ -276,5 +313,6 @@ class QuizApp {
 
 // Initialize quiz when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("[v0] Initializing QuizApp...");
   new QuizApp();
 });

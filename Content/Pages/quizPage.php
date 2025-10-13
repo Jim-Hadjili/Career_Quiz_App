@@ -7,13 +7,13 @@ include "../Functions/quizPageFunctions/quizPageFunction.php";
 
 <?php include "../Includes/quizPageComponents/quizPageHeadtag.php"; ?>
 
-<body class="min-h-screen bg-cream text-dark font-sans">
+<body class="min-h-screen bg-cream text-dark font-sans antialiased">
 
     <!-- Header -->
     <?php include "../Includes/quizPageComponents/quizPageHeader.php"; ?>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         <!-- Quiz Info Card -->
         <div class="bg-white rounded-3xl shadow-lg p-8 mb-6 border-2 border-dark">

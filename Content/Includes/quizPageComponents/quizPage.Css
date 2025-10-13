@@ -1,7 +1,10 @@
+/* Quiz Page Design System Styles */
+/* Aligned with cream (#F3F3F3), dark (#191A23), and lime (#B9FF66) color palette */
+
 .scale-option {
   width: 48px;
   height: 48px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid #d1d5db;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -9,121 +12,128 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #191a23;
 }
 
 .scale-option:hover {
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(25, 26, 35, 0.15);
+  border-color: #191a23;
 }
 
-/* Disagree options (left side) - Red shades */
+/* Updated disagree options to use dark shades transitioning to neutral */
 .scale-option[data-scale="1"] {
+  border-color: #9ca3af;
+}
+.scale-option[data-scale="1"]:hover {
   border-color: #6b7280;
   background-color: #f9fafb;
 }
-.scale-option[data-scale="1"]:hover {
-  border-color: #4b5563;
-  background-color: #f3f4f6;
-}
 .scale-option[data-scale="1"].selected {
-  border-color: #dc2626;
-  background-color: #dc2626;
-  color: white;
+  border-color: #191a23;
+  background-color: #191a23;
+  color: #b9ff66;
+  box-shadow: 0 4px 16px rgba(25, 26, 35, 0.3);
 }
 
 .scale-option[data-scale="2"] {
+  border-color: #9ca3af;
+}
+.scale-option[data-scale="2"]:hover {
   border-color: #6b7280;
   background-color: #f9fafb;
 }
-.scale-option[data-scale="2"]:hover {
-  border-color: #4b5563;
-  background-color: #f3f4f6;
-}
 .scale-option[data-scale="2"].selected {
-  border-color: #ef4444;
-  background-color: #ef4444;
-  color: white;
+  border-color: #374151;
+  background-color: #374151;
+  color: #b9ff66;
+  box-shadow: 0 4px 16px rgba(55, 65, 81, 0.3);
 }
 
 .scale-option[data-scale="3"] {
-  border-color: #6b7280;
-  background-color: #f9fafb;
+  border-color: #9ca3af;
 }
 .scale-option[data-scale="3"]:hover {
-  border-color: #4b5563;
-  background-color: #f3f4f6;
-}
-.scale-option[data-scale="3"].selected {
-  border-color: #f87171;
-  background-color: #f87171;
-  color: white;
-}
-
-/* Neutral option (middle) - Gray */
-.scale-option[data-scale="4"] {
   border-color: #6b7280;
   background-color: #f9fafb;
 }
-.scale-option[data-scale="4"]:hover {
-  border-color: #4b5563;
-  background-color: #f3f4f6;
-}
-.scale-option[data-scale="4"].selected {
+.scale-option[data-scale="3"].selected {
   border-color: #6b7280;
   background-color: #6b7280;
   color: white;
+  box-shadow: 0 4px 16px rgba(107, 114, 128, 0.3);
 }
 
-/* Agree options (right side) - Green shades */
-.scale-option[data-scale="5"] {
+/* Neutral option (middle) - Balanced */
+.scale-option[data-scale="4"] {
+  border-color: #9ca3af;
+}
+.scale-option[data-scale="4"]:hover {
   border-color: #6b7280;
   background-color: #f9fafb;
 }
+.scale-option[data-scale="4"].selected {
+  border-color: #9ca3af;
+  background-color: #9ca3af;
+  color: white;
+  box-shadow: 0 4px 16px rgba(156, 163, 175, 0.3);
+}
+
+/* Updated agree options to use lime (#B9FF66) accent shades */
+.scale-option[data-scale="5"] {
+  border-color: #9ca3af;
+}
 .scale-option[data-scale="5"]:hover {
-  border-color: #4b5563;
-  background-color: #f3f4f6;
+  border-color: #a3cc52;
+  background-color: #f9fafb;
 }
 .scale-option[data-scale="5"].selected {
-  border-color: #65a30d;
-  background-color: #65a30d;
-  color: white;
+  border-color: #a3cc52;
+  background-color: #a3cc52;
+  color: #191a23;
+  box-shadow: 0 4px 16px rgba(163, 204, 82, 0.3);
 }
 
 .scale-option[data-scale="6"] {
-  border-color: #6b7280;
-  background-color: #f9fafb;
+  border-color: #9ca3af;
 }
 .scale-option[data-scale="6"]:hover {
-  border-color: #4b5563;
-  background-color: #f3f4f6;
+  border-color: #b9ff66;
+  background-color: #f9fafb;
 }
 .scale-option[data-scale="6"].selected {
-  border-color: #84cc16;
-  background-color: #84cc16;
-  color: white;
+  border-color: #b9ff66;
+  background-color: #b9ff66;
+  color: #191a23;
+  box-shadow: 0 4px 16px rgba(185, 255, 102, 0.3);
 }
 
 .scale-option[data-scale="7"] {
-  border-color: #6b7280;
-  background-color: #f9fafb;
+  border-color: #9ca3af;
 }
 .scale-option[data-scale="7"]:hover {
-  border-color: #4b5563;
-  background-color: #f3f4f6;
+  border-color: #b9ff66;
+  background-color: #f9fafb;
 }
 .scale-option[data-scale="7"].selected {
-  border-color: #16a34a;
-  background-color: #16a34a;
-  color: white;
+  border-color: #b9ff66;
+  background-color: #b9ff66;
+  color: #191a23;
+  box-shadow: 0 4px 16px rgba(185, 255, 102, 0.4);
+  font-weight: 700;
 }
 
 .scale-option.selected::after {
   content: "✓";
   position: absolute;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
 }
 
+/* Updated stage badges to use design system colors */
 .stage-badge {
   display: inline-flex;
   align-items: center;
@@ -132,26 +142,54 @@
   border-radius: 9999px;
   font-weight: 600;
   font-size: 0.875rem;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
 }
 
 .stage-personality {
-  background-color: #dbeafe;
-  color: #1e40af;
+  background-color: #f3f3f3;
+  color: #191a23;
+  border-color: #191a23;
 }
+
 .stage-interests {
-  background-color: #fce7f3;
-  color: #be185d;
+  background-color: #b9ff66;
+  color: #191a23;
+  border-color: #191a23;
 }
+
 .stage-values {
-  background-color: #fef3c7;
-  color: #92400e;
+  background-color: #191a23;
+  color: #b9ff66;
+  border-color: #b9ff66;
 }
+
 .stage-skills {
-  background-color: #d1fae5;
-  color: #065f46;
+  background-color: #f3f3f3;
+  color: #191a23;
+  border-color: #b9ff66;
 }
 
 /* Hide all questions except first by default */
 .quiz-question:not(:first-child) {
   display: none;
+}
+
+/* Updated scrollbar to match design system colors */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f3f3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #191a23;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b9ff66;
 }

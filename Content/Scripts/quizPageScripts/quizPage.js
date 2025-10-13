@@ -156,12 +156,6 @@ class QuizApp {
                                   )
                                   .join("")}
                             </div>
-                            
-                            <div class="flex items-center justify-between max-w-2xl mx-auto mt-2">
-                                <span class="text-xs text-gray-400">Strongly Disagree</span>
-                                <span class="text-xs text-gray-400">Neutral</span>
-                                <span class="text-xs text-gray-400">Strongly Agree</span>
-                            </div>
                         </div>
                     `;
 

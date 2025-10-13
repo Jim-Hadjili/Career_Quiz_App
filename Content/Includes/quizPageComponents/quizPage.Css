@@ -18,12 +18,12 @@
 
 /* Disagree options (left side) - Red shades */
 .scale-option[data-scale="1"] {
-  border-color: #dc2626;
-  background-color: #fef2f2;
+  border-color: #6b7280;
+  background-color: #f9fafb;
 }
 .scale-option[data-scale="1"]:hover {
-  border-color: #b91c1c;
-  background-color: #fee2e2;
+  border-color: #4b5563;
+  background-color: #f3f4f6;
 }
 .scale-option[data-scale="1"].selected {
   border-color: #dc2626;
@@ -32,12 +32,12 @@
 }
 
 .scale-option[data-scale="2"] {
-  border-color: #ef4444;
-  background-color: #fef2f2;
+  border-color: #6b7280;
+  background-color: #f9fafb;
 }
 .scale-option[data-scale="2"]:hover {
-  border-color: #dc2626;
-  background-color: #fee2e2;
+  border-color: #4b5563;
+  background-color: #f3f4f6;
 }
 .scale-option[data-scale="2"].selected {
   border-color: #ef4444;
@@ -46,12 +46,12 @@
 }
 
 .scale-option[data-scale="3"] {
-  border-color: #f87171;
-  background-color: #fef2f2;
+  border-color: #6b7280;
+  background-color: #f9fafb;
 }
 .scale-option[data-scale="3"]:hover {
-  border-color: #ef4444;
-  background-color: #fee2e2;
+  border-color: #4b5563;
+  background-color: #f3f4f6;
 }
 .scale-option[data-scale="3"].selected {
   border-color: #f87171;
@@ -76,12 +76,12 @@
 
 /* Agree options (right side) - Green shades */
 .scale-option[data-scale="5"] {
-  border-color: #65a30d;
-  background-color: #f7fee7;
+  border-color: #6b7280;
+  background-color: #f9fafb;
 }
 .scale-option[data-scale="5"]:hover {
-  border-color: #84cc16;
-  background-color: #ecfccb;
+  border-color: #4b5563;
+  background-color: #f3f4f6;
 }
 .scale-option[data-scale="5"].selected {
   border-color: #65a30d;
@@ -90,12 +90,12 @@
 }
 
 .scale-option[data-scale="6"] {
-  border-color: #84cc16;
-  background-color: #f7fee7;
+  border-color: #6b7280;
+  background-color: #f9fafb;
 }
 .scale-option[data-scale="6"]:hover {
-  border-color: #65a30d;
-  background-color: #ecfccb;
+  border-color: #4b5563;
+  background-color: #f3f4f6;
 }
 .scale-option[data-scale="6"].selected {
   border-color: #84cc16;
@@ -104,12 +104,12 @@
 }
 
 .scale-option[data-scale="7"] {
-  border-color: #16a34a;
-  background-color: #f0fdf4;
+  border-color: #6b7280;
+  background-color: #f9fafb;
 }
 .scale-option[data-scale="7"]:hover {
-  border-color: #15803d;
-  background-color: #dcfce7;
+  border-color: #4b5563;
+  background-color: #f3f4f6;
 }
 .scale-option[data-scale="7"].selected {
   border-color: #16a34a;

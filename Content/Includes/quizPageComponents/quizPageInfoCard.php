@@ -1,14 +1,29 @@
-<div class="bg-white rounded-2xl shadow-sm p-8 mb-8">
-    <div class="text-center">
-        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class="fas fa-clipboard-list text-blue-600 text-2xl"></i>
+<div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+    <!-- Icon Section -->
+    <div class="w-20 h-20 bg-dark rounded-2xl flex items-center justify-center shadow-lg">
+        <i class="fas fa-question-circle text-lime text-4xl"></i>
+    </div>
+    <!-- Info Section -->
+    <div class="flex-1">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="bg-lime text-dark px-4 py-1 rounded-full text-sm font-semibold">CareerPath Quiz</span>
+            <?php if ($is_registered): ?>
+                <span class="bg-dark text-lime px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-2">
+                    <i class="fas fa-user-check"></i> Registered
+                </span>
+            <?php else: ?>
+                <span class="bg-yellow-200 text-yellow-900 px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-2">
+                    <i class="fas fa-user-clock"></i> Guest Mode
+                </span>
+            <?php endif; ?>
         </div>
-        <h1 class="text-3xl font-bold text-gray-900 mb-4">Career Path Discovery Quiz</h1>
-        <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Answer these questions honestly to discover career paths that align with your personality,
-            interests, values, and skills. This quiz contains 15 carefully selected questions.
+        <h1 class="text-2xl md:text-3xl font-bold mb-2 font-sans">Discover Your Ideal Career Path</h1>
+        <p class="text-gray-600 text-base md:text-lg mb-4 font-sans">
+            Answer a series of questions about your personality, interests, values, and skills. Our AI-powered system will match you with careers that fit your unique profile.
         </p>
+    </div>
 
+    <div class="text-center">
         <!-- Stage Overview -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div class="p-4 bg-blue-50 rounded-xl">

@@ -29,6 +29,9 @@ body {
 .scale-option[data-scale="1"] {
   border-color: #6b7280;
   background-color: #f9fafb;
+  width: 56px;
+  height: 56px;
+  font-size: 1.1rem;
 }
 .scale-option[data-scale="1"]:hover {
   border-color: #4b5563;
@@ -43,6 +46,9 @@ body {
 .scale-option[data-scale="2"] {
   border-color: #6b7280;
   background-color: #f9fafb;
+  width: 48px;
+  height: 48px;
+  font-size: 1rem;
 }
 .scale-option[data-scale="2"]:hover {
   border-color: #4b5563;
@@ -57,6 +63,9 @@ body {
 .scale-option[data-scale="3"] {
   border-color: #6b7280;
   background-color: #f9fafb;
+  width: 40px;
+  height: 40px;
+  font-size: 0.95rem;
 }
 .scale-option[data-scale="3"]:hover {
   border-color: #4b5563;
@@ -72,6 +81,9 @@ body {
 .scale-option[data-scale="4"] {
   border-color: #6b7280;
   background-color: #f9fafb;
+  width: 32px;
+  height: 32px;
+  font-size: 0.9rem;
 }
 .scale-option[data-scale="4"]:hover {
   border-color: #4b5563;
@@ -87,6 +99,9 @@ body {
 .scale-option[data-scale="5"] {
   border-color: #6b7280;
   background-color: #f9fafb;
+  width: 40px;
+  height: 40px;
+  font-size: 0.95rem;
 }
 .scale-option[data-scale="5"]:hover {
   border-color: #4b5563;
@@ -101,6 +116,9 @@ body {
 .scale-option[data-scale="6"] {
   border-color: #6b7280;
   background-color: #f9fafb;
+  width: 48px;
+  height: 48px;
+  font-size: 1rem;
 }
 .scale-option[data-scale="6"]:hover {
   border-color: #4b5563;
@@ -115,6 +133,9 @@ body {
 .scale-option[data-scale="7"] {
   border-color: #6b7280;
   background-color: #f9fafb;
+  width: 56px;
+  height: 56px;
+  font-size: 1.1rem;
 }
 .scale-option[data-scale="7"]:hover {
   border-color: #4b5563;

@@ -140,7 +140,7 @@ class QuizApp {
                         </div>
                         
                         <div class="mb-8">
-                            <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center justify-between mb-4 max-w-4xl mx-auto">
                                 <div class="flex items-center space-x-4">
                                     <span class="text-sm font-bold text-red-600 font-sans">Disagree</span>
                                 </div>

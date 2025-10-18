@@ -1,4 +1,4 @@
-import { quizQuestions } from "./quizQuestions.js";
+import { orderedQuizQuestions as quizQuestions } from "./quizQuestions.js";
 import { QuestionRenderer } from "./questionRenderer.js";
 import { EventHandlers } from "./eventHandlers.js";
 import { NavigationUtils } from "./navigationUtils.js";

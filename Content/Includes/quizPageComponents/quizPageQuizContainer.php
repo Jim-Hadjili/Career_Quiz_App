@@ -359,11 +359,7 @@
         </div>
 
     </div>
-    
-    <div class="mb-4">
-        <p class="text-xs text-gray-500 font-sans">Enter your grades as percentages (e.g., 85.5 for 85.5%). All fields are required.</p>
-    </div>
-    
+        
     <!-- Core Subjects Form Navigation -->
     <div class="flex justify-between items-center">
         <button

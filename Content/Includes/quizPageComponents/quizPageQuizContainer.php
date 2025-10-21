@@ -15,40 +15,353 @@
         <p class="text-gray-700 mb-6 font-sans">Please provide your core subject grades to get more accurate career recommendations.</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <!-- Subject Grades Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 max-h-96 overflow-y-auto border rounded-xl p-4">
+        
         <!-- Statistics and Probability -->
         <div>
             <label for="statistics-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Statistics and Probability Grade *
+                Statistics and Probability *
             </label>
             <input 
                 type="number" 
                 id="statistics-grade" 
+                name="Statistics_and_Probability"
                 class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="Enter grade (0-100)" 
+                placeholder="0-100" 
                 min="0" 
                 max="100" 
                 step="0.01"
                 required>
-            <p class="text-xs text-gray-500 mt-1 font-sans">Enter your grade as a percentage (e.g., 85.5 for 85.5%)</p>
         </div>
         
         <!-- Physical Science -->
         <div>
             <label for="physical-science-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Physical Science Grade *
+                Physical Science *
             </label>
             <input 
                 type="number" 
                 id="physical-science-grade" 
+                name="Physical_Science"
                 class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="Enter grade (0-100)" 
+                placeholder="0-100" 
                 min="0" 
                 max="100" 
                 step="0.01"
                 required>
-            <p class="text-xs text-gray-500 mt-1 font-sans">Enter your grade as a percentage (e.g., 92.0 for 92.0%)</p>
         </div>
+
+        <!-- Oral Communication in Context -->
+        <div>
+            <label for="oral-comm-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Oral Communication in Context *
+            </label>
+            <input 
+                type="number" 
+                id="oral-comm-grade" 
+                name="oral_comm_context"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Komunikasyon at Pananaliksik -->
+        <div>
+            <label for="komunikasyon-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Komunikasyon at Pananaliksik *
+            </label>
+            <input 
+                type="number" 
+                id="komunikasyon-grade" 
+                name="komunikasyon_pananaliksik"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- General Mathematics -->
+        <div>
+            <label for="general-math-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                General Mathematics *
+            </label>
+            <input 
+                type="number" 
+                id="general-math-grade" 
+                name="general_math"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Earth and Life Science -->
+        <div>
+            <label for="earth-life-sci-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Earth and Life Science *
+            </label>
+            <input 
+                type="number" 
+                id="earth-life-sci-grade" 
+                name="earth_life_sci"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Personal Development -->
+        <div>
+            <label for="personal-dev-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Personal Development *
+            </label>
+            <input 
+                type="number" 
+                id="personal-dev-grade" 
+                name="personal_dev"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Understanding Culture, Society and Politics -->
+        <div>
+            <label for="ucsp-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Understanding Culture, Society and Politics *
+            </label>
+            <input 
+                type="number" 
+                id="ucsp-grade" 
+                name="ucsp"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Physical Education and Health 1 -->
+        <div>
+            <label for="pe-health-1-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Physical Education and Health 1 *
+            </label>
+            <input 
+                type="number" 
+                id="pe-health-1-grade" 
+                name="pe_health_1"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Physical Education and Health 2 -->
+        <div>
+            <label for="pe-health-2-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Physical Education and Health 2 *
+            </label>
+            <input 
+                type="number" 
+                id="pe-health-2-grade" 
+                name="pe_health_2"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Reading and Writing -->
+        <div>
+            <label for="reading-writing-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Reading and Writing *
+            </label>
+            <input 
+                type="number" 
+                id="reading-writing-grade" 
+                name="reading_writing"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Pagbasa at Pagsusuri -->
+        <div>
+            <label for="pagbasa-pagsusuri-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Pagbasa at Pagsusuri *
+            </label>
+            <input 
+                type="number" 
+                id="pagbasa-pagsusuri-grade" 
+                name="pagbasa_pagsusuri"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- 21st Century Literature from the Philippines and the World -->
+        <div>
+            <label for="lit21-ph-world-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                21st Century Literature *
+            </label>
+            <input 
+                type="number" 
+                id="lit21-ph-world-grade" 
+                name="lit21_ph_world"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Media and Information Literacy -->
+        <div>
+            <label for="media-info-lit-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Media and Information Literacy *
+            </label>
+            <input 
+                type="number" 
+                id="media-info-lit-grade" 
+                name="media_info_lit"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Statistics and Probability (duplicate field) -->
+        <div>
+            <label for="stats-prob-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Statistics and Probability (Advanced) *
+            </label>
+            <input 
+                type="number" 
+                id="stats-prob-grade" 
+                name="stats_prob"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Physical Science (duplicate field) -->
+        <div>
+            <label for="physical-sci-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Physical Science (Advanced) *
+            </label>
+            <input 
+                type="number" 
+                id="physical-sci-grade" 
+                name="physical_sci"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Contemporary Philippine Arts from the Regions -->
+        <div>
+            <label for="cp-arts-regions-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Contemporary Philippine Arts *
+            </label>
+            <input 
+                type="number" 
+                id="cp-arts-regions-grade" 
+                name="cp_arts_regions"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Introduction to the Philosophy of the Human Person -->
+        <div>
+            <label for="intro-philo-human-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Introduction to Philosophy *
+            </label>
+            <input 
+                type="number" 
+                id="intro-philo-human-grade" 
+                name="intro_philo_human"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Physical Education and Health 3 -->
+        <div>
+            <label for="pe-health-3-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Physical Education and Health 3 *
+            </label>
+            <input 
+                type="number" 
+                id="pe-health-3-grade" 
+                name="pe_health_3"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Physical Education and Health 4 -->
+        <div>
+            <label for="pe-health-4-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Physical Education and Health 4 *
+            </label>
+            <input 
+                type="number" 
+                id="pe-health-4-grade" 
+                name="pe_health_4"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="0-100" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+        </div>
+
+    </div>
+    
+    <div class="mb-4">
+        <p class="text-xs text-gray-500 font-sans">Enter your grades as percentages (e.g., 85.5 for 85.5%). All fields are required.</p>
     </div>
     
     <!-- Core Subjects Form Navigation -->

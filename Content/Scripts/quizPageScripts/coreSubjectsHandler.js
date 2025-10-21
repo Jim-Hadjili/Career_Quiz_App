@@ -14,9 +14,9 @@ export class CoreSubjectsHandler {
   }
 
   static setupCoreSubjectsForm(quizApp) {
-    const statisticsInput = document.getElementById("statistics-grade");
-    const physicalScienceInput = document.getElementById(
-      "physical-science-grade"
+    // Get all subject input fields
+    const subjectInputs = document.querySelectorAll(
+      '#core-subjects-form input[type="number"]'
     );
     const continueBtn = document.getElementById("continue-to-mbti-btn");
     const backBtn = document.getElementById("back-to-quiz-btn");
@@ -33,33 +33,37 @@ export class CoreSubjectsHandler {
       }
     };
 
-    // Enable continue button when both grades are filled and valid
+    // Check if all required fields are filled and valid
     const checkGradesValidity = () => {
-      const statisticsValid =
-        statisticsInput.value && validateGrade(statisticsInput);
-      const physicalScienceValid =
-        physicalScienceInput.value && validateGrade(physicalScienceInput);
+      let allValid = true;
 
-      const isValid = statisticsValid && physicalScienceValid;
-      continueBtn.disabled = !isValid;
+      subjectInputs.forEach((input) => {
+        if (input.required) {
+          if (!input.value || !validateGrade(input)) {
+            allValid = false;
+          }
+        }
+      });
+
+      continueBtn.disabled = !allValid;
     };
 
     // Add event listeners for real-time validation
-    statisticsInput.addEventListener("input", () => {
-      validateGrade(statisticsInput);
-      checkGradesValidity();
-    });
-
-    physicalScienceInput.addEventListener("input", () => {
-      validateGrade(physicalScienceInput);
-      checkGradesValidity();
+    subjectInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        validateGrade(input);
+        checkGradesValidity();
+      });
     });
 
     continueBtn.addEventListener("click", () => {
-      // Store grades temporarily and move to MBTI form
-      quizApp.tempCoreSubjects.statistics_grade = statisticsInput.value;
-      quizApp.tempCoreSubjects.physical_science_grade =
-        physicalScienceInput.value;
+      // Store all grades temporarily
+      subjectInputs.forEach((input) => {
+        if (input.name) {
+          quizApp.tempCoreSubjects[input.name] = input.value;
+        }
+      });
+
       this.showMBTIForm(quizApp);
     });
 
@@ -81,7 +85,7 @@ export class CoreSubjectsHandler {
     mbtiSelect.addEventListener("change", checkMBTIValidity);
 
     completeBtn.addEventListener("click", () => {
-      // Combine grades and MBTI data
+      // Add MBTI data
       quizApp.tempCoreSubjects.mbti_type = mbtiSelect.value;
       this.saveCoreSubjects(quizApp);
     });
@@ -135,7 +139,7 @@ export class CoreSubjectsHandler {
     coreSubjectsForm.style.display = "none";
     mbtiForm.style.display = "none";
 
-    // Restore the current question view and navigation state
+    // Restore quiz state
     quizApp.showQuestion(quizApp.currentQuestion);
     quizApp.updateNavigationButtons();
     quizApp.updateProgress();
@@ -148,40 +152,16 @@ export class CoreSubjectsHandler {
   }
 
   static async saveCoreSubjects(quizApp) {
-    const statisticsGrade = quizApp.tempCoreSubjects.statistics_grade;
-    const physicalScienceGrade =
-      quizApp.tempCoreSubjects.physical_science_grade;
-    const mbtiType = quizApp.tempCoreSubjects.mbti_type;
-
-    // Final validation
-    const statsValue = parseFloat(statisticsGrade);
-    const physicsValue = parseFloat(physicalScienceGrade);
-
-    if (isNaN(statsValue) || statsValue < 0 || statsValue > 100) {
-      alert("Please enter a valid Statistics grade between 0 and 100");
-      this.showCoreSubjectsForm(quizApp);
-      return;
-    }
-
-    if (isNaN(physicsValue) || physicsValue < 0 || physicsValue > 100) {
-      alert("Please enter a valid Physical Science grade between 0 and 100");
-      this.showCoreSubjectsForm(quizApp);
-      return;
-    }
-
-    if (!mbtiType) {
-      alert("Please select your MBTI personality type");
-      return;
-    }
-
     const formData = new FormData();
     formData.append("action", "save_core_subjects");
-    formData.append("statistics_grade", statisticsGrade);
-    formData.append("physical_science_grade", physicalScienceGrade);
-    formData.append("mbti_type", mbtiType);
     formData.append("user_id", quizApp.userId);
     formData.append("session_id", quizApp.sessionId);
     formData.append("quiz_mode", quizApp.quizMode);
+
+    // Add all subject grades
+    Object.keys(quizApp.tempCoreSubjects).forEach((key) => {
+      formData.append(key, quizApp.tempCoreSubjects[key]);
+    });
 
     try {
       const response = await fetch(
@@ -195,16 +175,9 @@ export class CoreSubjectsHandler {
       const result = await response.json();
 
       if (result.success) {
-        quizApp.coreSubjects = {
-          statistics_grade: statisticsGrade,
-          physical_science_grade: physicalScienceGrade,
-          mbti_type: mbtiType,
-        };
-
-        // Clear temporary data
+        quizApp.coreSubjects = { ...quizApp.tempCoreSubjects };
         quizApp.tempCoreSubjects = {};
 
-        // Now proceed with final quiz submission
         this.processQuizSubmission(quizApp);
       } else {
         alert("Error saving core subjects: " + result.message);
@@ -219,14 +192,8 @@ export class CoreSubjectsHandler {
     console.log("Quiz completed! Processing submission...");
     console.log("Quiz answers:", quizApp.answers);
     console.log("Quiz mode:", quizApp.quizMode);
-    console.log("User ID:", quizApp.userId);
-    console.log("Session ID:", quizApp.sessionId);
+    console.log("Core subjects:", quizApp.coreSubjects);
 
-    if (quizApp.coreSubjects) {
-      console.log("Core subjects:", quizApp.coreSubjects);
-    }
-
-    // Here you would implement the actual quiz result processing
     alert("Quiz submitted successfully! Result Page will be available soon");
   }
 }

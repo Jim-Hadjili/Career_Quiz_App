@@ -5,7 +5,9 @@ export class CoreSubjectsHandler {
 
     if (needsCoreSubjects) {
       quizApp.needsCoreSubjects = true;
+      quizApp.tempCoreSubjects = {}; // Store temporary data
       this.setupCoreSubjectsForm(quizApp);
+      this.setupMBTIForm(quizApp);
     } else {
       quizApp.needsCoreSubjects = false;
     }
@@ -16,8 +18,7 @@ export class CoreSubjectsHandler {
     const physicalScienceInput = document.getElementById(
       "physical-science-grade"
     );
-    const mbtiSelect = document.getElementById("mbti-type");
-    const saveBtn = document.getElementById("save-core-subjects-btn");
+    const continueBtn = document.getElementById("continue-to-mbti-btn");
     const backBtn = document.getElementById("back-to-quiz-btn");
 
     // Validate grade input
@@ -32,33 +33,34 @@ export class CoreSubjectsHandler {
       }
     };
 
-    // Enable save button when all fields are filled and valid
-    const checkFormValidity = () => {
+    // Enable continue button when both grades are filled and valid
+    const checkGradesValidity = () => {
       const statisticsValid =
         statisticsInput.value && validateGrade(statisticsInput);
       const physicalScienceValid =
         physicalScienceInput.value && validateGrade(physicalScienceInput);
-      const mbtiValid = mbtiSelect.value;
 
-      const isValid = statisticsValid && physicalScienceValid && mbtiValid;
-      saveBtn.disabled = !isValid;
+      const isValid = statisticsValid && physicalScienceValid;
+      continueBtn.disabled = !isValid;
     };
 
     // Add event listeners for real-time validation
     statisticsInput.addEventListener("input", () => {
       validateGrade(statisticsInput);
-      checkFormValidity();
+      checkGradesValidity();
     });
 
     physicalScienceInput.addEventListener("input", () => {
       validateGrade(physicalScienceInput);
-      checkFormValidity();
+      checkGradesValidity();
     });
 
-    mbtiSelect.addEventListener("change", checkFormValidity);
-
-    saveBtn.addEventListener("click", () => {
-      this.saveCoreSubjects(quizApp);
+    continueBtn.addEventListener("click", () => {
+      // Store grades temporarily and move to MBTI form
+      quizApp.tempCoreSubjects.statistics_grade = statisticsInput.value;
+      quizApp.tempCoreSubjects.physical_science_grade =
+        physicalScienceInput.value;
+      this.showMBTIForm(quizApp);
     });
 
     backBtn.addEventListener("click", () => {
@@ -66,13 +68,38 @@ export class CoreSubjectsHandler {
     });
   }
 
+  static setupMBTIForm(quizApp) {
+    const mbtiSelect = document.getElementById("mbti-type");
+    const completeBtn = document.getElementById("complete-quiz-btn");
+    const backBtn = document.getElementById("back-to-grades-btn");
+
+    // Enable complete button when MBTI is selected
+    const checkMBTIValidity = () => {
+      completeBtn.disabled = !mbtiSelect.value;
+    };
+
+    mbtiSelect.addEventListener("change", checkMBTIValidity);
+
+    completeBtn.addEventListener("click", () => {
+      // Combine grades and MBTI data
+      quizApp.tempCoreSubjects.mbti_type = mbtiSelect.value;
+      this.saveCoreSubjects(quizApp);
+    });
+
+    backBtn.addEventListener("click", () => {
+      this.showCoreSubjectsForm(quizApp);
+    });
+  }
+
   static showCoreSubjectsForm(quizApp) {
     const quizContainer = document.getElementById("quiz-container");
     const coreSubjectsForm = document.getElementById("core-subjects-form");
+    const mbtiForm = document.getElementById("mbti-form");
     const quizNavigation = document.getElementById("quiz-navigation");
 
-    // Hide quiz and navigation
+    // Hide other forms
     quizContainer.style.display = "none";
+    mbtiForm.style.display = "none";
     quizNavigation.style.display = "none";
 
     // Show core subjects form
@@ -81,17 +108,32 @@ export class CoreSubjectsHandler {
     console.log("[CoreSubjects] Showing core subjects form");
   }
 
+  static showMBTIForm(quizApp) {
+    const coreSubjectsForm = document.getElementById("core-subjects-form");
+    const mbtiForm = document.getElementById("mbti-form");
+
+    // Hide core subjects form
+    coreSubjectsForm.style.display = "none";
+
+    // Show MBTI form
+    mbtiForm.style.display = "block";
+
+    console.log("[CoreSubjects] Showing MBTI form");
+  }
+
   static showQuizForm(quizApp) {
     const quizContainer = document.getElementById("quiz-container");
     const coreSubjectsForm = document.getElementById("core-subjects-form");
+    const mbtiForm = document.getElementById("mbti-form");
     const quizNavigation = document.getElementById("quiz-navigation");
 
     // Show quiz and navigation
     quizContainer.style.display = "block";
     quizNavigation.style.display = "block";
 
-    // Hide core subjects form
+    // Hide additional forms
     coreSubjectsForm.style.display = "none";
+    mbtiForm.style.display = "none";
 
     // Restore the current question view and navigation state
     quizApp.showQuestion(quizApp.currentQuestion);
@@ -106,23 +148,29 @@ export class CoreSubjectsHandler {
   }
 
   static async saveCoreSubjects(quizApp) {
-    const statisticsGrade = document.getElementById("statistics-grade").value;
-    const physicalScienceGrade = document.getElementById(
-      "physical-science-grade"
-    ).value;
-    const mbtiType = document.getElementById("mbti-type").value;
+    const statisticsGrade = quizApp.tempCoreSubjects.statistics_grade;
+    const physicalScienceGrade =
+      quizApp.tempCoreSubjects.physical_science_grade;
+    const mbtiType = quizApp.tempCoreSubjects.mbti_type;
 
-    // Additional validation before submission
+    // Final validation
     const statsValue = parseFloat(statisticsGrade);
     const physicsValue = parseFloat(physicalScienceGrade);
 
     if (isNaN(statsValue) || statsValue < 0 || statsValue > 100) {
       alert("Please enter a valid Statistics grade between 0 and 100");
+      this.showCoreSubjectsForm(quizApp);
       return;
     }
 
     if (isNaN(physicsValue) || physicsValue < 0 || physicsValue > 100) {
       alert("Please enter a valid Physical Science grade between 0 and 100");
+      this.showCoreSubjectsForm(quizApp);
+      return;
+    }
+
+    if (!mbtiType) {
+      alert("Please select your MBTI personality type");
       return;
     }
 
@@ -152,6 +200,9 @@ export class CoreSubjectsHandler {
           physical_science_grade: physicalScienceGrade,
           mbti_type: mbtiType,
         };
+
+        // Clear temporary data
+        quizApp.tempCoreSubjects = {};
 
         // Now proceed with final quiz submission
         this.processQuizSubmission(quizApp);

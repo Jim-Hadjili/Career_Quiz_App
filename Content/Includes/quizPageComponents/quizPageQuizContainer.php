@@ -8,7 +8,7 @@
 
 </div>
 
-<!-- Core Subjects Grades Form (Hidden initially) -->
+<!-- Core Subjects Grades Form -->
 <div id="core-subjects-form" class="bg-white rounded-2xl shadow-lg p-8 border-2" style="display: none;">
     <div class="mb-6">
         <h3 class="text-2xl font-bold text-dark mb-4 font-sans">Core Subject Grades Required</h3>

@@ -12,25 +12,49 @@ export class CoreSubjectsHandler {
   }
 
   static setupCoreSubjectsForm(quizApp) {
-    const statisticsSelect = document.getElementById("statistics-grade");
-    const physicalScienceSelect = document.getElementById(
+    const statisticsInput = document.getElementById("statistics-grade");
+    const physicalScienceInput = document.getElementById(
       "physical-science-grade"
     );
     const mbtiSelect = document.getElementById("mbti-type");
     const saveBtn = document.getElementById("save-core-subjects-btn");
     const backBtn = document.getElementById("back-to-quiz-btn");
 
-    // Enable save button when all fields are filled
+    // Validate grade input
+    const validateGrade = (input) => {
+      const value = parseFloat(input.value);
+      if (isNaN(value) || value < 0 || value > 100) {
+        input.setCustomValidity("Please enter a valid grade between 0 and 100");
+        return false;
+      } else {
+        input.setCustomValidity("");
+        return true;
+      }
+    };
+
+    // Enable save button when all fields are filled and valid
     const checkFormValidity = () => {
-      const isValid =
-        statisticsSelect.value &&
-        physicalScienceSelect.value &&
-        mbtiSelect.value;
+      const statisticsValid =
+        statisticsInput.value && validateGrade(statisticsInput);
+      const physicalScienceValid =
+        physicalScienceInput.value && validateGrade(physicalScienceInput);
+      const mbtiValid = mbtiSelect.value;
+
+      const isValid = statisticsValid && physicalScienceValid && mbtiValid;
       saveBtn.disabled = !isValid;
     };
 
-    statisticsSelect.addEventListener("change", checkFormValidity);
-    physicalScienceSelect.addEventListener("change", checkFormValidity);
+    // Add event listeners for real-time validation
+    statisticsInput.addEventListener("input", () => {
+      validateGrade(statisticsInput);
+      checkFormValidity();
+    });
+
+    physicalScienceInput.addEventListener("input", () => {
+      validateGrade(physicalScienceInput);
+      checkFormValidity();
+    });
+
     mbtiSelect.addEventListener("change", checkFormValidity);
 
     saveBtn.addEventListener("click", () => {
@@ -87,6 +111,20 @@ export class CoreSubjectsHandler {
       "physical-science-grade"
     ).value;
     const mbtiType = document.getElementById("mbti-type").value;
+
+    // Additional validation before submission
+    const statsValue = parseFloat(statisticsGrade);
+    const physicsValue = parseFloat(physicalScienceGrade);
+
+    if (isNaN(statsValue) || statsValue < 0 || statsValue > 100) {
+      alert("Please enter a valid Statistics grade between 0 and 100");
+      return;
+    }
+
+    if (isNaN(physicsValue) || physicsValue < 0 || physicsValue > 100) {
+      alert("Please enter a valid Physical Science grade between 0 and 100");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("action", "save_core_subjects");

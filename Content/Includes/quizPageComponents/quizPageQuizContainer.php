@@ -21,20 +21,16 @@
             <label for="statistics-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
                 Statistics and Probability Grade *
             </label>
-            <select id="statistics-grade" class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" required>
-                <option value="">Select Grade</option>
-                <option value="A+">A+ (97-100)</option>
-                <option value="A">A (94-96)</option>
-                <option value="A-">A- (90-93)</option>
-                <option value="B+">B+ (87-89)</option>
-                <option value="B">B (84-86)</option>
-                <option value="B-">B- (80-83)</option>
-                <option value="C+">C+ (77-79)</option>
-                <option value="C">C (74-76)</option>
-                <option value="C-">C- (70-73)</option>
-                <option value="D">D (60-69)</option>
-                <option value="F">F (Below 60)</option>
-            </select>
+            <input 
+                type="number" 
+                id="statistics-grade" 
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="Enter grade (0-100)" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+            <p class="text-xs text-gray-500 mt-1 font-sans">Enter your grade as a percentage (e.g., 85.5 for 85.5%)</p>
         </div>
         
         <!-- Physical Science -->
@@ -42,20 +38,16 @@
             <label for="physical-science-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
                 Physical Science Grade *
             </label>
-            <select id="physical-science-grade" class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" required>
-                <option value="">Select Grade</option>
-                <option value="A+">A+ (97-100)</option>
-                <option value="A">A (94-96)</option>
-                <option value="A-">A- (90-93)</option>
-                <option value="B+">B+ (87-89)</option>
-                <option value="B">B (84-86)</option>
-                <option value="B-">B- (80-83)</option>
-                <option value="C+">C+ (77-79)</option>
-                <option value="C">C (74-76)</option>
-                <option value="C-">C- (70-73)</option>
-                <option value="D">D (60-69)</option>
-                <option value="F">F (Below 60)</option>
-            </select>
+            <input 
+                type="number" 
+                id="physical-science-grade" 
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
+                placeholder="Enter grade (0-100)" 
+                min="0" 
+                max="100" 
+                step="0.01"
+                required>
+            <p class="text-xs text-gray-500 mt-1 font-sans">Enter your grade as a percentage (e.g., 92.0 for 92.0%)</p>
         </div>
     </div>
     

@@ -1,9 +1,98 @@
 <input type="hidden" id="quiz-mode" value="<?php echo $quizMode; ?>">
 <input type="hidden" id="user-id" value="<?php echo $isLoggedIn ? $_SESSION['user_id'] : ''; ?>">
 <input type="hidden" id="session-id" value="<?php echo $isLoggedIn ? '' : $_SESSION['guest_session_id']; ?>">
+<input type="hidden" id="needs-core-subjects" value="<?php echo $needsCoreSubjects ? 'true' : 'false'; ?>">
 
 <div id="quiz-container">
 
+</div>
+
+<!-- Core Subjects Form (Hidden initially) -->
+<div id="core-subjects-form" class="bg-white rounded-2xl shadow-lg p-8 mt-6 border-2" style="display: none;">
+    <div class="mb-6">
+        <h3 class="text-2xl font-bold text-dark mb-4 font-sans">Additional Information Required</h3>
+        <p class="text-gray-700 mb-6 font-sans">Please provide your core subject grades and MBTI personality type to get more accurate career recommendations.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Statistics and Probability -->
+        <div>
+            <label for="statistics-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Statistics and Probability Grade *
+            </label>
+            <select id="statistics-grade" class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" required>
+                <option value="">Select Grade</option>
+                <option value="A+">A+ (97-100)</option>
+                <option value="A">A (94-96)</option>
+                <option value="A-">A- (90-93)</option>
+                <option value="B+">B+ (87-89)</option>
+                <option value="B">B (84-86)</option>
+                <option value="B-">B- (80-83)</option>
+                <option value="C+">C+ (77-79)</option>
+                <option value="C">C (74-76)</option>
+                <option value="C-">C- (70-73)</option>
+                <option value="D">D (60-69)</option>
+                <option value="F">F (Below 60)</option>
+            </select>
+        </div>
+        
+        <!-- Physical Science -->
+        <div>
+            <label for="physical-science-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Physical Science Grade *
+            </label>
+            <select id="physical-science-grade" class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" required>
+                <option value="">Select Grade</option>
+                <option value="A+">A+ (97-100)</option>
+                <option value="A">A (94-96)</option>
+                <option value="A-">A- (90-93)</option>
+                <option value="B+">B+ (87-89)</option>
+                <option value="B">B (84-86)</option>
+                <option value="B-">B- (80-83)</option>
+                <option value="C+">C+ (77-79)</option>
+                <option value="C">C (74-76)</option>
+                <option value="C-">C- (70-73)</option>
+                <option value="D">D (60-69)</option>
+                <option value="F">F (Below 60)</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- MBTI Type -->
+    <div class="mb-6">
+        <label for="mbti-type" class="block text-sm font-bold text-dark mb-2 font-sans">
+            MBTI Personality Type *
+        </label>
+        <select id="mbti-type" class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" required>
+            <option value="">Select MBTI Type</option>
+            <option value="INTJ">INTJ - The Architect</option>
+            <option value="INTP">INTP - The Thinker</option>
+            <option value="ENTJ">ENTJ - The Commander</option>
+            <option value="ENTP">ENTP - The Debater</option>
+            <option value="INFJ">INFJ - The Advocate</option>
+            <option value="INFP">INFP - The Mediator</option>
+            <option value="ENFJ">ENFJ - The Protagonist</option>
+            <option value="ENFP">ENFP - The Campaigner</option>
+            <option value="ISTJ">ISTJ - The Logistician</option>
+            <option value="ISFJ">ISFJ - The Protector</option>
+            <option value="ESTJ">ESTJ - The Executive</option>
+            <option value="ESFJ">ESFJ - The Consul</option>
+            <option value="ISTP">ISTP - The Virtuoso</option>
+            <option value="ISFP">ISFP - The Adventurer</option>
+            <option value="ESTP">ESTP - The Entrepreneur</option>
+            <option value="ESFP">ESFP - The Entertainer</option>
+        </select>
+    </div>
+    
+    <div class="flex justify-end">
+        <button
+            id="save-core-subjects-btn"
+            type="button"
+            class="px-8 py-3 bg-dark text-lime font-bold rounded-xl border-2 hover:bg-lime hover:text-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm font-sans"
+            disabled>
+            Save & Continue<i class="fas fa-arrow-right ml-2"></i>
+        </button>
+    </div>
 </div>
 
 <div class="bg-white rounded-2xl shadow-lg p-6 mt-6 border-2">

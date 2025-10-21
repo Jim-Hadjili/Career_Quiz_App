@@ -9,6 +9,7 @@
     <script src="Assets/Scripts/tailwindConfig.js"></script>
     <link rel="stylesheet" href="Assets/Styles/index.css">
     <link rel="stylesheet" href="Assets/Styles/careerSectionCarousel.css">
+    <link rel="icon" type="image/png" href="Assets/Images/logo.png">
     <title>CareerPath - Discover Your Perfect Career</title>
 </head>
 

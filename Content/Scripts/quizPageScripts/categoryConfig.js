@@ -1,75 +1,30 @@
 export class CategoryConfig {
   static getCategoryInfo(category) {
-    // Map individual categories to the 4 main quiz categories
+    // Map categories to the 4 main quiz categories
     const categoryMap = {
-      // Personality traits
-      social: {
+      // Personality Traits
+      personality: {
         class: "stage-personality",
         icon: "fas fa-user",
-        label: "Personality traits",
-      },
-      analytical: {
-        class: "stage-personality",
-        icon: "fas fa-user",
-        label: "Personality traits",
-      },
-      emotional: {
-        class: "stage-personality",
-        icon: "fas fa-user",
-        label: "Personality traits",
-      },
-      organized: {
-        class: "stage-personality",
-        icon: "fas fa-user",
-        label: "Personality traits",
-      },
-      "stress-management": {
-        class: "stage-personality",
-        icon: "fas fa-user",
-        label: "Personality traits",
-      },
-      "work-style": {
-        class: "stage-personality",
-        icon: "fas fa-user",
-        label: "Personality traits",
-      },
-      leadership: {
-        class: "stage-personality",
-        icon: "fas fa-user",
-        label: "Personality traits",
-      },
-      communication: {
-        class: "stage-personality",
-        icon: "fas fa-user",
-        label: "Personality traits",
+        label: "Personality Traits",
       },
 
       // Interests & Hobbies
-      technology: {
-        class: "stage-interests",
-        icon: "fas fa-heart",
-        label: "Interests & Hobbies",
-      },
-      creative: {
+      interests: {
         class: "stage-interests",
         icon: "fas fa-heart",
         label: "Interests & Hobbies",
       },
 
       // Work Values
-      healthcare: {
-        class: "stage-values",
-        icon: "fas fa-star",
-        label: "Work Values",
-      },
-      education: {
+      values: {
         class: "stage-values",
         icon: "fas fa-star",
         label: "Work Values",
       },
 
       // Skills & Strengths
-      finance: {
+      skills: {
         class: "stage-abilities",
         icon: "fas fa-bolt",
         label: "Skills & Strengths",
@@ -80,7 +35,7 @@ export class CategoryConfig {
       categoryMap[category] || {
         class: "stage-personality",
         icon: "fas fa-user",
-        label: "Personality traits",
+        label: "Personality Traits",
       }
     );
   }

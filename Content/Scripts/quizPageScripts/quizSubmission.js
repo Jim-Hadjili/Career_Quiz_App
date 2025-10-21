@@ -4,11 +4,11 @@ export class QuizSubmission {
   static submitQuiz(quizApp) {
     // Check if we need core subjects and haven't collected them yet
     if (quizApp.needsCoreSubjects && !quizApp.coreSubjects) {
-      CoreSubjectsHandler.showCoreSubjectsForm();
+      CoreSubjectsHandler.showCoreSubjectsForm(quizApp);
       return;
     }
 
-    // Proceed with actual submission
+    // If no core subjects needed or already collected, proceed with submission
     this.processQuizSubmission(quizApp);
   }
 
@@ -23,6 +23,7 @@ export class QuizSubmission {
       console.log("Core subjects:", quizApp.coreSubjects);
     }
 
+    // Here you would implement the actual quiz result processing
     alert("Quiz submitted successfully! Result Page will be available soon");
   }
 }

@@ -25,6 +25,12 @@ export class EventHandlers {
         quizApp.answers[questionId] = Number.parseInt(scale);
 
         quizApp.updateNavigationButtons();
+
+        console.log("[EventHandler] Answer saved:", {
+          questionId,
+          scale,
+          allAnswers: quizApp.answers,
+        });
       }
     });
 

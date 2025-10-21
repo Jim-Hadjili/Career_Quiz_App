@@ -9,6 +9,31 @@ export class NavigationUtils {
         q.style.display = "none";
       }
     });
+
+    // Restore previously selected answers
+    this.restoreQuestionAnswers(quizApp, index);
+  }
+
+  static restoreQuestionAnswers(quizApp, questionIndex) {
+    const currentQuestion = quizApp.questions[questionIndex];
+    const savedAnswer = quizApp.answers[currentQuestion.id];
+
+    if (savedAnswer) {
+      const questionDiv = document
+        .querySelector(`[data-question-id="${currentQuestion.id}"]`)
+        .closest(".quiz-question");
+      const radioInput = questionDiv.querySelector(
+        `input[data-scale="${savedAnswer}"]`
+      );
+      const scaleOption = questionDiv.querySelector(
+        `[data-scale="${savedAnswer}"].scale-option`
+      );
+
+      if (radioInput && scaleOption) {
+        radioInput.checked = true;
+        scaleOption.classList.add("selected");
+      }
+    }
   }
 
   static updateNavigationButtons(quizApp) {

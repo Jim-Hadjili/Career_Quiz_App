@@ -3,12 +3,13 @@
 <input type="hidden" id="session-id" value="<?php echo $isLoggedIn ? '' : $_SESSION['guest_session_id']; ?>">
 <input type="hidden" id="needs-core-subjects" value="<?php echo $needsCoreSubjects ? 'true' : 'false'; ?>">
 
+<!-- Main Quiz Container -->
 <div id="quiz-container">
 
 </div>
 
 <!-- Core Subjects Form (Hidden initially) -->
-<div id="core-subjects-form" class="bg-white rounded-2xl shadow-lg p-8 mt-6 border-2" style="display: none;">
+<div id="core-subjects-form" class="bg-white rounded-2xl shadow-lg p-8 border-2" style="display: none;">
     <div class="mb-6">
         <h3 class="text-2xl font-bold text-dark mb-4 font-sans">Additional Information Required</h3>
         <p class="text-gray-700 mb-6 font-sans">Please provide your core subject grades and MBTI personality type to get more accurate career recommendations.</p>
@@ -84,18 +85,27 @@
         </select>
     </div>
     
-    <div class="flex justify-end">
+    <!-- Core Subjects Form Navigation -->
+    <div class="flex justify-between items-center">
+        <button
+            id="back-to-quiz-btn"
+            type="button"
+            class="px-6 py-3 bg-cream text-dark font-bold rounded-xl border-2 hover:bg-dark hover:text-lime transition-all duration-300 shadow-sm font-sans">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Quiz
+        </button>
+        
         <button
             id="save-core-subjects-btn"
             type="button"
             class="px-8 py-3 bg-dark text-lime font-bold rounded-xl border-2 hover:bg-lime hover:text-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm font-sans"
             disabled>
-            Save & Continue<i class="fas fa-arrow-right ml-2"></i>
+            Complete Quiz<i class="fas fa-check ml-2"></i>
         </button>
     </div>
 </div>
 
-<div class="bg-white rounded-2xl shadow-lg p-6 mt-6 border-2">
+<!-- Quiz Navigation (Only shown during quiz) -->
+<div id="quiz-navigation" class="bg-white rounded-2xl shadow-lg p-6 mt-6 border-2">
     <div class="flex justify-between items-center">
         <button
             id="prev-btn"

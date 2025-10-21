@@ -18,6 +18,7 @@ export class CoreSubjectsHandler {
     );
     const mbtiSelect = document.getElementById("mbti-type");
     const saveBtn = document.getElementById("save-core-subjects-btn");
+    const backBtn = document.getElementById("back-to-quiz-btn");
 
     // Enable save button when all fields are filled
     const checkFormValidity = () => {
@@ -35,22 +36,49 @@ export class CoreSubjectsHandler {
     saveBtn.addEventListener("click", () => {
       this.saveCoreSubjects(quizApp);
     });
+
+    backBtn.addEventListener("click", () => {
+      this.showQuizForm(quizApp);
+    });
   }
 
-  static showCoreSubjectsForm() {
-    const form = document.getElementById("core-subjects-form");
-    const navigationDiv = form.nextElementSibling;
+  static showCoreSubjectsForm(quizApp) {
+    const quizContainer = document.getElementById("quiz-container");
+    const coreSubjectsForm = document.getElementById("core-subjects-form");
+    const quizNavigation = document.getElementById("quiz-navigation");
 
-    form.style.display = "block";
-    navigationDiv.style.display = "none";
+    // Hide quiz and navigation
+    quizContainer.style.display = "none";
+    quizNavigation.style.display = "none";
+
+    // Show core subjects form
+    coreSubjectsForm.style.display = "block";
+
+    console.log("[CoreSubjects] Showing core subjects form");
   }
 
-  static hideCoreSubjectsForm() {
-    const form = document.getElementById("core-subjects-form");
-    const navigationDiv = form.nextElementSibling;
+  static showQuizForm(quizApp) {
+    const quizContainer = document.getElementById("quiz-container");
+    const coreSubjectsForm = document.getElementById("core-subjects-form");
+    const quizNavigation = document.getElementById("quiz-navigation");
 
-    form.style.display = "none";
-    navigationDiv.style.display = "block";
+    // Show quiz and navigation
+    quizContainer.style.display = "block";
+    quizNavigation.style.display = "block";
+
+    // Hide core subjects form
+    coreSubjectsForm.style.display = "none";
+
+    // Restore the current question view and navigation state
+    quizApp.showQuestion(quizApp.currentQuestion);
+    quizApp.updateNavigationButtons();
+    quizApp.updateProgress();
+    quizApp.updateStageInfo();
+
+    console.log(
+      "[CoreSubjects] Showing quiz form, current question:",
+      quizApp.currentQuestion
+    );
   }
 
   static async saveCoreSubjects(quizApp) {
@@ -87,8 +115,8 @@ export class CoreSubjectsHandler {
           mbti_type: mbtiType,
         };
 
-        this.hideCoreSubjectsForm();
-        quizApp.submitQuiz();
+        // Now proceed with final quiz submission
+        this.processQuizSubmission(quizApp);
       } else {
         alert("Error saving core subjects: " + result.message);
       }
@@ -96,5 +124,20 @@ export class CoreSubjectsHandler {
       console.error("Error:", error);
       alert("An error occurred while saving core subjects.");
     }
+  }
+
+  static processQuizSubmission(quizApp) {
+    console.log("Quiz completed! Processing submission...");
+    console.log("Quiz answers:", quizApp.answers);
+    console.log("Quiz mode:", quizApp.quizMode);
+    console.log("User ID:", quizApp.userId);
+    console.log("Session ID:", quizApp.sessionId);
+
+    if (quizApp.coreSubjects) {
+      console.log("Core subjects:", quizApp.coreSubjects);
+    }
+
+    // Here you would implement the actual quiz result processing
+    alert("Quiz submitted successfully! Result Page will be available soon");
   }
 }

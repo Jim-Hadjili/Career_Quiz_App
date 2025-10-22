@@ -20,18 +20,18 @@
                         <i class="fas fa-user text-lime text-xl"></i>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">20 questions exploring your character traits, work style, and interpersonal preferences.</p>
+                <p class="text-gray-600 mb-4">10 questions exploring your character traits, work style, and interpersonal preferences.</p>
                 <ul class="space-y-2 text-gray-600">
                     <li class="flex items-center space-x-2">
-                        <i class="fas fa-check-circle text-lime"></i>
+                        <i class="fas fa-check-circle text-dark"></i>
                         <span>Introversion vs. Extroversion</span>
                     </li>
                     <li class="flex items-center space-x-2">
-                        <i class="fas fa-check-circle text-lime"></i>
+                        <i class="fas fa-check-circle text-dark"></i>
                         <span>Analytical vs. Creative thinking</span>
                     </li>
                     <li class="flex items-center space-x-2">
-                        <i class="fas fa-check-circle text-lime"></i>
+                        <i class="fas fa-check-circle text-dark"></i>
                         <span>Leadership qualities</span>
                     </li>
                 </ul>
@@ -47,7 +47,7 @@
                         <i class="fas fa-heart text-dark text-xl"></i>
                     </div>
                 </div>
-                <p class="text-gray-300 mb-4">15 questions about your passions, hobbies, and what energizes you.</p>
+                <p class="text-gray-300 mb-4">10 questions about your passions, hobbies, and what energizes you.</p>
                 <ul class="space-y-2 text-gray-300">
                     <li class="flex items-center space-x-2">
                         <i class="fas fa-check-circle text-lime"></i>
@@ -74,7 +74,7 @@
                         <i class="fas fa-star text-dark text-xl"></i>
                     </div>
                 </div>
-                <p class="text-gray-300 mb-4">12 questions about what matters most to you in a career.</p>
+                <p class="text-gray-300 mb-4">10 questions about what matters most to you in a career.</p>
                 <ul class="space-y-2 text-gray-300">
                     <li class="flex items-center space-x-2">
                         <i class="fas fa-check-circle text-lime"></i>
@@ -101,18 +101,18 @@
                         <i class="fas fa-bolt text-lime text-xl"></i>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">13 questions assessing your natural abilities and learned skills.</p>
+                <p class="text-gray-600 mb-4">10 questions assessing your natural abilities and learned skills.</p>
                 <ul class="space-y-2 text-gray-600">
                     <li class="flex items-center space-x-2">
-                        <i class="fas fa-check-circle text-lime"></i>
+                        <i class="fas fa-check-circle text-dark"></i>
                         <span>Problem-solving abilities</span>
                     </li>
                     <li class="flex items-center space-x-2">
-                        <i class="fas fa-check-circle text-lime"></i>
+                        <i class="fas fa-check-circle text-dark"></i>
                         <span>Communication skills</span>
                     </li>
                     <li class="flex items-center space-x-2">
-                        <i class="fas fa-check-circle text-lime"></i>
+                        <i class="fas fa-check-circle text-dark"></i>
                         <span>Technical proficiency</span>
                     </li>
                 </ul>

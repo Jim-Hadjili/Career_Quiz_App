@@ -16,48 +16,35 @@ function saveAllUserCoreSubjects($userId, $subjects) {
     
     // Check if user already has core subjects
     if (hasUserCoreSubjects($userId)) {
-        // Update existing record
+        // Update existing record (removed unwanted subjects)
         $sql = "UPDATE core_subject_tb SET 
                 Statistics_and_Probability = ?, Physical_Science = ?, mbti_type = ?,
-                oral_comm_context = ?, komunikasyon_pananaliksik = ?, general_math = ?,
-                earth_life_sci = ?, personal_dev = ?, ucsp = ?, pe_health_1 = ?,
-                pe_health_2 = ?, reading_writing = ?, pagbasa_pagsusuri = ?,
-                lit21_ph_world = ?, media_info_lit = ?, stats_prob = ?,
-                physical_sci = ?, cp_arts_regions = ?, intro_philo_human = ?,
-                pe_health_3 = ?, pe_health_4 = ?
+                oral_comm_context = ?, general_math = ?, earth_life_sci = ?, 
+                ucsp = ?, reading_writing = ?, lit21_ph_world = ?, 
+                media_info_lit = ?, cp_arts_regions = ?
                 WHERE user_id = ?";
         
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssssssssssssssssssssi", 
+        $stmt->bind_param("sssssssssssi", 
             $subjects['Statistics_and_Probability'], $subjects['Physical_Science'], $subjects['mbti_type'],
-            $subjects['oral_comm_context'], $subjects['komunikasyon_pananaliksik'], $subjects['general_math'],
-            $subjects['earth_life_sci'], $subjects['personal_dev'], $subjects['ucsp'], $subjects['pe_health_1'],
-            $subjects['pe_health_2'], $subjects['reading_writing'], $subjects['pagbasa_pagsusuri'],
-            $subjects['lit21_ph_world'], $subjects['media_info_lit'], $subjects['stats_prob'],
-            $subjects['physical_sci'], $subjects['cp_arts_regions'], $subjects['intro_philo_human'],
-            $subjects['pe_health_3'], $subjects['pe_health_4'], $userId
+            $subjects['oral_comm_context'], $subjects['general_math'], $subjects['earth_life_sci'],
+            $subjects['ucsp'], $subjects['reading_writing'], $subjects['lit21_ph_world'],
+            $subjects['media_info_lit'], $subjects['cp_arts_regions'], $userId
         );
     } else {
-        // Insert new record
+        // Insert new record (removed unwanted subjects)
         $sql = "INSERT INTO core_subject_tb 
                 (user_id, Statistics_and_Probability, Physical_Science, mbti_type,
-                oral_comm_context, komunikasyon_pananaliksik, general_math,
-                earth_life_sci, personal_dev, ucsp, pe_health_1,
-                pe_health_2, reading_writing, pagbasa_pagsusuri,
-                lit21_ph_world, media_info_lit, stats_prob,
-                physical_sci, cp_arts_regions, intro_philo_human,
-                pe_health_3, pe_health_4) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                oral_comm_context, general_math, earth_life_sci, ucsp,
+                reading_writing, lit21_ph_world, media_info_lit, cp_arts_regions) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("isssssssssssssssssssss", 
+        $stmt->bind_param("isssssssssss", 
             $userId, $subjects['Statistics_and_Probability'], $subjects['Physical_Science'], $subjects['mbti_type'],
-            $subjects['oral_comm_context'], $subjects['komunikasyon_pananaliksik'], $subjects['general_math'],
-            $subjects['earth_life_sci'], $subjects['personal_dev'], $subjects['ucsp'], $subjects['pe_health_1'],
-            $subjects['pe_health_2'], $subjects['reading_writing'], $subjects['pagbasa_pagsusuri'],
-            $subjects['lit21_ph_world'], $subjects['media_info_lit'], $subjects['stats_prob'],
-            $subjects['physical_sci'], $subjects['cp_arts_regions'], $subjects['intro_philo_human'],
-            $subjects['pe_health_3'], $subjects['pe_health_4']
+            $subjects['oral_comm_context'], $subjects['general_math'], $subjects['earth_life_sci'],
+            $subjects['ucsp'], $subjects['reading_writing'], $subjects['lit21_ph_world'],
+            $subjects['media_info_lit'], $subjects['cp_arts_regions']
         );
     }
     

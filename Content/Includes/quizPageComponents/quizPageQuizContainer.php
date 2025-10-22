@@ -69,23 +69,6 @@
                 required>
         </div>
 
-        <!-- Komunikasyon at Pananaliksik -->
-        <div>
-            <label for="komunikasyon-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Komunikasyon at Pananaliksik *
-            </label>
-            <input 
-                type="number" 
-                id="komunikasyon-grade" 
-                name="komunikasyon_pananaliksik"
-                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="0-100" 
-                min="0" 
-                max="100" 
-                step="0.01"
-                required>
-        </div>
-
         <!-- General Mathematics -->
         <div>
             <label for="general-math-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
@@ -120,23 +103,6 @@
                 required>
         </div>
 
-        <!-- Personal Development -->
-        <div>
-            <label for="personal-dev-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Personal Development *
-            </label>
-            <input 
-                type="number" 
-                id="personal-dev-grade" 
-                name="personal_dev"
-                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="0-100" 
-                min="0" 
-                max="100" 
-                step="0.01"
-                required>
-        </div>
-
         <!-- Understanding Culture, Society and Politics -->
         <div>
             <label for="ucsp-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
@@ -154,40 +120,6 @@
                 required>
         </div>
 
-        <!-- Physical Education and Health 1 -->
-        <div>
-            <label for="pe-health-1-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Physical Education and Health 1 *
-            </label>
-            <input 
-                type="number" 
-                id="pe-health-1-grade" 
-                name="pe_health_1"
-                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="0-100" 
-                min="0" 
-                max="100" 
-                step="0.01"
-                required>
-        </div>
-
-        <!-- Physical Education and Health 2 -->
-        <div>
-            <label for="pe-health-2-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Physical Education and Health 2 *
-            </label>
-            <input 
-                type="number" 
-                id="pe-health-2-grade" 
-                name="pe_health_2"
-                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="0-100" 
-                min="0" 
-                max="100" 
-                step="0.01"
-                required>
-        </div>
-
         <!-- Reading and Writing -->
         <div>
             <label for="reading-writing-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
@@ -197,23 +129,6 @@
                 type="number" 
                 id="reading-writing-grade" 
                 name="reading_writing"
-                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="0-100" 
-                min="0" 
-                max="100" 
-                step="0.01"
-                required>
-        </div>
-
-        <!-- Pagbasa at Pagsusuri -->
-        <div>
-            <label for="pagbasa-pagsusuri-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Pagbasa at Pagsusuri *
-            </label>
-            <input 
-                type="number" 
-                id="pagbasa-pagsusuri-grade" 
-                name="pagbasa_pagsusuri"
                 class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
                 placeholder="0-100" 
                 min="0" 
@@ -256,40 +171,6 @@
                 required>
         </div>
 
-        <!-- Statistics and Probability (duplicate field) -->
-        <div>
-            <label for="stats-prob-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Statistics and Probability (Advanced) *
-            </label>
-            <input 
-                type="number" 
-                id="stats-prob-grade" 
-                name="stats_prob"
-                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="0-100" 
-                min="0" 
-                max="100" 
-                step="0.01"
-                required>
-        </div>
-
-        <!-- Physical Science (duplicate field) -->
-        <div>
-            <label for="physical-sci-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Physical Science (Advanced) *
-            </label>
-            <input 
-                type="number" 
-                id="physical-sci-grade" 
-                name="physical_sci"
-                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="0-100" 
-                min="0" 
-                max="100" 
-                step="0.01"
-                required>
-        </div>
-
         <!-- Contemporary Philippine Arts from the Regions -->
         <div>
             <label for="cp-arts-regions-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
@@ -299,57 +180,6 @@
                 type="number" 
                 id="cp-arts-regions-grade" 
                 name="cp_arts_regions"
-                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="0-100" 
-                min="0" 
-                max="100" 
-                step="0.01"
-                required>
-        </div>
-
-        <!-- Introduction to the Philosophy of the Human Person -->
-        <div>
-            <label for="intro-philo-human-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Introduction to Philosophy *
-            </label>
-            <input 
-                type="number" 
-                id="intro-philo-human-grade" 
-                name="intro_philo_human"
-                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="0-100" 
-                min="0" 
-                max="100" 
-                step="0.01"
-                required>
-        </div>
-
-        <!-- Physical Education and Health 3 -->
-        <div>
-            <label for="pe-health-3-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Physical Education and Health 3 *
-            </label>
-            <input 
-                type="number" 
-                id="pe-health-3-grade" 
-                name="pe_health_3"
-                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
-                placeholder="0-100" 
-                min="0" 
-                max="100" 
-                step="0.01"
-                required>
-        </div>
-
-        <!-- Physical Education and Health 4 -->
-        <div>
-            <label for="pe-health-4-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
-                Physical Education and Health 4 *
-            </label>
-            <input 
-                type="number" 
-                id="pe-health-4-grade" 
-                name="pe_health_4"
                 class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans" 
                 placeholder="0-100" 
                 min="0" 

@@ -1,0 +1,199 @@
+<div id="core-subjects-form" class="bg-white rounded-2xl shadow-lg p-8 border-2" style="display: none;">
+    <div class="mb-6">
+        <h3 class="text-2xl font-bold text-dark mb-4 font-sans">Core Subject Grades Required</h3>
+        <p class="text-gray-700 mb-6 font-sans">Please provide your core subject grades to get more accurate career recommendations.</p>
+    </div>
+
+    <!-- Subject Grades Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 max-h-96 overflow-y-auto border rounded-xl p-4">
+
+        <!-- Statistics and Probability -->
+        <div>
+            <label for="statistics-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Statistics and Probability *
+            </label>
+            <input
+                type="number"
+                id="statistics-grade"
+                name="Statistics_and_Probability"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans"
+                placeholder="0-100"
+                min="0"
+                max="100"
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Physical Science -->
+        <div>
+            <label for="physical-science-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Physical Science *
+            </label>
+            <input
+                type="number"
+                id="physical-science-grade"
+                name="Physical_Science"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans"
+                placeholder="0-100"
+                min="0"
+                max="100"
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Oral Communication in Context -->
+        <div>
+            <label for="oral-comm-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Oral Communication in Context *
+            </label>
+            <input
+                type="number"
+                id="oral-comm-grade"
+                name="oral_comm_context"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans"
+                placeholder="0-100"
+                min="0"
+                max="100"
+                step="0.01"
+                required>
+        </div>
+
+        <!-- General Mathematics -->
+        <div>
+            <label for="general-math-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                General Mathematics *
+            </label>
+            <input
+                type="number"
+                id="general-math-grade"
+                name="general_math"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans"
+                placeholder="0-100"
+                min="0"
+                max="100"
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Earth and Life Science -->
+        <div>
+            <label for="earth-life-sci-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Earth and Life Science *
+            </label>
+            <input
+                type="number"
+                id="earth-life-sci-grade"
+                name="earth_life_sci"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans"
+                placeholder="0-100"
+                min="0"
+                max="100"
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Understanding Culture, Society and Politics -->
+        <div>
+            <label for="ucsp-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Understanding Culture, Society and Politics *
+            </label>
+            <input
+                type="number"
+                id="ucsp-grade"
+                name="ucsp"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans"
+                placeholder="0-100"
+                min="0"
+                max="100"
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Reading and Writing -->
+        <div>
+            <label for="reading-writing-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Reading and Writing *
+            </label>
+            <input
+                type="number"
+                id="reading-writing-grade"
+                name="reading_writing"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans"
+                placeholder="0-100"
+                min="0"
+                max="100"
+                step="0.01"
+                required>
+        </div>
+
+        <!-- 21st Century Literature from the Philippines and the World -->
+        <div>
+            <label for="lit21-ph-world-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                21st Century Literature *
+            </label>
+            <input
+                type="number"
+                id="lit21-ph-world-grade"
+                name="lit21_ph_world"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans"
+                placeholder="0-100"
+                min="0"
+                max="100"
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Media and Information Literacy -->
+        <div>
+            <label for="media-info-lit-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Media and Information Literacy *
+            </label>
+            <input
+                type="number"
+                id="media-info-lit-grade"
+                name="media_info_lit"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans"
+                placeholder="0-100"
+                min="0"
+                max="100"
+                step="0.01"
+                required>
+        </div>
+
+        <!-- Contemporary Philippine Arts from the Regions -->
+        <div>
+            <label for="cp-arts-regions-grade" class="block text-sm font-bold text-dark mb-2 font-sans">
+                Contemporary Philippine Arts *
+            </label>
+            <input
+                type="number"
+                id="cp-arts-regions-grade"
+                name="cp_arts_regions"
+                class="w-full p-3 border-2 border-border rounded-xl focus:border-dark focus:outline-none font-sans"
+                placeholder="0-100"
+                min="0"
+                max="100"
+                step="0.01"
+                required>
+        </div>
+
+    </div>
+
+    <!-- Core Subjects Form Navigation -->
+    <div class="flex justify-between items-center">
+        <button
+            id="back-to-quiz-btn"
+            type="button"
+            class="px-6 py-3 bg-cream text-dark font-bold rounded-xl border-2 hover:bg-dark hover:text-lime transition-all duration-300 shadow-sm font-sans">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Quiz
+        </button>
+
+        <button
+            id="continue-to-mbti-btn"
+            type="button"
+            class="px-8 py-3 bg-dark text-lime font-bold rounded-xl border-2 hover:bg-lime hover:text-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm font-sans"
+            disabled>
+            Continue<i class="fas fa-arrow-right ml-2"></i>
+        </button>
+    </div>
+</div>

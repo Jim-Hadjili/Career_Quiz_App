@@ -6,7 +6,7 @@
         </div>
         <h3 class="text-3xl font-bold text-dark mb-3 font-sans">Academic Data</h3>
         <p class="text-gray-600 text-lg font-sans max-w-2xl mx-auto">
-            Help us understand your academic strengths by providing your grades in these core subjects. 
+            Help us understand your academic strengths by providing your grades in these core subjects.
             This will enable more personalized career recommendations.
         </p>
     </div>
@@ -45,7 +45,7 @@
             <h4 class="text-lg font-bold text-dark font-sans">Core Subject Grades</h4>
             <div class="ml-auto">
                 <span class="text-sm text-gray-600 font-sans">
-                    <span id="filled-subjects">0</span> of 10 completed
+                    <span id="filled-subjects">0</span> of 9 completed
                 </span>
             </div>
         </div>
@@ -233,26 +233,6 @@
                     required>
             </div>
 
-            <!-- Contemporary Philippine Arts -->
-            <div class="bg-white p-5 rounded-xl border border-gray-200 hover:border-dark/20 transition-all duration-200 hover:shadow-md">
-                <div class="flex items-start justify-between mb-3">
-                    <label for="cp-arts-regions-grade" class="block text-sm font-bold text-dark font-sans leading-tight">
-                        Contemporary Arts
-                    </label>
-                    <span class="text-red-500 text-sm">*</span>
-                </div>
-                <input
-                    type="number"
-                    id="cp-arts-regions-grade"
-                    name="cp_arts_regions"
-                    class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-dark focus:outline-none font-sans text-center text-lg font-medium hover:border-gray-300 transition-colors duration-200"
-                    placeholder="84.0"
-                    min="0"
-                    max="100"
-                    step="0.01"
-                    required>
-            </div>
-
         </div>
 
     </div>
@@ -282,49 +262,48 @@
 </div>
 
 <script>
-// Add interactive features for better UX
-document.addEventListener('DOMContentLoaded', function() {
-    const inputs = document.querySelectorAll('#core-subjects-form input[type="number"]');
-    const continueBtn = document.getElementById('continue-to-mbti-btn');
-    const filledCounter = document.getElementById('filled-subjects');
-    const validationMsg = document.getElementById('validation-message');
-    const successMsg = document.getElementById('success-message');
-    
-    function updateProgress() {
-        const filledInputs = Array.from(inputs).filter(input => input.value.trim() !== '');
-        const filledCount = filledInputs.length;
-        
-        // Update counter
-        filledCounter.textContent = filledCount;
-        
-        // Update button state and messages
-        if (filledCount === inputs.length) {
-            continueBtn.disabled = false;
-            validationMsg.classList.add('hidden');
-            successMsg.classList.remove('hidden');
-        } else {
-            continueBtn.disabled = true;
-            successMsg.classList.add('hidden');
-            if (filledCount > 0) {
-                validationMsg.classList.remove('hidden');
+    // Add interactive features for better UX
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('#core-subjects-form input[type="number"]');
+        const continueBtn = document.getElementById('continue-to-mbti-btn');
+        const filledCounter = document.getElementById('filled-subjects');
+        const validationMsg = document.getElementById('validation-message');
+        const successMsg = document.getElementById('success-message');
+
+        function updateProgress() {
+            const filledInputs = Array.from(inputs).filter(input => input.value.trim() !== '');
+            const filledCount = filledInputs.length;
+
+            // Update counter
+            filledCounter.textContent = filledCount;
+
+            // Update button state and messages
+            if (filledCount === inputs.length) {
+                continueBtn.disabled = false;
+                validationMsg.classList.add('hidden');
+                successMsg.classList.remove('hidden');
+            } else {
+                continueBtn.disabled = true;
+                successMsg.classList.add('hidden');
+                if (filledCount > 0) {
+                    validationMsg.classList.remove('hidden');
+                }
             }
         }
-    }
-    
-    // Add event listeners to all inputs
-    inputs.forEach(input => {
-        input.addEventListener('input', updateProgress);
-        input.addEventListener('blur', function() {
-            // Add visual feedback for completed fields
-            if (this.value.trim() !== '') {
-                this.classList.add('border-lime');
-            } else {
-                this.classList.remove('border-lime');
-            }
+
+        // Add event listeners to all inputs
+        inputs.forEach(input => {
+            input.addEventListener('input', updateProgress);
+            input.addEventListener('blur', function() {
+                // Add visual feedback for completed fields
+                if (this.value.trim() !== '') {
+                    this.classList.add('border-lime');
+                } else {
+                    this.classList.remove('border-lime');
+                }
+            });
         });
+
+        updateProgress();
     });
-    
-    // Initial progress check
-    updateProgress();
-});
 </script>

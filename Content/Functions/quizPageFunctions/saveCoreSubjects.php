@@ -20,7 +20,6 @@ if ($action !== 'save_core_subjects') {
     exit;
 }
 
-// Extract all subject grades (updated list)
 $subjects = [
     'Statistics_and_Probability' => $_POST['Statistics_and_Probability'] ?? '',
     'Physical_Science' => $_POST['Physical_Science'] ?? '',
@@ -31,11 +30,9 @@ $subjects = [
     'reading_writing' => $_POST['reading_writing'] ?? '',
     'lit21_ph_world' => $_POST['lit21_ph_world'] ?? '',
     'media_info_lit' => $_POST['media_info_lit'] ?? '',
-    'cp_arts_regions' => $_POST['cp_arts_regions'] ?? '',
     'mbti_type' => $_POST['mbti_type'] ?? ''
 ];
 
-// Validate required fields
 foreach ($subjects as $key => $value) {
     if (empty($value)) {
         echo json_encode(['success' => false, 'message' => "Field $key is required"]);
@@ -45,20 +42,17 @@ foreach ($subjects as $key => $value) {
 
 try {
     if ($quizMode === 'user' && !empty($userId)) {
-        // Save for registered user
         $success = saveAllUserCoreSubjects($userId, $subjects);
-        
+
         if ($success) {
             echo json_encode(['success' => true, 'message' => 'Core subjects saved successfully']);
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to save core subjects']);
         }
     } else {
-        // For guest users, store in session
         $_SESSION['guest_core_subjects'] = $subjects;
         echo json_encode(['success' => true, 'message' => 'Core subjects stored for guest user']);
     }
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
 }
-?>

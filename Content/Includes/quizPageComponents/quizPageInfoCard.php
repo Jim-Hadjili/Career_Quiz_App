@@ -32,19 +32,19 @@
         <!-- Stage Overview -->
         <div class="grid grid-cols-2 grid-rows-2 gap-3 md:gap-4">
             <div class="p-3 md:p-4 bg-cream rounded-xl border-2 border-border shadow-sm min-w-[120px]">
-            <div class="text-xl md:text-2xl font-bold text-dark mb-1 font-sans">1</div>
+            <div class="text-xl md:text-2xl font-bold text-dark mb-1 font-sans">10</div>
             <div class="text-xs md:text-sm font-semibold text-gray-700 font-sans">Personality</div>
             </div>
             <div class="p-3 md:p-4 bg-cream rounded-xl border-2 border-border shadow-sm min-w-[120px]">
-            <div class="text-xl md:text-2xl font-bold text-dark mb-1 font-sans">1</div>
+            <div class="text-xl md:text-2xl font-bold text-dark mb-1 font-sans">10</div>
             <div class="text-xs md:text-sm font-semibold text-gray-700 font-sans">Interests & Hobbies</div>
             </div>
             <div class="p-3 md:p-4 bg-cream rounded-xl border-2 border-border shadow-sm min-w-[120px]">
-            <div class="text-xl md:text-2xl font-bold text-dark mb-1 font-sans">1</div>
+            <div class="text-xl md:text-2xl font-bold text-dark mb-1 font-sans">10</div>
             <div class="text-xs md:text-sm font-semibold text-dark font-sans">Work Values</div>
             </div>
             <div class="p-3 md:p-4 bg-cream rounded-xl border-2 border-border shadow-sm min-w-[120px]">
-            <div class="text-xl md:text-2xl font-bold text-dark mb-1 font-sans">1</div>
+            <div class="text-xl md:text-2xl font-bold text-dark mb-1 font-sans">10</div>
             <div class="text-xs md:text-sm font-semibold text-dark font-sans">Skills & Strengths</div>
             </div>
         </div>

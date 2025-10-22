@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2025 at 03:55 PM
+-- Generation Time: Oct 22, 2025 at 05:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,7 +31,15 @@ CREATE TABLE `core_subject_tb` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `Statistics_and_Probability` varchar(255) NOT NULL,
-  `Physical_Science` varchar(255) NOT NULL
+  `Physical_Science` varchar(255) NOT NULL,
+  `oral_comm_context` varchar(255) NOT NULL,
+  `general_math` varchar(255) NOT NULL,
+  `earth_life_sci` varchar(255) NOT NULL,
+  `ucsp` varchar(255) NOT NULL,
+  `reading_writing` varchar(255) NOT NULL,
+  `lit21_ph_world` varchar(255) NOT NULL,
+  `media_info_lit` varchar(255) NOT NULL,
+  `mbti_type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -62,13 +70,6 @@ CREATE TABLE `users_tb` (
   `userEmail` varchar(255) NOT NULL,
   `userPassword` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users_tb`
---
-
-INSERT INTO `users_tb` (`user_id`, `userName`, `userEmail`, `userPassword`) VALUES
-(1, 'Jim Hadjili', 'jim.hadjili@gmail.com', '$2y$10$qQG1S4NJnbRSGEfcOBaa7.a.gXyVdAMjl/C8VlwqC6dA/Mzyx2uGG');
 
 --
 -- Indexes for dumped tables
@@ -113,7 +114,7 @@ ALTER TABLE `quiz_results_tb`
 -- AUTO_INCREMENT for table `users_tb`
 --
 ALTER TABLE `users_tb`
-  MODIFY `user_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

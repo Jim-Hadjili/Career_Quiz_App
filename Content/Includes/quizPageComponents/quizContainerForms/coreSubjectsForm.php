@@ -262,13 +262,61 @@
 </div>
 
 <script>
-    // Add interactive features for better UX
     document.addEventListener('DOMContentLoaded', function() {
         const inputs = document.querySelectorAll('#core-subjects-form input[type="number"]');
         const continueBtn = document.getElementById('continue-to-mbti-btn');
         const filledCounter = document.getElementById('filled-subjects');
         const validationMsg = document.getElementById('validation-message');
         const successMsg = document.getElementById('success-message');
+
+        // Function to validate and adjust grade values
+        function validateGrade(input) {
+            let value = parseFloat(input.value);
+            
+            // If empty or not a number, don't validate
+            if (input.value.trim() === '' || isNaN(value)) {
+                return;
+            }
+            
+            // Only adjust if value is outside the valid range (65-100)
+            if (value < 65) {
+                input.value = 65;
+                showGradeAdjustmentFeedback(input, 'minimum');
+            } else if (value > 100) {
+                input.value = 100;
+                showGradeAdjustmentFeedback(input, 'maximum');
+            }
+            // If value is between 65-100, no adjustment needed
+        }
+
+        // Function to show visual feedback when grade is adjusted
+        function showGradeAdjustmentFeedback(input, type) {
+            const parent = input.parentElement;
+            let message = type === 'minimum' ? 'Minimum grade (65%)' : 'Maximum grade (100%)';
+            
+            // Remove existing feedback
+            const existingFeedback = parent.querySelector('.grade-feedback');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
+            
+            // Add feedback message
+            const feedback = document.createElement('div');
+            feedback.className = 'grade-feedback text-xs text-orange-600 mt-1 font-medium';
+            feedback.textContent = message;
+            parent.appendChild(feedback);
+            
+            // Add temporary visual highlight
+            input.classList.add('border-orange-400', 'bg-orange-50');
+            
+            // Remove feedback and highlight after 3 seconds
+            setTimeout(() => {
+                if (feedback.parentElement) {
+                    feedback.remove();
+                }
+                input.classList.remove('border-orange-400', 'bg-orange-50');
+            }, 3000);
+        }
 
         function updateProgress() {
             const filledInputs = Array.from(inputs).filter(input => input.value.trim() !== '');
@@ -280,12 +328,12 @@
             // Update button state and messages
             if (filledCount === inputs.length) {
                 continueBtn.disabled = false;
-                validationMsg.classList.add('hidden');
-                successMsg.classList.remove('hidden');
+                if (validationMsg) validationMsg.classList.add('hidden');
+                if (successMsg) successMsg.classList.remove('hidden');
             } else {
                 continueBtn.disabled = true;
-                successMsg.classList.add('hidden');
-                if (filledCount > 0) {
+                if (successMsg) successMsg.classList.add('hidden');
+                if (filledCount > 0 && validationMsg) {
                     validationMsg.classList.remove('hidden');
                 }
             }
@@ -293,13 +341,48 @@
 
         // Add event listeners to all inputs
         inputs.forEach(input => {
-            input.addEventListener('input', updateProgress);
+            // Set min and max attributes for HTML5 validation
+            input.setAttribute('min', '65');
+            input.setAttribute('max', '100');
+            
+            // Real-time validation on input (only for complete values)
+            input.addEventListener('input', function() {
+                // Only validate if the user has finished typing (value looks complete)
+                const value = parseFloat(this.value);
+                if (!isNaN(value) && this.value.length >= 2) {
+                    validateGrade(this);
+                }
+                updateProgress();
+            });
+            
+            // Validation when user leaves the field
             input.addEventListener('blur', function() {
+                validateGrade(this);
+                
                 // Add visual feedback for completed fields
                 if (this.value.trim() !== '') {
                     this.classList.add('border-lime');
                 } else {
                     this.classList.remove('border-lime');
+                }
+                
+                updateProgress();
+            });
+            
+            // Allow decimal input and prevent invalid characters
+            input.addEventListener('keydown', function(e) {
+                if ([46, 8, 9, 27, 13, 110, 190].indexOf(e.keyCode) !== -1 ||
+                    (e.keyCode === 65 && e.ctrlKey === true) ||
+                    (e.keyCode === 67 && e.ctrlKey === true) ||
+                    (e.keyCode === 86 && e.ctrlKey === true) ||
+                    (e.keyCode === 88 && e.ctrlKey === true) ||
+                    // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress for invalid characters
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
                 }
             });
         });

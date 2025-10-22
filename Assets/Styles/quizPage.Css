@@ -210,3 +210,70 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #6b7280;
 }
+
+/* MBTI Button Styles */
+.mbti-button {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #d1d5db; /* gray-300 */
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover State */
+.mbti-button:hover {
+  border-color: #191a23; /* dark */
+  background-color: #f9fafb; /* gray-50 */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(25, 26, 35, 0.15);
+}
+
+/* Selected State */
+.mbti-button.selected {
+  border-color: #b9ff66; /* lime */
+  background-color: rgba(212, 241, 100, 0.1); /* lime/10 */
+  box-shadow: 0 0 0 3px rgba(212, 241, 100, 0.3),
+    0 4px 12px rgba(25, 26, 35, 0.15);
+}
+
+/* Selected state text color adjustments */
+.mbti-button.selected .text-dark {
+  color: #191a23; /* Keep dark text */
+}
+
+.mbti-button.selected .text-gray-700 {
+  color: #374151; /* Keep readable contrast */
+}
+
+.mbti-button.selected .text-gray-600 {
+  color: #4b5563; /* Keep readable contrast */
+}
+
+/* Hover effect on selected button */
+.mbti-button.selected:hover {
+  background-color: rgba(
+    212,
+    241,
+    100,
+    0.15
+  ); /* Slightly more lime background */
+  transform: translateY(-2px);
+}
+
+/* Focus state for accessibility */
+.mbti-button:focus {
+  outline: none;
+  border-color: #b9ff66; /* dark */
+  box-shadow: 0 0 0 3px rgba(25, 26, 35, 0.1);
+}
+
+/* Active state (when clicked) */
+.mbti-button:active {
+  transform: translateY(0px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

@@ -11,6 +11,10 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
       .trait-bar {
         display: flex;
         align-items: center;
@@ -115,7 +119,7 @@
         </header>
 
         <!-- Section 1: Your Career Path -->
-        <section class="bg-gray-50 py-12">
+        <section class="bg-gray-50 py-12" id="Career-path">
           <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center mb-8">
               <div
@@ -166,7 +170,7 @@
         </section>
 
         <!-- Section 2: Recommended Career Paths (Card Carousel) -->
-        <section class="bg-white py-12">
+        <section class="bg-white py-12" id="Recommended-Career-Paths">
           <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center mb-8">
               <div
@@ -222,7 +226,10 @@
         </section>
 
         <!-- Section 3: Personality Traits -->
-        <section class="bg-white border-b-4 border-border py-12">
+        <section
+          class="bg-white border-b-4 border-border py-12"
+          id="Personality-Traits"
+        >
           <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center mb-8">
               <div
@@ -283,7 +290,7 @@
         </section>
 
         <!-- Section 4: Full Analysis -->
-        <section class="bg-gray-50 py-12">
+        <section class="bg-gray-50 py-12" id="Personality-Type">
           <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Large personality banner -->
             <div class="bg-lime rounded-3xl p-12 mb-12 text-dark shadow-xl">
@@ -393,44 +400,44 @@
           </p>
           <nav class="space-y-3">
             <a
-              href="#section1"
+              href="#Career-path"
               class="flex items-center text-md text-gray-700 hover:text-dark hover:font-semibold transition-colors"
             >
               <span
                 class="w-6 h-6 rounded-full bg-lime flex items-center justify-center text-xs font-bold mr-3"
                 >1</span
               >
-              Personality Traits
+              Career Path
             </a>
             <a
-              href="#section2"
+              href="#Recommended-Career-Paths"
               class="flex items-center text-md text-gray-700 hover:text-dark hover:font-semibold transition-colors"
             >
               <span
                 class="w-6 h-6 rounded-full bg-lime flex items-center justify-center text-xs font-bold mr-3"
                 >2</span
               >
-              Your Career Path
+              Recommended Careers
             </a>
             <a
-              href="#section3"
+              href="#Personality-Traits"
               class="flex items-center text-md text-gray-700 hover:text-dark hover:font-semibold transition-colors"
             >
               <span
                 class="w-6 h-6 rounded-full bg-lime flex items-center justify-center text-xs font-bold mr-3"
                 >3</span
               >
-              Career Paths
+              Personality Traits
             </a>
             <a
-              href="#section4"
+              href="#Personality-Type"
               class="flex items-center text-md text-gray-700 hover:text-dark hover:font-semibold transition-colors"
             >
               <span
                 class="w-6 h-6 rounded-full bg-lime flex items-center justify-center text-xs font-bold mr-3"
                 >4</span
               >
-              Full Analysis
+              Personality Type
             </a>
           </nav>
         </div>

@@ -10,7 +10,7 @@ export class EventHandlers {
         const scale = input.dataset.scale;
 
         // Remove selected class from all options in this question
-        const questionDiv = e.target.closest(".quiz-question");
+        const questionDiv = e.target.closest(".question-item");
         questionDiv.querySelectorAll(".scale-option").forEach((option) => {
           option.classList.remove("selected");
         });
@@ -24,11 +24,14 @@ export class EventHandlers {
         // Store answer
         quizApp.answers[questionId] = Number.parseInt(scale);
 
+        // Update UI
         quizApp.updateNavigationButtons();
+        quizApp.updateProgress();
 
         console.log("[EventHandler] Answer saved:", {
           questionId,
           scale,
+          category: quizApp.categories[quizApp.currentCategory],
           allAnswers: quizApp.answers,
         });
       }
@@ -41,24 +44,22 @@ export class EventHandlers {
 
     if (prevBtn) {
       prevBtn.addEventListener("click", () => {
-        if (quizApp.currentQuestion > 0) {
-          quizApp.currentQuestion--;
-          quizApp.showQuestion(quizApp.currentQuestion);
+        if (quizApp.currentCategory > 0) {
+          quizApp.currentCategory--;
+          quizApp.showCategory(quizApp.currentCategory);
           quizApp.updateProgress();
           quizApp.updateNavigationButtons();
-          quizApp.updateStageInfo();
         }
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener("click", () => {
-        if (quizApp.currentQuestion < quizApp.totalQuestions - 1) {
-          quizApp.currentQuestion++;
-          quizApp.showQuestion(quizApp.currentQuestion);
+        if (quizApp.currentCategory < quizApp.totalCategories - 1) {
+          quizApp.currentCategory++;
+          quizApp.showCategory(quizApp.currentCategory);
           quizApp.updateProgress();
           quizApp.updateNavigationButtons();
-          quizApp.updateStageInfo();
         }
       });
     }

@@ -2,8 +2,9 @@ import { CategoryConfig } from "./categoryConfig.js";
 
 export class ProgressUtils {
   static updateProgress(quizApp) {
-    const progress =
-      ((quizApp.currentQuestion + 1) / quizApp.totalQuestions) * 100;
+    const answeredQuestions = quizApp.getAnsweredQuestionsCount();
+    const progress = (answeredQuestions / quizApp.totalQuestions) * 100;
+
     const progressBar = document.getElementById("progress-bar");
     const currentQuestionEl = document.getElementById("current-question");
 
@@ -15,24 +16,35 @@ export class ProgressUtils {
     }
 
     if (currentQuestionEl) {
-      currentQuestionEl.textContent = quizApp.currentQuestion + 1;
+      currentQuestionEl.textContent = answeredQuestions;
     }
+
+    // Update category progress info
+    this.updateCategoryProgress(quizApp);
+  }
+
+  static updateCategoryProgress(quizApp) {
+    const currentCategory = quizApp.categories[quizApp.currentCategory];
+    const categoryQuestions = quizApp.getCurrentCategoryQuestions();
+    const answeredInCategory = categoryQuestions.filter((q) =>
+      quizApp.answers.hasOwnProperty(q.id)
+    ).length;
+
+    // You can add elements to display category-specific progress
+    console.log(
+      `[Progress] Category ${currentCategory}: ${answeredInCategory}/${categoryQuestions.length} answered`
+    );
   }
 
   static updateStageInfo(quizApp) {
+    const currentCategory = quizApp.categories[quizApp.currentCategory];
+    const categoryInfo = CategoryConfig.getCategoryInfo(currentCategory);
     const stageBadges = document.querySelectorAll(".stage-badge");
 
     if (stageBadges.length === 0) {
       console.error("[v0] Stage badge elements not found");
       return;
     }
-
-    const currentQuestion = quizApp.questions[quizApp.currentQuestion];
-    if (!currentQuestion) return;
-
-    const categoryInfo = CategoryConfig.getCategoryInfo(
-      currentQuestion.category
-    );
 
     // Update all stage badges (in case there are multiple)
     stageBadges.forEach((stageBadge) => {

@@ -8,9 +8,11 @@ import { CoreSubjectsHandler } from "./coreSubjectsHandler.js";
 
 class QuizApp {
   constructor() {
-    this.currentQuestion = 0;
+    this.currentCategory = 0;
     this.answers = {};
     this.questions = quizQuestions;
+    this.categories = this.getCategories();
+    this.totalCategories = this.categories.length;
     this.totalQuestions = this.questions.length;
     this.needsCoreSubjects = false;
     this.coreSubjects = null;
@@ -27,11 +29,10 @@ class QuizApp {
   }
 
   init() {
-    QuestionRenderer.renderAllQuestions(this);
+    QuestionRenderer.renderCategoryQuestions(this, this.currentCategory);
     EventHandlers.setupEventListeners(this);
     ProgressUtils.updateProgress(this);
     NavigationUtils.updateNavigationButtons(this);
-    ProgressUtils.updateStageInfo(this);
     CoreSubjectsHandler.init(this);
 
     const totalQuestionsEl = document.getElementById("total-questions");
@@ -40,20 +41,46 @@ class QuizApp {
     }
   }
 
-  setupEventListeners() {
-    EventHandlers.setupEventListeners(this);
+  getCategories() {
+    const categories = [];
+    const seen = new Set();
+
+    this.questions.forEach((question) => {
+      if (!seen.has(question.category)) {
+        categories.push(question.category);
+        seen.add(question.category);
+      }
+    });
+
+    return categories;
   }
 
-  showQuestion(index) {
-    NavigationUtils.showQuestion(this, index);
+  getQuestionsByCategory(category) {
+    return this.questions.filter((question) => question.category === category);
+  }
+
+  getCurrentCategoryQuestions() {
+    const currentCategory = this.categories[this.currentCategory];
+    return this.getQuestionsByCategory(currentCategory);
+  }
+
+  isCategoryComplete() {
+    const categoryQuestions = this.getCurrentCategoryQuestions();
+    return categoryQuestions.every((question) =>
+      this.answers.hasOwnProperty(question.id)
+    );
+  }
+
+  getAnsweredQuestionsCount() {
+    return Object.keys(this.answers).length;
+  }
+
+  showCategory(categoryIndex) {
+    NavigationUtils.showCategory(this, categoryIndex);
   }
 
   updateProgress() {
     ProgressUtils.updateProgress(this);
-  }
-
-  updateStageInfo() {
-    ProgressUtils.updateStageInfo(this);
   }
 
   updateNavigationButtons() {

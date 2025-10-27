@@ -1,38 +1,41 @@
-export class NavigationUtils {
-  static showQuestion(quizApp, index) {
-    const allQuestions = document.querySelectorAll(".quiz-question");
+import { QuestionRenderer } from "./questionRenderer.js";
 
-    allQuestions.forEach((q, i) => {
-      if (i === index) {
-        q.style.display = "block";
-      } else {
-        q.style.display = "none";
-      }
+export class NavigationUtils {
+  static showCategory(quizApp, categoryIndex) {
+    quizApp.currentCategory = categoryIndex;
+    QuestionRenderer.renderCategoryQuestions(quizApp, categoryIndex);
+
+    // Use requestAnimationFrame to ensure DOM is updated before scrolling
+    requestAnimationFrame(() => {
+      this.scrollToQuizContainer();
     });
 
-    // Restore previously selected answers
-    this.restoreQuestionAnswers(quizApp, index);
+    console.log(
+      `[Navigation] Showing category ${categoryIndex + 1}: ${
+        quizApp.categories[categoryIndex]
+      }`
+    );
   }
 
-  static restoreQuestionAnswers(quizApp, questionIndex) {
-    const currentQuestion = quizApp.questions[questionIndex];
-    const savedAnswer = quizApp.answers[currentQuestion.id];
+  static scrollToQuizContainer() {
+    const quizContainer = document.getElementById("quiz-container");
+    if (quizContainer) {
+      // Get the position of the quiz container
+      const containerTop =
+        quizContainer.getBoundingClientRect().top + window.pageYOffset;
+      // Scroll to 100px above the container for better visibility
+      const scrollPosition = containerTop - 115;
 
-    if (savedAnswer) {
-      const questionDiv = document
-        .querySelector(`[data-question-id="${currentQuestion.id}"]`)
-        .closest(".quiz-question");
-      const radioInput = questionDiv.querySelector(
-        `input[data-scale="${savedAnswer}"]`
-      );
-      const scaleOption = questionDiv.querySelector(
-        `[data-scale="${savedAnswer}"].scale-option`
-      );
-
-      if (radioInput && scaleOption) {
-        radioInput.checked = true;
-        scaleOption.classList.add("selected");
-      }
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth",
+      });
+    } else {
+      // Fallback: scroll to top of page
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
   }
 
@@ -47,21 +50,31 @@ export class NavigationUtils {
     }
 
     // Previous button
-    prevBtn.disabled = quizApp.currentQuestion === 0;
+    prevBtn.disabled = quizApp.currentCategory === 0;
 
-    // Check if current question is answered
-    const currentQuestionId = quizApp.questions[quizApp.currentQuestion].id;
-    const isAnswered = quizApp.answers.hasOwnProperty(currentQuestionId);
+    // Check if current category is complete
+    const isCategoryComplete = quizApp.isCategoryComplete();
 
     // Next/Submit button
-    if (quizApp.currentQuestion === quizApp.totalQuestions - 1) {
+    if (quizApp.currentCategory === quizApp.totalCategories - 1) {
       nextBtn.classList.add("hidden");
       submitBtn.classList.remove("hidden");
-      submitBtn.disabled = !isAnswered;
+      submitBtn.disabled = !isCategoryComplete;
     } else {
       nextBtn.classList.remove("hidden");
       submitBtn.classList.add("hidden");
-      nextBtn.disabled = !isAnswered;
+      nextBtn.disabled = !isCategoryComplete;
+    }
+
+    // Update button text based on category completion
+    if (isCategoryComplete) {
+      if (quizApp.currentCategory === quizApp.totalCategories - 1) {
+        submitBtn.innerHTML = 'Complete Quiz<i class="fas fa-check ml-2"></i>';
+      } else {
+        nextBtn.innerHTML = `Next Category<i class="fas fa-arrow-right ml-2"></i>`;
+      }
+    } else {
+      nextBtn.innerHTML = `Complete Category<i class="fas fa-arrow-right ml-2"></i>`;
     }
   }
 }

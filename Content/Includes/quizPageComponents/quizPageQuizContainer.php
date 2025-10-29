@@ -2,6 +2,7 @@
 <input type="hidden" id="user-id" value="<?php echo $isLoggedIn ? $_SESSION['user_id'] : ''; ?>">
 <input type="hidden" id="session-id" value="<?php echo $isLoggedIn ? '' : $_SESSION['guest_session_id']; ?>">
 <input type="hidden" id="needs-core-subjects" value="<?php echo $needsCoreSubjects ? 'true' : 'false'; ?>">
+<input type="hidden" id="existing-core-subjects" value='<?php echo htmlspecialchars($existingCoreSubjectsJson, ENT_QUOTES, 'UTF-8'); ?>'>
 
 <!-- Main Quiz Container -->
 <div id="quiz-container">

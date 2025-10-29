@@ -2,8 +2,22 @@ import { CoreSubjectsHandler } from "./coreSubjectsHandler.js";
 
 export class QuizSubmission {
   static submitQuiz(quizApp) {
+    console.log("[QuizSubmission] Starting submission process...");
+    console.log(
+      "[QuizSubmission] Needs core subjects:",
+      quizApp.needsCoreSubjects
+    );
+    console.log(
+      "[QuizSubmission] Current core subjects:",
+      quizApp.coreSubjects
+    );
+
     // Check if we need core subjects and haven't collected them yet
-    if (quizApp.needsCoreSubjects && !quizApp.coreSubjects) {
+    if (
+      quizApp.needsCoreSubjects &&
+      (!quizApp.coreSubjects || Object.keys(quizApp.coreSubjects).length === 0)
+    ) {
+      console.log("[QuizSubmission] Showing core subjects form...");
       CoreSubjectsHandler.showCoreSubjectsForm(quizApp);
       return;
     }
@@ -13,7 +27,27 @@ export class QuizSubmission {
   }
 
   static async processQuizSubmission(quizApp) {
-    console.log("Processing quiz submission...");
+    console.log("[QuizSubmission] Processing quiz submission...");
+    console.log("[QuizSubmission] Quiz answers:", quizApp.answers);
+    console.log("[QuizSubmission] Core subjects:", quizApp.coreSubjects);
+
+    // Validate that we have the required data
+    if (
+      !quizApp.coreSubjects ||
+      Object.keys(quizApp.coreSubjects).length === 0
+    ) {
+      alert(
+        "Missing core subjects data. Please complete all required sections."
+      );
+      return;
+    }
+
+    if (!quizApp.coreSubjects.mbti_type) {
+      alert(
+        "Missing MBTI personality type. Please complete all required sections."
+      );
+      return;
+    }
 
     // Show loading state
     this.showLoadingState();
@@ -26,10 +60,15 @@ export class QuizSubmission {
       formData.append("session_id", quizApp.sessionId);
       formData.append("quiz_mode", quizApp.quizMode);
       formData.append("quiz_answers", JSON.stringify(quizApp.answers));
-      formData.append(
-        "core_subjects",
-        JSON.stringify(quizApp.coreSubjects || {})
-      );
+      formData.append("core_subjects", JSON.stringify(quizApp.coreSubjects));
+
+      console.log("[QuizSubmission] Submitting data:", {
+        userId: quizApp.userId,
+        sessionId: quizApp.sessionId,
+        quizMode: quizApp.quizMode,
+        answersCount: Object.keys(quizApp.answers).length,
+        coreSubjects: quizApp.coreSubjects,
+      });
 
       // Submit to server
       const response = await fetch(
@@ -43,8 +82,11 @@ export class QuizSubmission {
       const result = await response.json();
 
       if (result.success) {
-        console.log("Quiz submitted successfully!");
-        console.log("Career recommendations:", result.career_recommendations);
+        console.log("[QuizSubmission] Quiz submitted successfully!");
+        console.log(
+          "[QuizSubmission] Career recommendations:",
+          result.career_recommendations
+        );
 
         // Store results in sessionStorage for the results page
         sessionStorage.setItem(
@@ -61,11 +103,12 @@ export class QuizSubmission {
         window.location.href = result.redirect_url;
       } else {
         this.hideLoadingState();
+        console.error("[QuizSubmission] Submission failed:", result.message);
         alert("Error submitting quiz: " + result.message);
       }
     } catch (error) {
       this.hideLoadingState();
-      console.error("Submission error:", error);
+      console.error("[QuizSubmission] Submission error:", error);
       alert("An error occurred while submitting your quiz. Please try again.");
     }
   }

@@ -38,40 +38,44 @@ if (empty($coreSubjects) || !isset($coreSubjects['mbti_type'])) {
 try {
     // Initialize AI analysis
     $aiAnalysis = new CareerAnalysisAPI();
-    
-    // Get AI career recommendations
+
+    // Request AI analysis — must return valid JSON with exactly 5 recommendations
     $analysisResult = $aiAnalysis->analyzeCareerProfile(
         $quizAnswers, 
         $coreSubjects, 
         $coreSubjects['mbti_type']
     );
-    
-    // Parse AI response
-    $careerRecommendations = parseAIResponse($analysisResult);
-    
+
+    // Validate AI response again to be safe
+    if (!$analysisResult || !isset($analysisResult['recommended_careers']) || 
+        !is_array($analysisResult['recommended_careers']) || 
+        count($analysisResult['recommended_careers']) !== 5) {
+        throw new Exception('AI returned an invalid number of recommendations.');
+    }
+
+    // Save or return results depending on user mode
     if ($quizMode === 'user' && !empty($userId)) {
-        // Save for registered users
-        $resultId = saveUserQuizResult($userId, $quizAnswers, $coreSubjects, $careerRecommendations);
+        $resultId = saveUserQuizResult($userId, $quizAnswers, $coreSubjects, $analysisResult);
         
         if ($resultId) {
             echo json_encode([
                 'success' => true, 
                 'message' => 'Quiz submitted successfully',
                 'result_id' => $resultId,
-                'career_recommendations' => $careerRecommendations,
+                'career_recommendations' => $analysisResult,
                 'redirect_url' => '../Pages/quizResults.php?result_id=' . $resultId
             ]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to save quiz results']);
         }
     } else {
-        // Handle guest users - store in session
+        // Guest users - store AI result in session
         $guestResultId = 'guest_' . uniqid();
         $_SESSION['guest_quiz_result'] = [
             'result_id' => $guestResultId,
             'quiz_answers' => $quizAnswers,
             'core_subjects' => $coreSubjects,
-            'career_recommendations' => $careerRecommendations,
+            'career_recommendations' => $analysisResult,
             'completion_date' => date('Y-m-d H:i:s')
         ];
         
@@ -79,55 +83,20 @@ try {
             'success' => true,
             'message' => 'Quiz completed successfully',
             'result_id' => $guestResultId,
-            'career_recommendations' => $careerRecommendations,
+            'career_recommendations' => $analysisResult,
             'redirect_url' => '../Pages/quizResults.php?guest=1'
         ]);
     }
     
 } catch (Exception $e) {
-    error_log("Quiz submission error: " . $e->getMessage());
+    error_log("Quiz submission error (AI-only policy): " . $e->getMessage());
+    // No fallback allowed. Return error so client can retry.
+    http_response_code(500);
     echo json_encode([
-        'success' => false, 
-        'message' => 'An error occurred while processing your quiz. Please try again.'
+        'success' => false,
+        'message' => 'AI analysis failed. No fallback is available. Please try again later.'
     ]);
-}
-
-function parseAIResponse($aiResponse) {
-    // Try to extract JSON from AI response
-    $jsonStart = strpos($aiResponse, '{');
-    $jsonEnd = strrpos($aiResponse, '}') + 1;
-    
-    if ($jsonStart !== false && $jsonEnd !== false) {
-        $jsonString = substr($aiResponse, $jsonStart, $jsonEnd - $jsonStart);
-        $decoded = json_decode($jsonString, true);
-        
-        if ($decoded && isset($decoded['recommended_careers'])) {
-            return $decoded;
-        }
-    }
-    
-    // Fallback to default structure if AI response parsing fails
-    return [
-        'recommended_careers' => [
-            [
-                'title' => 'General Career Path',
-                'match_percentage' => 75,
-                'description' => 'Based on your responses, this career path aligns with your interests and strengths.',
-                'why_good_fit' => 'Your personality profile and academic performance indicate strong potential in this field.',
-                'salary_range' => '$50,000 - $80,000',
-                'growth_outlook' => 'Medium'
-            ]
-        ],
-        'personality_analysis' => [
-            'key_traits' => ['Analytical', 'Detail-oriented'],
-            'strengths' => ['Problem-solving', 'Communication'],
-            'areas_for_development' => ['Leadership skills', 'Technical expertise']
-        ],
-        'academic_analysis' => [
-            'strongest_subjects' => ['Mathematics', 'Science'],
-            'recommendations' => ['Continue developing technical skills']
-        ]
-    ];
+    exit;
 }
 
 function saveUserQuizResult($userId, $quizAnswers, $coreSubjects, $careerRecommendations) {

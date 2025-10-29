@@ -1,5 +1,5 @@
 <aside
-    class="floating-sidebar fixed right-6 top-1/2 transform -translate-y-1/2 w-80 rounded-3xl p-6 z-40 no-print hidden lg:block">
+    class="floating-sidebar fixed right-4 top-1/2 transform -translate-y-1/2 w-80 rounded-3xl p-6 z-40 no-print hidden lg:block bg-gray-100 shadow-lg border border-gray-200">
     <!-- Personality Card -->
     <div class="mb-6">
         <div class="flex items-center mb-4">
@@ -80,7 +80,7 @@
         </a>
         <a
             href="../index.html"
-            class="block w-full px-6 py-3 bg-gray-100 text-gray-700 font-bold text-sm rounded-xl hover:bg-dark hover:text-white transition-all duration-300 shadow-lg text-center transform hover:scale-105">
+            class="block w-full px-6 py-3 bg-white text-gray-700 font-bold text-sm rounded-xl hover:bg-dark hover:text-white transition-all duration-300 shadow-lg text-center transform hover:scale-105">
             <i class="fas fa-home mr-2"></i>Back to Home
         </a>
     </div>

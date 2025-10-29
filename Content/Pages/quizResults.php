@@ -3,7 +3,7 @@
 
 <?php include "../Includes/quizResultsComponents/quizResultsHeadtag.php" ?>
 
-<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 font-sans antialiased">
+<body class="min-h-screen bg-white text-gray-800 font-sans antialiased">
 
   <!-- Main Container -->
   <div class="relative">

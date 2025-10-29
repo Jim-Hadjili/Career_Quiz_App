@@ -1,8 +1,18 @@
-<section class="py-20 bg-white" id="Personality-Type">
+<section class="pt-24 pb-8 bg-white" id="Personality-Type">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center mb-8">
+            <div
+                class="w-14 h-14 bg-lime rounded-full flex items-center justify-center mr-6 font-bold text-dark text-xl shadow-lg">
+                4
+            </div>
+            <h2
+                class="section-title text-3xl lg:text-5xl font-bold text-gray-800">
+                Personality Type Analysis
+            </h2>
+        </div>
         <!-- Large personality banner -->
         <div
-            class="personality-banner bg-lime rounded-3xl p-12 mb-16 text-dark shadow-2xl">
+            class="personality-banner bg-lime rounded-3xl p-12 mb-8 text-dark shadow-md border-2 border-lime/70">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 <div>
                     <p class="text-lg opacity-90 mb-3 font-medium">
@@ -29,7 +39,7 @@
 
         <!-- Quote Section -->
         <div
-            class="bg-white rounded-3xl p-10 shadow-lg border-l-8 border-lime mb-16">
+            class="bg-white rounded-3xl p-10 shadow-md border-2 border-gray-200 mb-8">
             <blockquote
                 class="text-2xl lg:text-3xl font-semibold text-gray-800 mb-4 italic">
                 "The important thing is not to stop questioning. Curiosity has
@@ -43,7 +53,7 @@
 
         <!-- Additional Illustration -->
         <div
-            class="bg-white rounded-3xl p-10 shadow-lg flex items-center justify-center">
+            class="bg-white rounded-3xl p-10 shadow-md border-2 border-gray-200 flex items-center justify-center">
             <img
                 src="https://illustrations.popsy.co/amber/paper-plane.svg"
                 alt="Career Exploration Illustration"

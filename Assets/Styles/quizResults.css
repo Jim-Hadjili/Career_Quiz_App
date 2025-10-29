@@ -1,5 +1,6 @@
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
 }
 
 .trait-bar {
@@ -78,12 +79,10 @@ html {
   -webkit-backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .floating-sidebar:hover {
   transform: translateY(-50%) scale(1.02);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
 }
 
@@ -131,9 +130,6 @@ html {
 @media print {
   .no-print {
     display: none !important;
-  }
-  body {
-    background: white !important;
   }
 }
 

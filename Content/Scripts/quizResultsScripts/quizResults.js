@@ -32,6 +32,8 @@ const sampleData = {
       salary: "$95,000",
       growth: "High",
       match: 92,
+      whyGoodFit:
+        "Your INTP personality thrives on logical problem-solving and independent work, making you naturally suited for coding challenges. Your strong analytical thinking (82%) and preference for working alone (75% introverted) align perfectly with software development. Your high grades in mathematics and computer science demonstrate the technical foundation needed for this field.",
     },
     {
       title: "Data Scientist",
@@ -41,6 +43,8 @@ const sampleData = {
       salary: "$120,000",
       growth: "Very High",
       match: 89,
+      whyGoodFit:
+        "As an INTP, you excel at pattern recognition and theoretical thinking, which are essential for data analysis. Your intuitive nature (68%) helps you see connections others miss, while your thinking preference (82%) ensures objective, data-driven conclusions. Your strong performance in statistics and mathematics provides the quantitative skills this role demands.",
     },
     {
       title: "Research Scientist",
@@ -50,6 +54,8 @@ const sampleData = {
       salary: "$85,000",
       growth: "Medium",
       match: 87,
+      whyGoodFit:
+        "Your INTP personality is ideal for research, with your love of theoretical exploration and independent investigation. Your perceiving trait (71%) allows flexibility in research approaches, while your thinking preference ensures objective analysis. Your excellent grades in science subjects and natural curiosity about how things work make research a perfect career path.",
     },
     {
       title: "Systems Analyst",
@@ -59,6 +65,8 @@ const sampleData = {
       salary: "$88,000",
       growth: "High",
       match: 85,
+      whyGoodFit:
+        "Your INTP strengths in logical analysis and system thinking make you excellent at understanding complex business processes. Your intuitive nature (68%) helps you envision innovative solutions, while your thinking preference (82%) ensures practical, efficient designs. Your balanced performance across technical and analytical subjects shows you can bridge different domains effectively.",
     },
   ],
 };
@@ -117,7 +125,7 @@ function initializePage() {
   traitsContainer.innerHTML = "";
   sampleData.traits.forEach((trait) => {
     const traitHtml = `
-            <div class="mb-8">
+            <div class="mb-6">
               <div class="trait-bar">
                 <div class="trait-label">${trait.opposite}</div>
                 <div class="trait-progress">
@@ -142,7 +150,7 @@ function initializePage() {
   careerCardsContainer.innerHTML = "";
   sampleData.careerPaths.forEach((path, index) => {
     const cardHtml = `
-            <div class="career-card ${
+            <div class="career-card  ${
               index === 0 ? "active" : ""
             }" data-index="${index}">
               <div class="flex flex-col lg:flex-row items-start gap-8">
@@ -157,7 +165,18 @@ function initializePage() {
                     path.description
                   }</p>
                   
-                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-white/50 rounded-2xl border border-gray-200">
+                  <!-- Why This is a Good Fit Section -->
+                  <div class="bg-white border border-lime/30 rounded-2xl p-6 mb-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                      <i class="fas fa-lightbulb text-lime"></i>
+                      Why This is a Good Fit for You
+                    </h4>
+                    <p class="text-gray-700 leading-relaxed">${
+                      path.whyGoodFit
+                    }</p>
+                  </div>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-white rounded-2xl border border-gray-200">
                     <div class="text-center">
                       <p class="text-sm text-gray-600 mb-2 font-medium">Match Score</p>
                       <p class="font-bold text-lime text-2xl">${path.match}%</p>

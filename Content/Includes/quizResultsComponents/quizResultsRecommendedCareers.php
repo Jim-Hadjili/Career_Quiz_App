@@ -1,4 +1,4 @@
-<section class="py-20 bg-white" id="Recommended-Career-Paths">
+<section class="pt-24 pb-2 bg-white" id="Recommended-Career-Paths">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center mb-16">
             <div
@@ -6,7 +6,7 @@
                 2
             </div>
             <h2
-                class="section-title text-4xl lg:text-5xl font-bold text-gray-800">
+                class="section-title text-3xl lg:text-5xl font-bold text-gray-800">
                 Recommended Career Paths
             </h2>
         </div>
@@ -14,7 +14,7 @@
         <!-- Career Cards Carousel -->
         <div class="relative">
             <div
-                class="bg-gradient-to-br from-cream to-white rounded-3xl shadow-xl p-10 lg:p-14 min-h-[28rem] border border-gray-200"
+                class="bg-gray-100 rounded-3xl shadow-xl p-10 lg:p-14 min-h-[28rem] border border-gray-200"
                 id="career-cards-container">
                 <!-- Career cards will be populated by JavaScript -->
             </div>

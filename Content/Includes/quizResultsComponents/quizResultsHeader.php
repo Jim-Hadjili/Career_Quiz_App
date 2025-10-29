@@ -15,7 +15,7 @@
 
 <!-- Header Section -->
 <header
-    class="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-40">
+    class="bg-white border-b sticky top-0 z-40 w-full shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
             <div class="flex items-center space-x-3">

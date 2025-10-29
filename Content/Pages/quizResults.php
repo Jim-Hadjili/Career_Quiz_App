@@ -32,7 +32,7 @@
 
   </div>
 
-  <script src="../Scripts/quizResultsScripts/quizResults.js"></script>
+  <script type="module" src="../Scripts/quizResultsScripts/quizResults.js"></script>
 
 </body>
 

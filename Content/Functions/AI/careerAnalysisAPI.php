@@ -211,9 +211,21 @@ class CareerAnalysisAPI {
         return "CRITICAL INSTRUCTIONS:
 1. You MUST provide exactly 5 career recommendations
 2. Response MUST be valid JSON only (no additional text before or after)
-3. Each career MUST have realistic match percentages (60-95%)
+3. Each career MUST have realistic match percentages (70-95%)
 4. Base recommendations on the provided data
 5. Include diverse career options from different fields
+
+For each career recommendation, provide:
+- RICH DESCRIPTION: Write 3-4 engaging sentences that paint a vivid picture of the career, including daily responsibilities, work environment, impact on society, and growth opportunities. Make it inspiring and comprehensive.
+- DETAILED PERSONALIZED FIT: Write 4-5 sentences explaining specifically why this career matches their MBTI type, academic strengths, personality traits, and quiz responses. Use their actual data points and be motivational.
+- COMPREHENSIVE DETAILS: Include realistic salary ranges based on Philippine market, specific education requirements, and 4-6 relevant key skills.
+
+SALARY AND GROWTH FORMAT REQUIREMENTS:
+- Use Philippine Peso format: \"₱25,000 - ₱85,000\" (monthly salaries)
+- Base salaries on current Philippine job market trends
+- Entry-level: ₱20,000-₱35,000, Mid-level: ₱40,000-₱80,000, Senior: ₱90,000+
+- Growth outlook: Use only one word - \"High\", \"Medium\", or \"Low\"
+- Consider Philippines-specific job demand and economic trends
 
 Required JSON format:
 {
@@ -221,24 +233,49 @@ Required JSON format:
     {
       \"title\": \"Career Name\",
       \"match_percentage\": 85,
-      \"description\": \"Brief 1-2 sentence description of the career\",
-      \"why_good_fit\": \"Specific explanation based on MBTI, grades, and personality scores\",
-      \"salary_range\": \"$40,000 - $80,000\",
+      \"description\": \"Rich 3-4 sentence description covering responsibilities, work environment, societal impact, and growth opportunities. Make it vivid and inspiring.\",
+      \"why_good_fit\": \"Detailed 4-5 sentence personalized explanation using their MBTI type, specific grades, and personality scores. Reference their strongest subjects and traits. Be encouraging and motivational.\",
+      \"salary_range\": \"₱30,000 - ₱75,000\",
       \"growth_outlook\": \"High\",
-      \"education_required\": \"Bachelor's degree in relevant field\",
-      \"key_skills\": [\"skill1\", \"skill2\", \"skill3\"]
+      \"education_required\": \"Bachelor's degree in [specific field], with optional certifications in [relevant areas]\",
+      \"key_skills\": [\"skill1\", \"skill2\", \"skill3\", \"skill4\", \"skill5\", \"skill6\"],
+      \"work_environment\": \"Description of typical work settings and culture in Philippine context\",
+      \"career_progression\": \"Entry level → Mid level → Senior level pathway\"
     }
   ],
   \"personality_analysis\": {
-    \"key_traits\": [\"trait1\", \"trait2\", \"trait3\"],
-    \"strengths\": [\"strength1\", \"strength2\"],
-    \"areas_for_development\": [\"area1\", \"area2\"]
+    \"key_traits\": [\"Primary trait based on MBTI\", \"Secondary trait from quiz\", \"Third trait from academic performance\"],
+    \"strengths\": [\"Specific strength from data\", \"Another strength with evidence\"],
+    \"areas_for_development\": [\"Growth area with constructive advice\", \"Another development area with guidance\"]
   },
   \"academic_analysis\": {
-    \"strongest_subjects\": [\"subject1\", \"subject2\"],
-    \"recommendations\": [\"recommendation1\", \"recommendation2\"]
+    \"strongest_subjects\": [\"Top performing subject\", \"Second strongest subject\"],
+    \"recommendations\": [\"Specific academic advice based on performance\", \"Career-focused learning suggestion\"]
   }
 }
+
+PHILIPPINE SALARY GUIDELINES BY CAREER TYPE:
+- IT/Software: Entry ₱25,000-₱40,000, Senior ₱60,000-₱120,000
+- Engineering: Entry ₱20,000-₱35,000, Senior ₱50,000-₱100,000
+- Healthcare: Entry ₱25,000-₱45,000, Senior ₱60,000-₱150,000
+- Education: Entry ₱18,000-₱30,000, Senior ₱40,000-₱80,000
+- Business/Finance: Entry ₱20,000-₱35,000, Senior ₱55,000-₱120,000
+- Creative/Media: Entry ₱18,000-₱30,000, Senior ₱40,000-₱90,000
+- Government: Entry ₱15,000-₱25,000, Senior ₱35,000-₱70,000
+
+GROWTH OUTLOOK GUIDELINES:
+- High: IT, Healthcare, Digital Marketing, Data Science, Renewable Energy
+- Medium: Engineering, Finance, Education, Traditional Business
+- Low: Traditional Manufacturing, Print Media, Some Government roles
+
+WRITING GUIDELINES:
+- Use active, engaging language that inspires confidence
+- Include specific details about career impact and opportunities in Philippines
+- Reference actual data points from their profile (grades, MBTI, quiz scores)
+- Make each 'why_good_fit' unique and personalized
+- Ensure descriptions are comprehensive yet accessible
+- Use encouraging, motivational tone throughout
+- Consider Philippine job market realities and opportunities
 
 Provide ONLY the JSON response above, no other text.";
     }

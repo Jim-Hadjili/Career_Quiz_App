@@ -74,7 +74,7 @@
             ACTIONS
         </p>
         <a
-            href="quizPage.html"
+            href="quizPage.php"
             class="block w-full px-6 py-3 bg-lime text-dark hover:text-white font-bold text-sm rounded-xl hover:bg-dark transition-all duration-300 shadow-lg text-center transform hover:scale-105">
             <i class="fas fa-redo mr-2"></i>Take Quiz Again
         </a>

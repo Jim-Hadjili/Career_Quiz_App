@@ -7,26 +7,30 @@
             </div>
             <h2
                 class="section-title text-3xl lg:text-5xl font-bold text-gray-800">
-                Recommended Career Paths
+                Your Personalized Career Recommendations
             </h2>
         </div>
 
         <!-- Career Cards Carousel -->
         <div class="relative">
             <div
-                class="bg-gray-100 rounded-3xl shadow-xl p-10 lg:p-14 min-h-[28rem] border border-gray-200"
+                class="bg-gradient-to-br from-gray-50 to-white rounded-3xl shadow-2xl p-6 lg:p-12 min-h-[32rem] border border-gray-100"
                 id="career-cards-container">
-                <!-- Career cards will be populated by JavaScript -->
+                <!-- Enhanced career cards will be populated by JavaScript -->
+                <div class="flex items-center justify-center h-64">
+                    <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-lime"></div>
+                    <span class="ml-4 text-gray-600 text-lg">Loading your personalized recommendations...</span>
+                </div>
             </div>
 
-            <!-- Navigation Controls -->
+            <!-- Enhanced Navigation Controls -->
             <div class="flex items-center justify-between mt-10 px-6">
                 <button
                     id="prevBtn"
                     onclick="previousCareer()"
-                    class="px-8 py-4 bg-white border-2 border-border text-gray-700 font-semibold rounded-xl hover:bg-lime hover:text-dark hover:border-lime transition-all duration-300 flex items-center gap-3 shadow-md no-print">
+                    class="px-8 py-4 bg-white border-2 border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-lime hover:text-dark hover:border-lime transition-all duration-300 flex items-center gap-3 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed no-print">
                     <i class="fas fa-chevron-left"></i>
-                    <span class="hidden sm:inline">Previous</span>
+                    <span class="hidden sm:inline">Previous Career</span>
                 </button>
 
                 <div
@@ -38,8 +42,8 @@
                 <button
                     id="nextBtn"
                     onclick="nextCareer()"
-                    class="px-8 py-4 bg-lime text-dark font-semibold rounded-xl hover:bg-dark hover:text-lime transition-all duration-300 flex items-center gap-3 shadow-md no-print">
-                    <span class="hidden sm:inline">Next</span>
+                    class="px-8 py-4 bg-lime text-dark font-semibold rounded-xl hover:bg-dark hover:text-lime transition-all duration-300 flex items-center gap-3 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed no-print">
+                    <span class="hidden sm:inline">Next Career</span>
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>

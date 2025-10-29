@@ -9,56 +9,43 @@
             </div>
             <h2
                 class="section-title text-3xl lg:text-5xl font-bold text-gray-800">
-                Personality Traits
+                Comprehensive Personality Analysis
             </h2>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Traits Visualization -->
             <div
                 class="lg:col-span-2 bg-white rounded-3xl p-10 shadow-md border-2 border-gray-100">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Personality Traits Spectrum</h3>
+                    <p class="text-gray-600 text-sm">
+                        Based on your responses across all assessment categories: personality, interests, values, and skills.
+                    </p>
+                </div>
                 <div id="traits-container">
                     <!-- Traits will be populated by JavaScript -->
+                    <div class="flex items-center justify-center py-8">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-lime"></div>
+                        <span class="ml-3 text-gray-600">Analyzing your responses...</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Personality Card -->
-            <div class="bg-lime rounded-3xl p-8 text-dark shadow-md border-2 border-lime/70">
-                <p class="text-sm opacity-90 mb-3 font-medium">
-                    Your personality type is:
-                </p>
-                <h3 class="text-5xl font-bold mb-2" id="personality-type">
-                    INTP
-                </h3>
-                <p class="text-lg opacity-90 mb-6" id="personality-full">
-                    INTP - The Thinker
-                </p>
-                <div class="pt-6 border-t border-dark text-justify">
-                    <p class="text-md leading-relaxed opacity-90">
-                        You likely prefer fewer, yet deep and meaningful, social
-                        interactions and feel drawn to calmer environments.While your cognitive abilities are undoubtedly a strength,
-                    they can sometimes lead to challenges in the social realm. 
-                    </p>
-                </div>
-            </div>
+        
         </div>
 
         <!-- Description Text -->
         <div
-            class="mt-8 bg-white rounded-3xl p-10 shadow-md border-2 border-gray-100 text-justify">
-            <div class="space-y-6 text-gray-700 leading-relaxed text-lg">
-                <p>
-                    While your cognitive abilities are undoubtedly a strength,
-                    they can sometimes lead to challenges in the social realm. You
-                    may find yourself more comfortable in the world of ideas than
-                    in emotional or social situations.
-                </p>
-                <p>
-                    As an INTP, you value independence and autonomy highly.
-                    Learning to balance your need for intellectual freedom with
-                    the practical demands of life is a key part of your personal
-                    growth journey.
-                </p>
+            class="mt-8 bg-white rounded-3xl p-10 shadow-md border-2 border-gray-100">
+            <div class="mb-4">
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Your Comprehensive Profile</h3>
+            </div>
+            <div class="space-y-6 text-gray-700 leading-relaxed text-md" id="personality-description">
+                <div class="flex items-center justify-center py-8">
+                    <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-lime"></div>
+                    <span class="ml-3 text-gray-600">Generating personalized analysis...</span>
+                </div>
             </div>
         </div>
     </div>

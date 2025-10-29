@@ -79,7 +79,7 @@
             <i class="fas fa-redo mr-2"></i>Take Quiz Again
         </a>
         <a
-            href="../index.html"
+            href="../../index.php"
             class="block w-full px-6 py-3 bg-white text-gray-700 font-bold text-sm rounded-xl hover:bg-dark hover:text-white transition-all duration-300 shadow-lg text-center transform hover:scale-105">
             <i class="fas fa-home mr-2"></i>Back to Home
         </a>

@@ -20,7 +20,7 @@
         <div class="flex items-center justify-between h-20">
             <div class="flex items-center space-x-3">
                 <div
-                    class="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center shadow-lg">
+                    class="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center shadow-lg">
                     <i class="fas fa-compass text-lime text-xl"></i>
                 </div>
                 <span

@@ -8,10 +8,14 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : '';
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
             <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 bg-dark rounded-full flex items-center justify-center">
-                    <i class="fas fa-compass text-lime text-lg"></i>
+                <div
+                    class="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center shadow-lg">
+                    <i class="fas fa-compass text-lime text-xl"></i>
                 </div>
-                <span class="text-2xl md:text-xl lg:text-3xl font-bold">CareerPath</span>
+                <span
+                    class="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                    CareerPath
+                </span>
             </div>
 
             <div class="hidden md:flex items-center space-x-8">
@@ -20,7 +24,7 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : '';
                 <a href="#how-it-works" class="hover:text-lime transition-colors text-base md:text-sm lg:text-lg">How It Works</a>
                 <a href="#quiz-guide" class="hover:text-lime transition-colors text-base md:text-sm lg:text-lg">Quiz Guide</a>
                 <a href="#careers" class="hover:text-lime transition-colors text-base md:text-sm lg:text-lg">Careers</a>
-                
+
                 <?php if ($isLoggedIn): ?>
                     <!-- Profile Dropdown -->
                     <div class="relative" id="profile-dropdown">
@@ -35,7 +39,7 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : '';
                                 <?php echo htmlspecialchars(explode(' ', $userName)[0]); ?>
                             </span>
                         </button>
-                        
+
                         <!-- Dropdown Menu -->
                         <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 z-50 hidden">
                             <div class="py-2">
@@ -97,7 +101,7 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : '';
             <a href="#how-it-works" class="block py-2 hover:text-lime transition-colors">How It Works</a>
             <a href="#quiz-guide" class="block py-2 hover:text-lime transition-colors">Quiz Guide</a>
             <a href="#careers" class="block py-2 hover:text-lime transition-colors">Careers</a>
-            
+
             <?php if ($isLoggedIn): ?>
                 <!-- Mobile Profile Section -->
                 <div class="border-t pt-3 mt-3">

@@ -10,6 +10,17 @@ export class CoreSubjectsHandler {
       this.setupMBTIForm(quizApp);
     } else {
       quizApp.needsCoreSubjects = false;
+      // Load existing core subjects if available
+      const existingSubjects = document.getElementById(
+        "existing-core-subjects"
+      );
+      if (existingSubjects && existingSubjects.value) {
+        try {
+          quizApp.coreSubjects = JSON.parse(existingSubjects.value);
+        } catch (e) {
+          console.error("Error parsing existing core subjects:", e);
+        }
+      }
     }
   }
 
@@ -70,6 +81,9 @@ export class CoreSubjectsHandler {
     backBtn.addEventListener("click", () => {
       this.showQuizForm(quizApp);
     });
+
+    // Initial validation check
+    checkGradesValidity();
   }
 
   static setupMBTIForm(quizApp) {
@@ -87,12 +101,23 @@ export class CoreSubjectsHandler {
     completeBtn.addEventListener("click", () => {
       // Add MBTI data
       quizApp.tempCoreSubjects.mbti_type = mbtiSelect.value;
-      this.saveCoreSubjects(quizApp);
+
+      // Finalize core subjects data
+      quizApp.coreSubjects = { ...quizApp.tempCoreSubjects };
+      quizApp.tempCoreSubjects = {};
+
+      // Trigger quiz submission
+      import("./quizSubmission.js").then(({ QuizSubmission }) => {
+        QuizSubmission.processQuizSubmission(quizApp);
+      });
     });
 
     backBtn.addEventListener("click", () => {
       this.showCoreSubjectsForm(quizApp);
     });
+
+    // Initial validation check
+    checkMBTIValidity();
   }
 
   static showCoreSubjectsForm(quizApp) {
@@ -149,51 +174,5 @@ export class CoreSubjectsHandler {
       "[CoreSubjects] Showing quiz form, current question:",
       quizApp.currentQuestion
     );
-  }
-
-  static async saveCoreSubjects(quizApp) {
-    const formData = new FormData();
-    formData.append("action", "save_core_subjects");
-    formData.append("user_id", quizApp.userId);
-    formData.append("session_id", quizApp.sessionId);
-    formData.append("quiz_mode", quizApp.quizMode);
-
-    // Add all subject grades
-    Object.keys(quizApp.tempCoreSubjects).forEach((key) => {
-      formData.append(key, quizApp.tempCoreSubjects[key]);
-    });
-
-    try {
-      const response = await fetch(
-        "../Functions/quizPageFunctions/saveCoreSubjects.php",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      const result = await response.json();
-
-      if (result.success) {
-        quizApp.coreSubjects = { ...quizApp.tempCoreSubjects };
-        quizApp.tempCoreSubjects = {};
-
-        this.processQuizSubmission(quizApp);
-      } else {
-        alert("Error saving core subjects: " + result.message);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred while saving core subjects.");
-    }
-  }
-
-  static processQuizSubmission(quizApp) {
-    console.log("Quiz completed! Processing submission...");
-    console.log("Quiz answers:", quizApp.answers);
-    console.log("Quiz mode:", quizApp.quizMode);
-    console.log("Core subjects:", quizApp.coreSubjects);
-
-    alert("Quiz submitted successfully! Result Page will be available soon");
   }
 }

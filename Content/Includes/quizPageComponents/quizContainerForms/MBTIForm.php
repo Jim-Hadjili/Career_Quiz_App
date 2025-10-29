@@ -52,6 +52,28 @@
         <!-- Hidden input to store selected MBTI type -->
         <input type="hidden" id="mbti-type" name="mbti_type" value="">
 
+        <!-- Validation Message -->
+        <div id="mbti-validation-message" class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 hidden">
+            <div class="flex">
+                <i class="fas fa-exclamation-triangle text-red-500 mt-0.5 mr-3"></i>
+                <div>
+                    <h4 class="text-sm font-medium text-red-800">Selection Required</h4>
+                    <p class="text-sm text-red-700 mt-1">Please select your MBTI personality type to continue.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="mbti-success-message" class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6 hidden">
+            <div class="flex">
+                <i class="fas fa-check-circle text-green-500 mt-0.5 mr-3"></i>
+                <div>
+                    <h4 class="text-sm font-medium text-green-800">Personality Type Selected</h4>
+                    <p class="text-sm text-green-700 mt-1">Great! You can now generate your career recommendations.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- MBTI Types Grid -->
         <div class="space-y-8">
           
@@ -253,8 +275,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update button state
         completeBtn.disabled = false;
-        validationMsg.classList.add('hidden');
-        successMsg.classList.remove('hidden');
+        
+        // Update messages safely
+        if (validationMsg) validationMsg.classList.add('hidden');
+        if (successMsg) successMsg.classList.remove('hidden');
     }
 
     // Add event listeners to all MBTI buttons
@@ -267,9 +291,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Show validation message if user tries to continue without selection
     completeBtn.addEventListener('click', function() {
-        if (!mbtiInput.value) {
+        if (!mbtiInput.value && validationMsg) {
             validationMsg.classList.remove('hidden');
         }
     });
 });
 </script>
+
+<style>
+.mbti-button {
+    @apply p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-lime hover:bg-lime/5 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-lime focus:ring-offset-2;
+}
+
+.mbti-button.selected {
+    @apply border-lime bg-lime/10 shadow-md;
+}
+
+.mbti-button:hover {
+    @apply transform -translate-y-0.5 shadow-lg;
+}
+</style>

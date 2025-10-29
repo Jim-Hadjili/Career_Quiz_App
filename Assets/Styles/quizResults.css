@@ -1,0 +1,214 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.trait-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.trait-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-width: 120px;
+  text-align: left;
+  color: #374151;
+}
+
+.trait-progress {
+  flex: 1;
+  height: 12px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.trait-fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.8s ease;
+}
+
+.trait-opposite {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  min-width: 120px;
+  text-align: right;
+}
+
+.trait-percentage {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  background: #f9fafb;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.career-card {
+  display: none;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.career-card.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.floating-sidebar {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.floating-sidebar:hover {
+  transform: translateY(-50%) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 45;
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+.hamburger-menu {
+  background: #b9ff66;
+  box-shadow: 0 4px 12px rgba(185, 255, 102, 0.3);
+  z-index: 51;
+}
+
+.hamburger-menu:hover {
+  background: #191a23;
+  color: #b9ff66;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+.mobile-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 41;
+}
+
+.mobile-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+  }
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 1536px) {
+  .main-content {
+    margin-right: 22rem;
+  }
+  .floating-sidebar {
+    width: 20rem;
+    right: 1.5rem;
+  }
+}
+
+@media (max-width: 1280px) {
+  .main-content {
+    margin-right: 18rem;
+  }
+  .floating-sidebar {
+    width: 16rem;
+    right: 1rem;
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-content {
+    margin-right: 2rem;
+    padding-right: 1rem;
+  }
+  .floating-sidebar {
+    display: none;
+  }
+  .section-title {
+    font-size: 1.875rem;
+  }
+  .personality-banner h2 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-right: 0;
+    padding-right: 0;
+  }
+  .section-title {
+    font-size: 1.5rem;
+  }
+  .trait-bar {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+  .trait-label,
+  .trait-opposite {
+    min-width: auto;
+    text-align: center;
+  }
+  .career-card h3 {
+    font-size: 1.5rem;
+  }
+  .personality-banner {
+    padding: 2rem;
+  }
+  .personality-banner h2 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .personality-banner {
+    padding: 1.5rem;
+  }
+  .personality-banner h2 {
+    font-size: 2rem;
+  }
+}

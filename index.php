@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,13 +12,15 @@
     <script src="Assets/Scripts/tailwindConfig.js"></script>
     <link rel="stylesheet" href="Assets/Styles/index.css">
     <link rel="stylesheet" href="Assets/Styles/careerSectionCarousel.css">
+    <link rel="stylesheet" href="Assets/Styles/chatbot.css">
     <link rel="icon" type="image/png" href="Assets/Images/logo.png">
     <title>CareerPath - Discover Your Perfect Career</title>
 </head>
 
-<?php include 'Chatbot/Components/ChatHeadButton.php'; ?>
-
 <body class="min-h-screen bg-cream text-dark smooth-scroll">
+
+    <!-- Chathead Button -->
+    <?php include 'Chatbot/Components/ChatHeadButton.php'; ?>
 
     <!-- Navigation Header -->
     <?php include 'Content/Sections/navHeader.php'; ?>

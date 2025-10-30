@@ -1,5 +1,5 @@
 <?php
-session_start();
+// Remove session_start() from here since it's now at the top of index.php
 $isLoggedIn = isset($_SESSION['user_id']);
 $userName = $isLoggedIn ? $_SESSION['user_name'] : '';
 ?>

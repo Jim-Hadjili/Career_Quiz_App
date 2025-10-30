@@ -4,7 +4,7 @@
         <!-- Modal Header -->
         <div class="flex items-center justify-between p-6 border-b border-gray-200">
             <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-dark rounded-full flex items-center justify-center">
+                <div class="w-10 h-10 bg-dark rounded-full flex items-center justify-center">
                     <i class="fas fa-compass text-lime text-lg"></i>
                 </div>
                 <h2 id="modal-title" class="text-2xl font-bold text-dark">Join CareerPath</h2>
@@ -29,7 +29,7 @@
                             id="fullName" 
                             name="fullName" 
                             required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-lime focus:ring-4 focus:ring-lime-500/20 focus:outline-none transition-all duration-300 pl-12"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-lime focus:ring-lime-500/20 focus:outline-none transition-all duration-300 pl-12"
                             placeholder="Enter your full name"
                         >
                         <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -45,7 +45,7 @@
                             id="email" 
                             name="email" 
                             required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-lime focus:ring-4 focus:ring-lime-500/20 focus:outline-none transition-all duration-300 pl-12"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-lime focus:ring-lime-500/20 focus:outline-none transition-all duration-300 pl-12"
                             placeholder="Enter your email"
                         >
                         <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -61,7 +61,7 @@
                             id="password" 
                             name="password" 
                             required
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-lime focus:ring-4 focus:ring-lime-500/20 focus:outline-none transition-all duration-300 pl-12 pr-12"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-lime focus:ring-lime-500/20 focus:outline-none transition-all duration-300 pl-12 pr-12"
                             placeholder="Create a secure password"
                         >
                         <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -86,7 +86,7 @@
                 <button 
                     type="submit" 
                     id="submit-button"
-                    class="group relative w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-dark text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-lime-500/30 focus:ring-offset-2 transform hover:scale-105 overflow-hidden mt-6"
+                    class="group relative w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-dark text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-lime-500/30 focus:ring-offset-2 transform hover:scale-105 overflow-hidden mt-6"
                 >
                     <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                     <span id="submit-text" class="relative z-10">Create Account</span>

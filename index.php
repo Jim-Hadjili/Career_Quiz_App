@@ -46,6 +46,18 @@ session_start();
     <!-- Sign Up Modal -->
     <?php include 'Assets/Components/authModal.php'; ?>
 
+    <!-- Profile Modal -->
+    <?php include 'Assets/Components/profileModal.php'; ?>
+
+    <!-- Subject Grade Modal -->
+    <?php include 'Assets/Components/subjectGradeModal.php'; ?>
+
+    <!-- MBTI Modal -->
+    <?php include 'Assets/Components/mbtiModal.php'; ?>
+
+    <!-- Quiz Results Modal -->
+    <?php include 'Assets/Components/quizResultsModal.php'; ?>
+
     <!-- Logout Confirmation Modal -->
     <?php include 'Assets/Components/logoutModal.php'; ?>
 
@@ -62,6 +74,18 @@ session_start();
 
     <!-- Sign Up Modal Script -->
     <script src="Assets/Scripts/authModal.js"></script>
+
+    <!-- Profile Modal Script -->
+    <script src="Assets/Scripts/profileModal.js"></script>
+
+    <!-- Subject Grade Modal Script -->
+    <script src="Assets/Scripts/subjectGradeModal.js"></script>
+
+    <!-- MBTI Modal Script -->
+    <script src="Assets/Scripts/mbtiModal.js"></script>
+
+    <!-- Quiz Results Modal Script -->
+    <script src="Assets/Scripts/quizResultsModal.js"></script>
 
     <!-- Logout Modal Script -->
     <script src="Assets/Scripts/logoutModal.js"></script>

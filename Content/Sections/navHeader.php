@@ -36,7 +36,7 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : '';
                             <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                             <span class="relative z-10 flex items-center gap-2">
                                 <i class="fas fa-user-circle"></i>
-                                <?php echo htmlspecialchars(explode(' ', $userName)[0]); ?>
+                                <span><?php echo htmlspecialchars(explode(' ', $userName)[0]); ?></span>
                             </span>
                         </button>
 
@@ -47,12 +47,18 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : '';
                                     <p class="text-sm font-medium text-dark"><?php echo htmlspecialchars($userName); ?></p>
                                     <p class="text-xs text-gray-500"><?php echo htmlspecialchars($_SESSION['user_email']); ?></p>
                                 </div>
-                                <a href="#" class="block px-4 py-2 text-sm text-dark hover:bg-gray-50 transition-colors">
+                                <button onclick="openProfileModal()" class="w-full text-left px-4 py-2 text-sm text-dark hover:bg-gray-50 transition-colors">
                                     <i class="fas fa-user mr-2"></i>Profile
-                                </a>
-                                <a href="#" class="block px-4 py-2 text-sm text-dark hover:bg-gray-50 transition-colors">
+                                </button>
+                                <button onclick="openSubjectGradeModal()" class="w-full text-left px-4 py-2 text-sm text-dark hover:bg-gray-50 transition-colors">
+                                    <i class="fas fa-graduation-cap mr-2"></i>Subject Grade
+                                </button>
+                                <button onclick="openMbtiModal()" class="w-full text-left px-4 py-2 text-sm text-dark hover:bg-gray-50 transition-colors">
+                                    <i class="fas fa-brain mr-2"></i>MBTI Type
+                                </button>
+                                <button onclick="openQuizResultsModal()" class="w-full text-left px-4 py-2 text-sm text-dark hover:bg-gray-50 transition-colors">
                                     <i class="fas fa-chart-line mr-2"></i>Quiz Results
-                                </a>
+                                </button>
                                 <button onclick="showLogoutModal()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50 transition-colors">
                                     <i class="fas fa-sign-out-alt mr-2"></i>Logout
                                 </button>
@@ -109,12 +115,18 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : '';
                         <p class="text-sm font-medium text-dark"><?php echo htmlspecialchars($userName); ?></p>
                         <p class="text-xs text-gray-500"><?php echo htmlspecialchars($_SESSION['user_email']); ?></p>
                     </div>
-                    <a href="#" class="block py-2 hover:text-lime transition-colors">
+                    <button onclick="openProfileModal()" class="w-full text-left py-2 hover:text-lime transition-colors">
                         <i class="fas fa-user mr-2"></i>Profile
-                    </a>
-                    <a href="#" class="block py-2 hover:text-lime transition-colors">
+                    </button>
+                    <button onclick="openSubjectGradeModal()" class="w-full text-left py-2 hover:text-lime transition-colors">
+                        <i class="fas fa-graduation-cap mr-2"></i>Subject Grade
+                    </button>
+                    <button onclick="openMbtiModal()" class="w-full text-left py-2 hover:text-lime transition-colors">
+                        <i class="fas fa-brain mr-2"></i>MBTI Type
+                    </button>
+                    <button onclick="openQuizResultsModal()" class="w-full text-left py-2 hover:text-lime transition-colors">
                         <i class="fas fa-chart-line mr-2"></i>Quiz Results
-                    </a>
+                    </button>
                     <button onclick="showLogoutModal()" class="w-full text-left py-2 text-red-600 hover:text-red-700 transition-colors">
                         <i class="fas fa-sign-out-alt mr-2"></i>Logout
                     </button>

@@ -13,7 +13,7 @@
     <title>CareerPath - Discover Your Perfect Career</title>
 </head>
 
-<?php include 'Assets/Components/floatingButton.php'; ?>
+<?php include 'Chatbot/Components/ChatHeadButton.php'; ?>
 
 <body class="min-h-screen bg-cream text-dark smooth-scroll">
 
@@ -53,7 +53,7 @@
     <!-- Carousel Script for Career Section -->
     <script src="Content/Scripts/careerSectionScripts/careerScript.js"></script>
 
-    <script src="Assets/Scripts/floatingButtonScript.js"></script>
+    <script src="Chatbot/ChatbotScripts/ChatHeadButtonScript.js"></script>
 
     <!-- Sign Up Modal Script -->
     <script src="Assets/Scripts/authModal.js"></script>

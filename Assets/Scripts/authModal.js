@@ -237,13 +237,17 @@ async function handleFormSubmission(event) {
       setTimeout(() => {
         closeSignUpModal();
 
-        if (isFromQuizAccess) {
+        // Check if there's a redirect URL for admin users
+        if (data.redirect) {
+          // Redirect admin users to admin dashboard
+          window.location.href = data.redirect;
+        } else if (isFromQuizAccess) {
           // If user came from quiz access modal, start quiz after auth
           setTimeout(() => {
             proceedToQuiz();
           }, 500);
         } else {
-          // Normal flow - reload page
+          // Normal flow - reload page for regular users
           window.location.reload();
         }
       }, 1500);

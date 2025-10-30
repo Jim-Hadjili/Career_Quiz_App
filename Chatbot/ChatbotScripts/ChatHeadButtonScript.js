@@ -249,7 +249,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function getAIResponse(userMessage) {
     try {
-      const response = await fetch("Chatbot/API/chat_api.php", {
+      // More robust path detection
+      const currentPath = window.location.pathname;
+      const hostname = window.location.hostname;
+
+      let apiUrl;
+      if (hostname === "localhost" || hostname === "127.0.0.1") {
+        // Local development
+        apiUrl = "Chatbot/API/chat_api.php";
+      } else {
+        // Production - try multiple possible paths
+        const possiblePaths = [
+          "/Chatbot/API/chat_api.php",
+          "Chatbot/API/chat_api.php",
+          "./Chatbot/API/chat_api.php",
+        ];
+
+        // Use the first path as default, but we'll add fallback logic
+        apiUrl = possiblePaths[0];
+      }
+
+      console.log("Attempting to call API at:", apiUrl);
+
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -260,20 +282,70 @@ document.addEventListener("DOMContentLoaded", function () {
         }),
       });
 
+      console.log("Response status:", response.status);
+      console.log("Response headers:", response.headers);
+
+      if (!response.ok) {
+        // If we get a 403/404, try alternative paths
+        if (response.status === 403 || response.status === 404) {
+          console.log("Primary path failed, trying fallback...");
+
+          // Try fallback with GET request first to test connectivity
+          const testResponse = await fetch(
+            apiUrl.replace("chat_api.php", "chat_api.php?test=1"),
+            {
+              method: "GET",
+            }
+          );
+
+          if (!testResponse.ok) {
+            throw new Error(
+              `API endpoint not accessible. Status: ${response.status}`
+            );
+          }
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      }
+
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("Non-JSON response:", text);
+        throw new Error("Server returned non-JSON response");
+      }
+
       const data = await response.json();
 
       if (data.success) {
         addMessage(data.response, "ai");
       } else {
         addMessage(
-          "Sorry, I'm having trouble connecting right now. Please try again later.",
+          data.response ||
+            "Sorry, I'm having trouble connecting right now. Please try again later.",
           "ai"
         );
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error details:", error);
+
+      // Provide more helpful error messages based on the error type
+      let errorMessage =
+        "I apologize, but I'm experiencing technical difficulties.";
+
+      if (error.message.includes("403")) {
+        errorMessage =
+          "I'm having permission issues accessing my systems. Please try again in a moment.";
+      } else if (error.message.includes("404")) {
+        errorMessage =
+          "I can't seem to find my API endpoint. The technical team has been notified.";
+      } else if (error.message.includes("fetch")) {
+        errorMessage =
+          "I'm having network connectivity issues. Please check your connection and try again.";
+      }
+
       addMessage(
-        "I apologize, but I'm experiencing technical difficulties. Please try again in a moment.",
+        errorMessage + " In the meantime, I can provide general career advice!",
         "ai"
       );
     }

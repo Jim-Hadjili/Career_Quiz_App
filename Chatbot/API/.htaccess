@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Allow access to PHP files
+<Files "*.php">
+    Order allow,deny
+    Allow from all
+    Require all granted
+</Files>
+
+# Set proper headers for API responses
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+# Ensure PHP files are executed
+AddHandler application/x-httpd-php .php

@@ -37,20 +37,19 @@ include "AdminDashboardFunctions/adminDashboardFunctions.php"
                     <?php include_once 'AdminDashboardComponents/adminUserList.php'; ?>
                 </div>
 
-                <!-- Selected Careers Analytics Row -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                    <!-- Selected Careers Chart -->
-                    <?php include_once 'AdminDashboardComponents/selectedCareersChart.php'; ?>
-
-                    <!-- Career Trends Over Time -->
-                    <?php include_once 'AdminDashboardComponents/careerTrendsChart.php'; ?>
-                </div>
-
                 <!-- User Selected Careers Section -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                     <!-- User Selected Careers Chart and Recent Selections -->
                     <?php include_once 'AdminDashboardComponents/userSelectedCareers.php'; ?>
                 </div>
+
+                <!-- Selected Careers Analytics Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
+                    <!-- Career Trends Over Time -->
+                    <?php include_once 'AdminDashboardComponents/careerTrendsChart.php'; ?>
+                </div>
+
+                
             </div>
         </main>
     </div>

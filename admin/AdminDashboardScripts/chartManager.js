@@ -259,9 +259,7 @@ class ChartManager {
               return fullNames[index] || context[0].label;
             },
             label: function (context) {
-              const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const percentage = ((context.parsed / total) * 100).toFixed(1);
-              return `${context.parsed} (${percentage}%)`;
+              return `${context.parsed} Times Selected`;
             },
           },
         },
@@ -324,9 +322,7 @@ class ChartManager {
               return fullNames[index] || context[0].label;
             },
             label: function (context) {
-              const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const percentage = ((context.parsed / total) * 100).toFixed(1);
-              return `${context.parsed} selections (${percentage}%)`;
+              return `${context.parsed} selections`;
             },
           },
         },

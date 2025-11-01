@@ -143,7 +143,7 @@ function handleSignin($conn, $data) {
         // Determine redirect based on user role
         $redirectUrl = null;
         if (strtolower($user['userRole']) === 'admin') {
-            $redirectUrl = 'admin/dashboard.php'; // Adjust path as needed
+            $redirectUrl = 'admin/adminDashboard.php'; // Adjust path as needed
         }
         
         echo json_encode([

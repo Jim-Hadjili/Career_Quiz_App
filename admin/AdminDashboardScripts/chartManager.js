@@ -19,8 +19,38 @@ class ChartManager {
     this.fullUserSelectedCareerNames = window.fullUserSelectedCareerNames || [];
   }
 
+  // Check if career distribution has data
+  hasCareerData() {
+    const data = this.dataManager.getCareerDistributionData();
+    return data.labels.length > 0 && data.counts.some((count) => count > 0);
+  }
+
+  // Show/hide career chart based on data availability
+  toggleCareerChartVisibility() {
+    const chartContainer = document.getElementById("career-chart-container");
+    const noDataContainer = document.getElementById("career-no-data");
+    const chartControls = document.getElementById("career-chart-controls");
+
+    if (!chartContainer || !noDataContainer || !chartControls) return;
+
+    if (this.hasCareerData()) {
+      chartContainer.classList.remove("hidden");
+      noDataContainer.classList.add("hidden");
+      chartControls.classList.remove("hidden");
+    } else {
+      chartContainer.classList.add("hidden");
+      noDataContainer.classList.remove("hidden");
+      chartControls.classList.add("hidden");
+    }
+  }
+
   // Career Distribution Charts
   createBarChart() {
+    if (!this.hasCareerData()) {
+      this.toggleCareerChartVisibility();
+      return;
+    }
+
     if (this.currentChart) {
       this.currentChart.destroy();
     }
@@ -43,9 +73,16 @@ class ChartManager {
       },
       options: this.getBarChartOptions(this.fullCareerNames),
     });
+
+    this.toggleCareerChartVisibility();
   }
 
   createPieChart() {
+    if (!this.hasCareerData()) {
+      this.toggleCareerChartVisibility();
+      return;
+    }
+
     if (this.currentChart) {
       this.currentChart.destroy();
     }
@@ -67,6 +104,8 @@ class ChartManager {
       },
       options: this.getPieChartOptions(this.fullCareerNames),
     });
+
+    this.toggleCareerChartVisibility();
   }
 
   // Selected Careers Charts

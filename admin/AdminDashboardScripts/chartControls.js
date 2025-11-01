@@ -8,7 +8,7 @@ class ChartControls {
   initializeControls() {
     this.setupCareerDistributionControls();
     this.setupSelectedCareersControls();
-    this.setupUserSelectedCareersControls(); // NEW
+    this.setupUserSelectedCareersControls();
   }
 
   setupCareerDistributionControls() {
@@ -17,13 +17,17 @@ class ChartControls {
 
     if (barChartBtn && pieChartBtn) {
       barChartBtn.addEventListener("click", () => {
-        this.chartManager.createBarChart();
-        this.toggleButtonState(barChartBtn, pieChartBtn);
+        if (this.chartManager.hasCareerData()) {
+          this.chartManager.createBarChart();
+          this.toggleButtonState(barChartBtn, pieChartBtn);
+        }
       });
 
       pieChartBtn.addEventListener("click", () => {
-        this.chartManager.createPieChart();
-        this.toggleButtonState(pieChartBtn, barChartBtn);
+        if (this.chartManager.hasCareerData()) {
+          this.chartManager.createPieChart();
+          this.toggleButtonState(pieChartBtn, barChartBtn);
+        }
       });
     }
   }

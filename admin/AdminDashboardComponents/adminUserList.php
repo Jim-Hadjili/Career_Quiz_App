@@ -28,8 +28,8 @@
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <div class="text-center py-8">
-                <i class="fas fa-users text-gray-300 text-3xl mb-3"></i>
+            <div class="flex flex-col items-center justify-center py-12 text-center">
+                <i class="fas fa-users text-gray-300 text-4xl mb-4"></i>
                 <p class="text-gray-500 text-sm">No users found</p>
             </div>
         <?php endif; ?>

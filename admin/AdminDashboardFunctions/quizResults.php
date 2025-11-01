@@ -30,11 +30,14 @@ class QuizResults {
                 }
             }
             
-            arsort($career_counts);
-            return array_slice($career_counts, 0, 6, true);
+            if (!empty($career_counts)) {
+                arsort($career_counts);
+                return array_slice($career_counts, 0, 6, true);
+            }
         }
         
-        return ['Data Science' => 12, 'Software Dev' => 8, 'Engineering' => 6, 'Business' => 4, 'Healthcare' => 3, 'Education' => 2];
+        // Return empty array if no data found instead of sample data
+        return [];
     }
     
     public function getSelectedCareersData() {
@@ -57,12 +60,14 @@ class QuizResults {
                 }
             }
             
-            arsort($selected_careers);
-            $selected_careers = array_slice($selected_careers, 0, 8, true);
+            if (!empty($selected_careers)) {
+                arsort($selected_careers);
+                $selected_careers = array_slice($selected_careers, 0, 8, true);
+            }
         }
         
         return [
-            'selected_careers' => $selected_careers ?: ['Data Scientist' => 8, 'Software Engineer' => 6, 'HR Specialist' => 4, 'Marketing Manager' => 3],
+            'selected_careers' => $selected_careers,
             'monthly_data' => $monthly_data
         ];
     }

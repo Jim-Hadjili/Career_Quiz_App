@@ -32,7 +32,6 @@ class CareerAnalysisAPI {
     public function analyzeCareerProfile($quizAnswers, $coreSubjects, $mbtiType) {
         $prompt = $this->buildAnalysisPrompt($quizAnswers, $coreSubjects, $mbtiType);
 
-        // Attempt requests with retries to improve reliability
         $lastException = null;
         for ($attempt = 1; $attempt <= $this->maxRetries; $attempt++) {
             try {
@@ -41,148 +40,113 @@ class CareerAnalysisAPI {
                     'messages' => [
                         [
                             'role' => 'system',
-                            'content' => 'You are an expert career counselor AI with deep knowledge of personality assessment, academic performance analysis, and career matching. You MUST always provide exactly 5 career recommendations in valid JSON format. Never provide fewer than 5 recommendations, and always ensure your response is properly formatted JSON.'
+                            'content' => 'Expert career counselor AI. Always provide exactly 5 career recommendations in valid JSON format.'
                         ],
                         [
                             'role' => 'user',
                             'content' => $prompt
                         ]
                     ],
-                    'temperature' => 0.2,
-                    'max_tokens' => 3000
+                    'temperature' => 0.3,
+                    'max_tokens' => 2500
                 ];
 
                 $result = $this->makeAPIRequest($payload);
 
-                // makeAPIRequest already validates and returns decoded JSON array
-                if (is_array($result) && isset($result['recommended_careers']) && is_array($result['recommended_careers']) && count($result['recommended_careers']) === 5) {
+                if (is_array($result) && isset($result['recommended_careers']) && 
+                    is_array($result['recommended_careers']) && 
+                    count($result['recommended_careers']) === 5) {
                     return $result;
                 }
 
-                throw new Exception('AI returned invalid recommendation structure or not exactly 5 recommendations.');
+                throw new Exception('AI returned invalid recommendation structure.');
             } catch (Exception $ex) {
                 $lastException = $ex;
-                // small backoff
                 if ($attempt < $this->maxRetries) {
                     sleep($this->retryDelaySeconds);
                 }
             }
         }
 
-        // If all retries failed, bubble up last exception
-        throw new Exception('AI analysis failed after retries: ' . ($lastException ? $lastException->getMessage() : 'unknown error'));
+        throw new Exception('AI analysis failed: ' . ($lastException ? $lastException->getMessage() : 'unknown error'));
     }
 
     private function buildAnalysisPrompt($quizAnswers, $coreSubjects, $mbtiType) {
-        // Ensure we have valid MBTI type
         if (empty($mbtiType) || $mbtiType === 'unknown') {
-            $mbtiType = 'ISFJ'; // Default for prompt completeness
+            $mbtiType = 'ISFJ';
         }
 
-        $prompt = "As a career counselor, analyze this student profile and provide EXACTLY 5 career recommendations. You must respond with valid JSON only.\n\n";
+        // Build concise profile
+        $profile = "MBTI: {$mbtiType}\n";
         
-        // Add MBTI information with characteristics
-        $prompt .= "MBTI Personality Type: {$mbtiType}\n";
-        $prompt .= $this->getMBTICharacteristics($mbtiType) . "\n\n";
-        
-        // Add core subject grades with analysis
-        $prompt .= "Academic Performance (Grades out of 100):\n";
-        $totalGrade = 0;
-        $subjectCount = 0;
-        $strongSubjects = [];
-        $weakSubjects = [];
+        // Academic performance summary
+        $grades = [];
+        $total = 0;
+        $count = 0;
         
         foreach ($coreSubjects as $subject => $grade) {
             if ($subject !== 'mbti_type' && is_numeric($grade)) {
-                $subjectName = $this->formatSubjectName($subject);
-                $prompt .= "- {$subjectName}: {$grade}/100\n";
-                
                 $numGrade = floatval($grade);
-                $totalGrade += $numGrade;
-                $subjectCount++;
-                
-                if ($numGrade >= 85) {
-                    $strongSubjects[] = $subjectName;
-                } elseif ($numGrade < 75) {
-                    $weakSubjects[] = $subjectName;
-                }
+                $grades[$this->formatSubjectName($subject)] = $numGrade;
+                $total += $numGrade;
+                $count++;
             }
         }
         
-        $averageGrade = $subjectCount > 0 ? $totalGrade / $subjectCount : 75;
-        $prompt .= "Average Grade: " . round($averageGrade, 1) . "/100\n";
-        if (!empty($strongSubjects)) {
-            $prompt .= "Strong Subjects: " . implode(', ', $strongSubjects) . "\n";
-        }
-        if (!empty($weakSubjects)) {
-            $prompt .= "Areas for Improvement: " . implode(', ', $weakSubjects) . "\n";
-        }
+        $avgGrade = $count > 0 ? round($total / $count, 1) : 75;
+        arsort($grades);
+        $topSubjects = array_slice(array_keys($grades), 0, 3);
         
-        // Add quiz responses analysis
-        $prompt .= "\nPersonality Quiz Analysis (Scale 1-7):\n";
+        $profile .= "Avg Grade: {$avgGrade}/100\n";
+        $profile .= "Top Subjects: " . implode(', ', $topSubjects) . "\n";
+        
+        // Quiz personality summary
         $personalityScores = $this->analyzeQuizResponses($quizAnswers);
+        $profile .= "Personality Scores: ";
         foreach ($personalityScores as $trait => $score) {
-            $prompt .= "- {$trait}: {$score}/7\n";
+            $profile .= "{$trait}:{$score} ";
         }
         
-        // Detailed instructions for response format
-        $prompt .= "\n" . $this->getResponseInstructions();
-
-        return $prompt;
-    }
-
-    private function getMBTICharacteristics($mbtiType) {
-        $characteristics = [
-            'INTJ' => 'Strategic thinker, independent, analytical, prefers complex problems',
-            'INTP' => 'Logical thinker, curious, theoretical, loves understanding systems',
-            'ENTJ' => 'Natural leader, strategic, efficient, goal-oriented',
-            'ENTP' => 'Innovative, enthusiastic, strategic, good at seeing possibilities',
-            'INFJ' => 'Insightful, creative, inspiring, focused on helping others',
-            'INFP' => 'Idealistic, loyal, adaptable, interested in understanding people',
-            'ENFJ' => 'Warm, empathetic, responsive, responsible for others',
-            'ENFP' => 'Enthusiastic, creative, spontaneous, people-focused',
-            'ISTJ' => 'Practical, fact-minded, reliable, responsible',
-            'ISFJ' => 'Warm-hearted, conscientious, cooperative, supportive',
-            'ESTJ' => 'Practical, realistic, matter-of-fact, decisive',
-            'ESFJ' => 'Warm-hearted, conscientious, cooperative, harmonious',
-            'ISTP' => 'Tolerant, flexible, quiet observer, hands-on problem solver',
-            'ISFP' => 'Quiet, friendly, sensitive, kind, artistic',
-            'ESTP' => 'Flexible, tolerant, pragmatic, focused on immediate results',
-            'ESFP' => 'Outgoing, friendly, accepting, enthusiastic about life'
-        ];
-        
-        return $characteristics[$mbtiType] ?? 'Balanced personality with diverse interests';
+        return $profile . "\n\n" . $this->getCompactInstructions();
     }
 
     private function formatSubjectName($subject) {
         $nameMap = [
-            'Statistics_and_Probability' => 'Statistics and Probability',
-            'Physical_Science' => 'Physical Science',
-            'oral_comm_context' => 'Oral Communication',
-            'general_math' => 'General Mathematics',
-            'earth_life_sci' => 'Earth and Life Science',
-            'ucsp' => 'Understanding Culture, Society and Politics',
-            'reading_writing' => 'Reading and Writing',
-            'lit21_ph_world' => 'Literature (21st Century Philippine and World)',
-            'media_info_lit' => 'Media and Information Literacy'
+            'Statistics_and_Probability' => 'Statistics',
+            'Physical_Science' => 'Physics',
+            'oral_comm_context' => 'Communication',
+            'general_math' => 'Math',
+            'earth_life_sci' => 'Earth Science',
+            'ucsp' => 'Social Studies',
+            'reading_writing' => 'English',
+            'lit21_ph_world' => 'Literature',
+            'media_info_lit' => 'Media Literacy'
         ];
         
-        return $nameMap[$subject] ?? str_replace('_', ' ', ucwords($subject, '_'));
+        return $nameMap[$subject] ?? str_replace('_', ' ', $subject);
     }
 
     private function analyzeQuizResponses($quizAnswers) {
-        // Group questions by personality traits and calculate averages
-        $traitScores = [];
-        $traitCounts = [];
+        $traitScores = [
+            'Analytical' => 0,
+            'Social' => 0,
+            'Creative' => 0,
+            'Leadership' => 0
+        ];
+        $traitCounts = [
+            'Analytical' => 0,
+            'Social' => 0,
+            'Creative' => 0,
+            'Leadership' => 0
+        ];
         
         foreach ($quizAnswers as $questionId => $answer) {
-            // Simple trait mapping based on question patterns
-            $trait = $this->mapQuestionToTrait($questionId);
+            $questionNum = intval(str_replace('q', '', $questionId));
             
-            if (!isset($traitScores[$trait])) {
-                $traitScores[$trait] = 0;
-                $traitCounts[$trait] = 0;
-            }
+            if ($questionNum <= 10) $trait = 'Analytical';
+            elseif ($questionNum <= 20) $trait = 'Social';
+            elseif ($questionNum <= 30) $trait = 'Creative';
+            else $trait = 'Leadership';
             
             $traitScores[$trait] += intval($answer);
             $traitCounts[$trait]++;
@@ -190,42 +154,16 @@ class CareerAnalysisAPI {
         
         $averageScores = [];
         foreach ($traitScores as $trait => $totalScore) {
-            $averageScores[$trait] = round($totalScore / $traitCounts[$trait], 1);
+            if ($traitCounts[$trait] > 0) {
+                $averageScores[$trait] = round($totalScore / $traitCounts[$trait], 1);
+            }
         }
         
         return $averageScores;
     }
 
-    private function mapQuestionToTrait($questionId) {
-        // Map questions to personality traits (this is a simplified mapping)
-        $questionNumber = intval(str_replace('q', '', $questionId));
-        
-        if ($questionNumber <= 25) return 'Analytical Thinking';
-        elseif ($questionNumber <= 50) return 'Social Interaction';
-        elseif ($questionNumber <= 75) return 'Creative Expression';
-        elseif ($questionNumber <= 100) return 'Leadership Tendency';
-        else return 'Problem Solving';
-    }
-
-    private function getResponseInstructions() {
-        return "CRITICAL INSTRUCTIONS:
-1. You MUST provide exactly 5 career recommendations
-2. Response MUST be valid JSON only (no additional text before or after)
-3. Each career MUST have realistic match percentages (70-95%)
-4. Base recommendations on the provided data
-5. Include diverse career options from different fields
-
-For each career recommendation, provide:
-- RICH DESCRIPTION: Write 3-4 engaging sentences that paint a vivid picture of the career, including daily responsibilities, work environment, impact on society, and growth opportunities. Make it inspiring and comprehensive.
-- DETAILED PERSONALIZED FIT: Write 4-5 sentences explaining specifically why this career matches their MBTI type, academic strengths, personality traits, and quiz responses. Use their actual data points and be motivational.
-- COMPREHENSIVE DETAILS: Include realistic salary ranges based on Philippine market, specific education requirements, and 4-6 relevant key skills.
-
-SALARY AND GROWTH FORMAT REQUIREMENTS:
-- Use Philippine Peso format: \"₱25,000 - ₱85,000\" (monthly salaries)
-- Base salaries on current Philippine job market trends
-- Entry-level: ₱20,000-₱35,000, Mid-level: ₱40,000-₱80,000, Senior: ₱90,000+
-- Growth outlook: Use only one word - \"High\", \"Medium\", or \"Low\"
-- Consider Philippines-specific job demand and economic trends
+    private function getCompactInstructions() {
+        return "Generate exactly 5 career recommendations as JSON. Use Philippine context.
 
 Required JSON format:
 {
@@ -233,51 +171,35 @@ Required JSON format:
     {
       \"title\": \"Career Name\",
       \"match_percentage\": 85,
-      \"description\": \"Rich 3-4 sentence description covering responsibilities, work environment, societal impact, and growth opportunities. Make it vivid and inspiring.\",
-      \"why_good_fit\": \"Detailed 4-5 sentence personalized explanation using their MBTI type, specific grades, and personality scores. Reference their strongest subjects and traits. Be encouraging and motivational.\",
+      \"description\": \"2-3 sentences about role, responsibilities, and impact.\",
+      \"why_good_fit\": \"3-4 sentences explaining fit with MBTI, grades, and personality scores.\",
+      \"educational_path\": {
+        \"degree_programs\": [\"Bachelor of Science in Computer Science\", \"Bachelor of Science in Information Technology\", \"Bachelor of Science in Software Engineering\"]
+      },
       \"salary_range\": \"₱30,000 - ₱75,000\",
       \"growth_outlook\": \"High\",
-      \"education_required\": \"Bachelor's degree in [specific field], with optional certifications in [relevant areas]\",
-      \"key_skills\": [\"skill1\", \"skill2\", \"skill3\", \"skill4\", \"skill5\", \"skill6\"],
-      \"work_environment\": \"Description of typical work settings and culture in Philippine context\",
-      \"career_progression\": \"Entry level → Mid level → Senior level pathway\"
+      \"icon\": \"fa-briefcase\"
     }
-  ],
-  \"personality_analysis\": {
-    \"key_traits\": [\"Primary trait based on MBTI\", \"Secondary trait from quiz\", \"Third trait from academic performance\"],
-    \"strengths\": [\"Specific strength from data\", \"Another strength with evidence\"],
-    \"areas_for_development\": [\"Growth area with constructive advice\", \"Another development area with guidance\"]
-  },
-  \"academic_analysis\": {
-    \"strongest_subjects\": [\"Top performing subject\", \"Second strongest subject\"],
-    \"recommendations\": [\"Specific academic advice based on performance\", \"Career-focused learning suggestion\"]
-  }
+  ]
 }
 
-PHILIPPINE SALARY GUIDELINES BY CAREER TYPE:
-- IT/Software: Entry ₱25,000-₱40,000, Senior ₱60,000-₱120,000
-- Engineering: Entry ₱20,000-₱35,000, Senior ₱50,000-₱100,000
-- Healthcare: Entry ₱25,000-₱45,000, Senior ₱60,000-₱150,000
-- Education: Entry ₱18,000-₱30,000, Senior ₱40,000-₱80,000
-- Business/Finance: Entry ₱20,000-₱35,000, Senior ₱55,000-₱120,000
-- Creative/Media: Entry ₱18,000-₱30,000, Senior ₱40,000-₱90,000
-- Government: Entry ₱15,000-₱25,000, Senior ₱35,000-₱70,000
+Guidelines:
+- Match %: 70-95% realistic range
+- Salary: Use ₱ format, Philippine market rates
+- Growth: \"High\", \"Medium\", or \"Low\" only
+- Educational paths: 2-4 relevant degree programs from Philippine universities
+- Use full degree names (e.g., \"Bachelor of Science in Industrial Engineering\")
+- Diverse career fields
+- Reference actual grades and MBTI in why_good_fit
 
-GROWTH OUTLOOK GUIDELINES:
-- High: IT, Healthcare, Digital Marketing, Data Science, Renewable Energy
-- Medium: Engineering, Finance, Education, Traditional Business
-- Low: Traditional Manufacturing, Print Media, Some Government roles
+Examples by field:
+IT: Bachelor of Science in Computer Science, Bachelor of Science in Information Technology
+Engineering: Bachelor of Science in Civil Engineering, Bachelor of Science in Mechanical Engineering
+Healthcare: Bachelor of Science in Nursing, Bachelor of Medicine
+Business: Bachelor of Science in Business Administration, Bachelor of Science in Accountancy
+Education: Bachelor of Elementary Education, Bachelor of Secondary Education
 
-WRITING GUIDELINES:
-- Use active, engaging language that inspires confidence
-- Include specific details about career impact and opportunities in Philippines
-- Reference actual data points from their profile (grades, MBTI, quiz scores)
-- Make each 'why_good_fit' unique and personalized
-- Ensure descriptions are comprehensive yet accessible
-- Use encouraging, motivational tone throughout
-- Consider Philippine job market realities and opportunities
-
-Provide ONLY the JSON response above, no other text.";
+Return only valid JSON, no other text.";
     }
 
     private function makeAPIRequest($payload) {
@@ -292,8 +214,8 @@ Provide ONLY the JSON response above, no other text.";
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60); // Increased timeout
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // For development
+        curl_setopt($ch, CURLOPT_TIMEOUT, 45);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -307,36 +229,35 @@ Provide ONLY the JSON response above, no other text.";
         curl_close($ch);
 
         if ($httpCode < 200 || $httpCode >= 300) {
-            throw new Exception('API returned error code: ' . $httpCode . '. Response: ' . $response);
+            throw new Exception('API returned error code: ' . $httpCode);
         }
 
         $decodedResponse = json_decode($response, true);
         if (!$decodedResponse || !isset($decodedResponse['choices'][0]['message']['content'])) {
-            throw new Exception('Invalid API response format: ' . $response);
+            throw new Exception('Invalid API response format');
         }
 
         $content = trim($decodedResponse['choices'][0]['message']['content']);
 
-        // Attempt to locate JSON content and decode it
         $jsonStart = strpos($content, '{');
         $jsonEnd = strrpos($content, '}');
 
         if ($jsonStart === false || $jsonEnd === false) {
-            throw new Exception('AI response does not contain JSON object: ' . $content);
+            throw new Exception('AI response does not contain JSON');
         }
 
         $jsonString = substr($content, $jsonStart, $jsonEnd - $jsonStart + 1);
         $decodedJson = json_decode($jsonString, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception('Failed to decode AI JSON: ' . json_last_error_msg() . '. Raw: ' . $content);
+            throw new Exception('Failed to decode AI JSON: ' . json_last_error_msg());
         }
 
-        // Validate required structure minimally
         if (!isset($decodedJson['recommended_careers']) || !is_array($decodedJson['recommended_careers'])) {
-            throw new Exception('Decoded JSON missing recommended_careers: ' . json_encode(array_keys($decodedJson)));
+            throw new Exception('Invalid JSON structure');
         }
 
         return $decodedJson;
     }
 }
+?>

@@ -23,6 +23,9 @@ if ($action !== 'get_results') {
 $resultId = $_POST['result_id'] ?? '';
 $isGuest = $_POST['is_guest'] ?? '';
 
+// Add debug logging
+error_log("getResults.php - Requested result_id: " . $resultId . ", isGuest: " . $isGuest);
+
 try {
     if ($isGuest) {
         // Load guest results from session
@@ -48,7 +51,10 @@ try {
             exit;
         }
 
-        // Fixed: Use result_id instead of id
+        // Debug: Check what we're querying
+        error_log("Querying database for result_id: " . $resultId);
+
+        // Use result_id instead of id
         $stmt = $conn->prepare("SELECT * FROM quiz_results_tb WHERE result_id = ?");
         $stmt->bind_param("i", $resultId);
         $stmt->execute();
@@ -56,6 +62,10 @@ try {
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
+            
+            // Debug: Log what we found
+            error_log("Found result with result_id: " . $row['result_id'] . " for user_id: " . $row['user_id']);
+            
             $quizData = json_decode($row['quiz_data'], true);
             $careerRecommendations = json_decode($row['recommended_careers'], true);
 
@@ -70,10 +80,12 @@ try {
                     'quizAnswers' => $quizData['answers'] ?? [],
                     'coreSubjects' => $quizData['core_subjects'] ?? [],
                     'careerRecommendations' => $careerRecommendations ?? [],
-                    'mbtiType' => $quizData['core_subjects']['mbti_type'] ?? 'UNKNOWN'
+                    'mbtiType' => $quizData['core_subjects']['mbti_type'] ?? 'UNKNOWN',
+                    'result_id' => $row['result_id'] // Add this for debugging
                 ]
             ]);
         } else {
+            error_log("No results found for result_id: " . $resultId);
             echo json_encode(['success' => false, 'message' => 'Results not found for ID: ' . $resultId]);
         }
     }

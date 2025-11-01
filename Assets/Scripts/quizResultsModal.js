@@ -256,9 +256,11 @@ async function changePage(page) {
 
 // View Full Results
 function viewFullResults(resultId, isGuest) {
+  console.log("Opening result with ID:", resultId, "isGuest:", isGuest); // Add debug log
   const url = `Content/Pages/quizResults.php?result_id=${resultId}${
     isGuest ? "&guest=1" : ""
   }`;
+  console.log("Redirecting to URL:", url); // Add debug log
   window.location.href = url;
 }
 

@@ -3,12 +3,15 @@ export class ResultsDataLoader {
     // Try to get data from sessionStorage first (for fresh submissions)
     const sessionData = sessionStorage.getItem("quizResults");
     if (sessionData) {
+      console.log("[ResultsDataLoader] Loading from session storage");
       try {
-        const resultsData = JSON.parse(sessionData);
-        console.log("[ResultsDataLoader] Loading data from session storage");
-        return resultsData;
-      } catch (e) {
-        console.error("[ResultsDataLoader] Error parsing session data:", e);
+        const parsedData = JSON.parse(sessionData);
+        // Clear session data after loading to prevent conflicts
+        sessionStorage.removeItem("quizResults");
+        return parsedData;
+      } catch (error) {
+        console.error("[ResultsDataLoader] Error parsing session data:", error);
+        sessionStorage.removeItem("quizResults");
       }
     }
 
@@ -27,64 +30,56 @@ export class ResultsDataLoader {
     if (resultId || isGuest) {
       return await this.loadResultsFromServer(resultId, isGuest);
     } else {
-      // Fallback to sample data
-      console.log("[ResultsDataLoader] Using fallback sample data");
+      console.log(
+        "[ResultsDataLoader] No parameters found, loading sample data"
+      );
       return this.loadSampleData();
     }
   }
 
   static async loadResultsFromServer(resultId, isGuest) {
     try {
-      const formData = new FormData();
-      formData.append("action", "get_results");
-      if (resultId) formData.append("result_id", resultId);
-      if (isGuest) formData.append("is_guest", isGuest);
-
-      console.log("[ResultsDataLoader] Making request to server with:", {
-        action: "get_results",
-        result_id: resultId,
-        is_guest: isGuest,
-      });
+      console.log(
+        `[ResultsDataLoader] Fetching from server - resultId: ${resultId}, isGuest: ${isGuest}`
+      );
 
       const response = await fetch(
         "../Functions/quizPageFunctions/getResults.php",
         {
           method: "POST",
-          body: formData,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            action: "get_results",
+            result_id: resultId || "",
+            is_guest: isGuest || "",
+          }),
         }
       );
 
-      // Check if response is ok
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const text = await response.text();
-      console.log("[ResultsDataLoader] Raw response:", text);
+      const data = await response.json();
+      console.log("[ResultsDataLoader] Server response:", data);
 
-      // Try to parse as JSON
-      let result;
-      try {
-        result = JSON.parse(text);
-      } catch (parseError) {
-        console.error("[ResultsDataLoader] JSON parse error:", parseError);
-        console.error("[ResultsDataLoader] Response text:", text);
-        throw new Error("Server returned invalid JSON");
-      }
-
-      if (result.success) {
-        console.log(
-          "[ResultsDataLoader] Successfully loaded data:",
-          result.data
-        );
-        return result.data;
+      if (data.success) {
+        return {
+          mbtiType: data.data.mbtiType,
+          coreSubjects: data.data.coreSubjects,
+          quizAnswers: data.data.quizAnswers,
+          careerRecommendations: data.data.careerRecommendations,
+          result_id: data.data.result_id, // Add this for debugging
+        };
       } else {
-        console.error("[ResultsDataLoader] Server error:", result.message);
-        return this.loadSampleData();
+        console.error("[ResultsDataLoader] Server error:", data.message);
+        throw new Error(data.message);
       }
     } catch (error) {
-      console.error("[ResultsDataLoader] Network error:", error);
-      return this.loadSampleData();
+      console.error("[ResultsDataLoader] Error loading from server:", error);
+      throw error;
     }
   }
 
@@ -104,48 +99,7 @@ export class ResultsDataLoader {
         lit21_ph_world: "77",
         media_info_lit: "77",
       },
-      quizAnswers: {
-        1: 7,
-        2: 7,
-        3: 7,
-        4: 7,
-        5: 7,
-        6: 7,
-        7: 7,
-        8: 7,
-        9: 7,
-        10: 7,
-        11: 7,
-        12: 7,
-        13: 7,
-        14: 7,
-        15: 7,
-        16: 7,
-        17: 7,
-        18: 7,
-        19: 7,
-        20: 7,
-        21: 7,
-        22: 7,
-        23: 7,
-        24: 7,
-        25: 7,
-        26: 7,
-        27: 7,
-        28: 7,
-        29: 7,
-        30: 7,
-        31: 7,
-        32: 7,
-        33: 7,
-        34: 7,
-        35: 7,
-        36: 7,
-        37: 7,
-        38: 7,
-        39: 7,
-        40: 7,
-      },
+      quizAnswers: {},
       careerRecommendations: {
         personality_analysis: {
           key_traits: [
@@ -166,50 +120,13 @@ export class ResultsDataLoader {
             match_percentage: 90,
             why_good_fit:
               "Your ESFJ personality is perfectly suited for this role, as you naturally excel in social interactions and thrive in cooperative environments.",
-          },
-          {
-            title: "Public Relations Officer",
-            description:
-              "As a Public Relations Officer, you'll be the bridge between organizations and the public, crafting compelling narratives and managing media relations.",
-            icon: "fa-bullhorn",
-            salary_range: "₱28,000 - ₱70,000",
-            growth_outlook: "Medium",
-            match_percentage: 88,
-            why_good_fit:
-              "Your ESFJ traits of cooperation and harmony align perfectly with PR's need for relationship-building.",
-          },
-          {
-            title: "Social Worker",
-            description:
-              "As a Social Worker, you'll empower individuals and communities by providing support and resources to those in need.",
-            icon: "fa-heart",
-            salary_range: "₱25,000 - ₱65,000",
-            growth_outlook: "High",
-            match_percentage: 87,
-            why_good_fit:
-              "Your ESFJ personality is ideal for this caring profession, as you naturally want to help others and create harmonious environments.",
-          },
-          {
-            title: "Event Planner",
-            description:
-              "As an Event Planner, you'll bring people together by organizing memorable experiences, from corporate conferences to weddings and cultural festivals.",
-            icon: "fa-calendar",
-            salary_range: "₱25,000 - ₱60,000",
-            growth_outlook: "Medium",
-            match_percentage: 85,
-            why_good_fit:
-              "Your ESFJ traits of cooperation and harmony make you naturally skilled at creating enjoyable experiences for others.",
-          },
-          {
-            title: "Customer Service Manager",
-            description:
-              "As a Customer Service Manager, you'll lead teams that provide exceptional service to clients, ensuring satisfaction and loyalty.",
-            icon: "fa-headset",
-            salary_range: "₱35,000 - ₱80,000",
-            growth_outlook: "High",
-            match_percentage: 89,
-            why_good_fit:
-              "Your ESFJ personality is perfectly suited for this customer-facing role, as you naturally enjoy helping others and creating positive experiences.",
+            educational_path: {
+              degree_programs: [
+                "Bachelor of Science in Psychology",
+                "Bachelor of Science in Human Resource Development",
+                "Bachelor of Science in Behavioral Sciences",
+              ],
+            },
           },
         ],
       },

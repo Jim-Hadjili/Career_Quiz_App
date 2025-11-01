@@ -52,6 +52,8 @@ export class CareerRenderer {
               <p class="text-gray-700 leading-relaxed">${path.why_good_fit}</p>
             </div>
             
+            ${this.createEducationalPathHtml(path.educational_path)}
+            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-white rounded-2xl border border-gray-200">
               <div class="text-center">
                 <p class="text-sm text-gray-600 mb-2 font-medium">Match Score</p>
@@ -73,6 +75,39 @@ export class CareerRenderer {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    `;
+  }
+
+  static createEducationalPathHtml(educationalPath) {
+    if (
+      !educationalPath ||
+      !educationalPath.degree_programs ||
+      !Array.isArray(educationalPath.degree_programs) ||
+      educationalPath.degree_programs.length === 0
+    ) {
+      return "";
+    }
+
+    return `
+      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 mb-6">
+        <h4 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <i class="fas fa-graduation-cap text-blue-600"></i>
+          Recommended Degree Programs
+        </h4>
+        
+        <div class="grid grid-cols-1 gap-3">
+          ${educationalPath.degree_programs
+            .map(
+              (degree) => `
+            <div class="bg-white px-4 py-3 rounded-lg border border-blue-100 flex items-center gap-3 hover:bg-blue-50 transition-colors">
+              <i class="fas fa-certificate text-blue-500"></i>
+              <span class="text-gray-700 font-medium">${degree}</span>
+            </div>
+          `
+            )
+            .join("")}
         </div>
       </div>
     `;

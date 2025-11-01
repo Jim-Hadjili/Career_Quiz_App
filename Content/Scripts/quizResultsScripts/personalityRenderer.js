@@ -44,10 +44,12 @@ export class PersonalityRenderer {
   }
 
   static renderComprehensiveAnalysis(data) {
-    if (!data.quizAnswers) {
-      console.error(
-        "[PersonalityRenderer] Quiz answers not available for analysis"
+    // Check if quiz answers are available
+    if (!data.quizAnswers || Object.keys(data.quizAnswers).length === 0) {
+      console.log(
+        "[PersonalityRenderer] Quiz answers not available, using fallback analysis"
       );
+      this.renderFallbackAnalysis(data);
       return;
     }
 
@@ -76,6 +78,64 @@ export class PersonalityRenderer {
       comprehensiveTraits,
       data.coreSubjects.mbti_type
     );
+  }
+
+  static renderFallbackAnalysis(data) {
+    // Generate basic traits based on MBTI type when quiz data is unavailable
+    const mbtiType = data.coreSubjects.mbti_type || "ISFJ";
+    const fallbackTraits = this.generateMBTIBasedTraits(mbtiType);
+
+    this.renderTraits(fallbackTraits);
+    this.updatePersonalityDescription(fallbackTraits, mbtiType);
+  }
+
+  static generateMBTIBasedTraits(mbtiType) {
+    // Generate basic traits based on MBTI type
+    const traits = [];
+
+    // Extract MBTI dimensions
+    const isExtraverted = mbtiType.charAt(0) === "E";
+    const isSensing = mbtiType.charAt(1) === "S";
+    const isThinking = mbtiType.charAt(2) === "T";
+    const isJudging = mbtiType.charAt(3) === "J";
+
+    traits.push({
+      name: "Extraversion",
+      opposite: "Introversion",
+      percentage: isExtraverted ? 65 : 35,
+      description: isExtraverted
+        ? "You gain energy from social interactions"
+        : "You prefer quieter, more focused environments",
+    });
+
+    traits.push({
+      name: "Sensing",
+      opposite: "Intuition",
+      percentage: isSensing ? 65 : 35,
+      description: isSensing
+        ? "You focus on concrete details and practical information"
+        : "You prefer abstract concepts and future possibilities",
+    });
+
+    traits.push({
+      name: "Thinking",
+      opposite: "Feeling",
+      percentage: isThinking ? 65 : 35,
+      description: isThinking
+        ? "You make decisions based on logic and analysis"
+        : "You prioritize values and personal considerations",
+    });
+
+    traits.push({
+      name: "Judging",
+      opposite: "Perceiving",
+      percentage: isJudging ? 65 : 35,
+      description: isJudging
+        ? "You prefer structure and planned approaches"
+        : "You like flexibility and adaptable methods",
+    });
+
+    return traits;
   }
 
   static analyzePersonalityResponses(answers) {

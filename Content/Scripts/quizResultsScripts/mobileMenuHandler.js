@@ -1,6 +1,10 @@
 export class MobileMenuHandler {
   static init() {
     this.setupEventListeners();
+    // Make functions globally available for onclick handlers
+    window.toggleMobileMenu = () => this.toggleMobileMenu();
+    window.closeMobileMenu = () => this.closeMobileMenu();
+    window.openMobileMenu = () => this.openMobileMenu();
   }
 
   static setupEventListeners() {
@@ -53,10 +57,12 @@ export class MobileMenuHandler {
     const overlay = document.getElementById("mobile-overlay");
     const hamburgerIcon = document.getElementById("hamburger-icon");
 
-    mobileMenu.classList.add("open");
-    overlay.classList.add("active");
-    hamburgerIcon.classList.remove("fa-bars");
-    hamburgerIcon.classList.add("fa-times");
+    if (mobileMenu) mobileMenu.classList.add("open");
+    if (overlay) overlay.classList.add("active");
+    if (hamburgerIcon) {
+      hamburgerIcon.classList.remove("fa-bars");
+      hamburgerIcon.classList.add("fa-times");
+    }
 
     // Prevent body scroll
     document.body.style.overflow = "hidden";

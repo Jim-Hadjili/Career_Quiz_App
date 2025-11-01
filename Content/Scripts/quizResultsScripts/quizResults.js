@@ -3,12 +3,45 @@ import { PersonalityRenderer } from "./personalityRenderer.js";
 import { CareerRenderer } from "./careerRenderer.js";
 import { CareerNavigation } from "./careerNavigation.js";
 import { MobileMenuHandler } from "./mobileMenuHandler.js";
+import { CareerSelector } from "./careerSelector.js";
 
 class QuizResults {
   constructor() {
     this.resultsData = null;
     this.careerNavigation = new CareerNavigation();
+    this.careerSelector = new CareerSelector();
+
+    // Make navigation functions globally available immediately
+    this.setupGlobalFunctions();
+
     this.init();
+  }
+
+  setupGlobalFunctions() {
+    // Make career navigation functions globally available for onclick handlers
+    window.nextCareer = () => {
+      if (this.careerNavigation) {
+        this.careerNavigation.nextCareer();
+      }
+    };
+
+    window.previousCareer = () => {
+      if (this.careerNavigation) {
+        this.careerNavigation.previousCareer();
+      }
+    };
+
+    window.goToCareer = (index) => {
+      if (this.careerNavigation) {
+        this.careerNavigation.goToCareer(index);
+      }
+    };
+
+    // Make career selector globally available
+    window.careerSelector = this.careerSelector;
+
+    // Make career navigation instance globally available
+    window.careerNavigation = this.careerNavigation;
   }
 
   async init() {
@@ -36,6 +69,9 @@ class QuizResults {
     // Initialize mobile menu handler
     MobileMenuHandler.init();
 
+    // Make career selector globally available
+    window.careerSelector = this.careerSelector;
+
     // Render personality information
     PersonalityRenderer.renderPersonalityInfo(this.resultsData);
 
@@ -45,11 +81,24 @@ class QuizResults {
         this.resultsData.careerRecommendations.recommended_careers;
       CareerRenderer.renderCareerCards(careers);
 
-      // Initialize career navigation
+      // Initialize career navigation with the actual number of careers
       this.careerNavigation.init(careers.length);
 
-      // Make career navigation globally available for onclick handlers
-      window.careerNavigation = this.careerNavigation;
+      // Check for existing career selection after cards are rendered
+      // Use multiple timeouts to ensure highlighting works
+      setTimeout(() => {
+        console.log(
+          "[QuizResults] Calling checkExistingSelection (first attempt)"
+        );
+        this.careerSelector.checkExistingSelection();
+      }, 1000);
+
+      setTimeout(() => {
+        console.log(
+          "[QuizResults] Calling checkExistingSelection (second attempt)"
+        );
+        this.careerSelector.checkExistingSelection();
+      }, 2000);
     }
   }
 

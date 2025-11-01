@@ -1,3 +1,9 @@
+<?php
+// Add this at the very beginning of quizResultsHeadtag.php if not already present
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,6 +37,16 @@
     <?php include "../Includes/quizResultsComponents/quizResultsSideBar.php" ?>
 
   </div>
+
+  <!-- Pass PHP session data to JavaScript -->
+  <script>
+    window.APP_CONFIG = {
+      userId: <?php echo json_encode($_SESSION['user_id'] ?? null); ?>,
+      userName: <?php echo json_encode($_SESSION['userName'] ?? null); ?>,
+      userEmail: <?php echo json_encode($_SESSION['userEmail'] ?? null); ?>,
+      isLoggedIn: <?php echo json_encode(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])); ?>
+    };
+  </script>
 
   <script type="module" src="../Scripts/quizResultsScripts/quizResults.js"></script>
 

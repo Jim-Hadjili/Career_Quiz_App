@@ -243,7 +243,6 @@ function updatePagination(totalCount, currentPageNum, totalPages) {
   resultsInfo.className = "text-sm text-gray-600 ml-4";
   const startResult = (currentPageNum - 1) * resultsPerPage + 1;
   const endResult = Math.min(currentPageNum * resultsPerPage, totalCount);
-  resultsInfo.textContent = `Showing ${startResult}-${endResult} of ${totalCount} results`;
   paginationContainer.appendChild(resultsInfo);
 }
 

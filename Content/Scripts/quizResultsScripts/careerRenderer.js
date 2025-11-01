@@ -20,16 +20,19 @@ export class CareerRenderer {
       careerCardsContainer.innerHTML += cardHtml;
     });
 
+    // Add click event listeners to career cards
+    this.setupCardClickListeners(careerPaths);
+
     this.renderProgressDots(careerPaths.length);
     console.log(`[CareerRenderer] Rendered ${careerPaths.length} career cards`);
   }
 
   static createCareerCardHtml(path, index) {
     return `
-      <div class="career-card ${
+      <div class="career-card cursor-pointer hover:shadow-xl transition-all duration-300 ${
         index === 0 ? "active" : ""
-      }" data-index="${index}">
-        <div class="flex flex-col lg:flex-row items-start gap-8">
+      }" data-index="${index}" data-career-title="${path.title}">
+        <div class="flex flex-col lg:flex-row items-start gap-8 p-6 bg-white rounded-2xl border border-gray-200 hover:border-lime/50 transition-colors relative">
           <div class="w-20 h-20 bg-lime rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
             <i class="fas ${
               path.icon || "fa-briefcase"
@@ -73,6 +76,29 @@ export class CareerRenderer {
         </div>
       </div>
     `;
+  }
+
+  static setupCardClickListeners(careerPaths) {
+    document.querySelectorAll(".career-card").forEach((card, index) => {
+      // Make the entire card clickable
+      card.addEventListener("click", (e) => {
+        // Don't trigger selection if clicking navigation buttons
+        if (
+          e.target.closest("#prevBtn") ||
+          e.target.closest("#nextBtn") ||
+          e.target.closest("#progress-dots")
+        ) {
+          return;
+        }
+
+        if (window.careerSelector && careerPaths[index]) {
+          window.careerSelector.selectCareer(
+            careerPaths[index].title,
+            careerPaths[index]
+          );
+        }
+      });
+    });
   }
 
   static renderProgressDots(totalCareers) {

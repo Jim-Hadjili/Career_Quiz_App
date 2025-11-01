@@ -10,12 +10,18 @@ class LogoutModal {
     window.closeLogoutModal = this.closeModal.bind(this);
     window.confirmLogout = this.confirmLogout.bind(this);
 
+    // Setup event listeners immediately instead of waiting for DOMContentLoaded
     this.setupEventListeners();
   }
 
   showModal() {
     const modal = document.getElementById("logout-modal");
     const modalContent = document.getElementById("logout-modal-content");
+
+    if (!modal || !modalContent) {
+      console.error("Logout modal elements not found");
+      return;
+    }
 
     // Close profile dropdown if open
     const profileDropdown = document.getElementById("dropdown-menu");
@@ -37,6 +43,11 @@ class LogoutModal {
     const modal = document.getElementById("logout-modal");
     const modalContent = document.getElementById("logout-modal-content");
 
+    if (!modal || !modalContent) {
+      console.error("Logout modal elements not found");
+      return;
+    }
+
     modalContent.classList.remove("scale-100", "opacity-100");
     modalContent.classList.add("scale-95", "opacity-0");
 
@@ -48,16 +59,21 @@ class LogoutModal {
 
   async confirmLogout() {
     const confirmButton = document.getElementById("confirm-logout");
+    if (!confirmButton) {
+      console.error("Confirm logout button not found");
+      return;
+    }
+
     const originalText = confirmButton.innerHTML;
 
     // Show loading state
     confirmButton.disabled = true;
     confirmButton.innerHTML = `
-            <div class="relative z-10 flex items-center gap-2">
-                <i class="fas fa-spinner fa-spin"></i>
-                Logging out...
-            </div>
-        `;
+      <div class="relative z-10 flex items-center gap-2">
+        <i class="fas fa-spinner fa-spin"></i>
+        Logging out...
+      </div>
+    `;
 
     try {
       const response = await fetch("../Config/Auth/auth_handler.php", {
@@ -73,11 +89,11 @@ class LogoutModal {
       if (data.success) {
         // Show success message briefly
         confirmButton.innerHTML = `
-                    <div class="relative z-10 flex items-center gap-2">
-                        <i class="fas fa-check"></i>
-                        Logged out!
-                    </div>
-                `;
+          <div class="relative z-10 flex items-center gap-2">
+            <i class="fas fa-check"></i>
+            Logged out!
+          </div>
+        `;
 
         // Close modal and redirect after short delay
         setTimeout(() => {
@@ -92,11 +108,11 @@ class LogoutModal {
 
       // Show error state
       confirmButton.innerHTML = `
-                <div class="relative z-10 flex items-center gap-2">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Error occurred
-                </div>
-            `;
+        <div class="relative z-10 flex items-center gap-2">
+          <i class="fas fa-exclamation-triangle"></i>
+          Error occurred
+        </div>
+      `;
 
       // Reset button after delay
       setTimeout(() => {
@@ -107,50 +123,46 @@ class LogoutModal {
   }
 
   setupEventListeners() {
-    document.addEventListener("DOMContentLoaded", () => {
-      // Close logout modal button
-      const closeLogoutButton = document.getElementById("close-logout-modal");
-      if (closeLogoutButton) {
-        closeLogoutButton.addEventListener("click", this.closeModal.bind(this));
-      }
+    // Remove DOMContentLoaded wrapper since DOM is already loaded
+    // Close logout modal button
+    const closeLogoutButton = document.getElementById("close-logout-modal");
+    if (closeLogoutButton) {
+      closeLogoutButton.addEventListener("click", this.closeModal.bind(this));
+    }
 
-      // Cancel logout button
-      const cancelLogoutButton = document.getElementById("cancel-logout");
-      if (cancelLogoutButton) {
-        cancelLogoutButton.addEventListener(
-          "click",
-          this.closeModal.bind(this)
-        );
-      }
+    // Cancel logout button
+    const cancelLogoutButton = document.getElementById("cancel-logout");
+    if (cancelLogoutButton) {
+      cancelLogoutButton.addEventListener("click", this.closeModal.bind(this));
+    }
 
-      // Confirm logout button
-      const confirmLogoutButton = document.getElementById("confirm-logout");
-      if (confirmLogoutButton) {
-        confirmLogoutButton.addEventListener(
-          "click",
-          this.confirmLogout.bind(this)
-        );
-      }
+    // Confirm logout button
+    const confirmLogoutButton = document.getElementById("confirm-logout");
+    if (confirmLogoutButton) {
+      confirmLogoutButton.addEventListener(
+        "click",
+        this.confirmLogout.bind(this)
+      );
+    }
 
-      // Close modal when clicking outside
-      const logoutModal = document.getElementById("logout-modal");
-      if (logoutModal) {
-        logoutModal.addEventListener("click", (e) => {
-          if (e.target === logoutModal) {
-            this.closeModal();
-          }
-        });
-      }
-
-      // ESC key to close logout modal
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          const modal = document.getElementById("logout-modal");
-          if (modal && !modal.classList.contains("hidden")) {
-            this.closeModal();
-          }
+    // Close modal when clicking outside
+    const logoutModal = document.getElementById("logout-modal");
+    if (logoutModal) {
+      logoutModal.addEventListener("click", (e) => {
+        if (e.target === logoutModal) {
+          this.closeModal();
         }
       });
+    }
+
+    // ESC key to close logout modal
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        const modal = document.getElementById("logout-modal");
+        if (modal && !modal.classList.contains("hidden")) {
+          this.closeModal();
+        }
+      }
     });
   }
 }

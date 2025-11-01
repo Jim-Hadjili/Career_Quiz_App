@@ -63,6 +63,21 @@ html {
   display: block;
 }
 
+.career-card.selected-career {
+  border: 2px solid #a3e635 !important;
+  background: linear-gradient(135deg, #f7fee7 0%, #ffffff 100%);
+  box-shadow: 0 10px 25px rgba(163, 230, 53, 0.2) !important;
+}
+
+.career-card.selected-career .select-career-btn {
+  background: #4ade80;
+  color: white;
+}
+
+.career-card.selected-career .select-career-btn:hover {
+  background: #22c55e;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -206,5 +221,20 @@ html {
   }
   .personality-banner h2 {
     font-size: 2rem;
+  }
+}
+
+.selection-badge {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

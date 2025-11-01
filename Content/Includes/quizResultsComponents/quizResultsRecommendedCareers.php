@@ -27,7 +27,6 @@
             <div class="flex items-center justify-between mt-10 px-6">
                 <button
                     id="prevBtn"
-                    onclick="previousCareer()"
                     class="px-8 py-4 bg-white border-2 border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-lime hover:text-dark hover:border-lime transition-all duration-300 flex items-center gap-3 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed no-print">
                     <i class="fas fa-chevron-left"></i>
                     <span class="hidden sm:inline">Previous Career</span>
@@ -41,7 +40,6 @@
 
                 <button
                     id="nextBtn"
-                    onclick="nextCareer()"
                     class="px-8 py-4 bg-lime text-dark font-semibold rounded-xl hover:bg-dark hover:text-lime transition-all duration-300 flex items-center gap-3 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed no-print">
                     <span class="hidden sm:inline">Next Career</span>
                     <i class="fas fa-chevron-right"></i>

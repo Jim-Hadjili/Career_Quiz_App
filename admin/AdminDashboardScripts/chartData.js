@@ -8,6 +8,9 @@ class ChartDataManager {
     this.selectedCareerCounts = window.selectedCareerCounts || [];
     this.monthlyLabels = window.monthlyLabels || [];
     this.monthlyCounts = window.monthlyCounts || [];
+    // NEW: User selected careers data
+    this.userSelectedCareerLabels = window.userSelectedCareerLabels || [];
+    this.userSelectedCareerCounts = window.userSelectedCareerCounts || [];
 
     // Color palette
     this.careerColors = [
@@ -42,6 +45,15 @@ class ChartDataManager {
     return {
       labels: this.monthlyLabels,
       counts: this.monthlyCounts,
+    };
+  }
+
+  // NEW: Get user selected careers data
+  getUserSelectedCareersData() {
+    return {
+      labels: this.userSelectedCareerLabels,
+      counts: this.userSelectedCareerCounts,
+      colors: this.careerColors.slice(0, this.userSelectedCareerLabels.length),
     };
   }
 }

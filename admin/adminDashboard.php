@@ -37,13 +37,19 @@ include "AdminDashboardFunctions/adminDashboardFunctions.php"
                     <?php include_once 'AdminDashboardComponents/adminUserList.php'; ?>
                 </div>
 
-                <!-- NEW: Selected Careers Analytics Row -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Selected Careers Analytics Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                     <!-- Selected Careers Chart -->
                     <?php include_once 'AdminDashboardComponents/selectedCareersChart.php'; ?>
 
                     <!-- Career Trends Over Time -->
                     <?php include_once 'AdminDashboardComponents/careerTrendsChart.php'; ?>
+                </div>
+
+                <!-- User Selected Careers Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <!-- User Selected Careers Chart and Recent Selections -->
+                    <?php include_once 'AdminDashboardComponents/userSelectedCareers.php'; ?>
                 </div>
             </div>
         </main>
@@ -55,10 +61,19 @@ include "AdminDashboardFunctions/adminDashboardFunctions.php"
     <script>
         window.careerLabels = <?php echo json_encode($career_labels); ?>;
         window.careerCounts = <?php echo json_encode($career_counts); ?>;
+        window.fullCareerNames = <?php echo json_encode($full_career_names ?? []); ?>;
+        
         window.selectedCareerLabels = <?php echo json_encode($selected_career_labels); ?>;
         window.selectedCareerCounts = <?php echo json_encode($selected_career_counts); ?>;
+        window.fullSelectedCareerNames = <?php echo json_encode($full_selected_career_names ?? []); ?>;
+        
         window.monthlyLabels = <?php echo json_encode($monthly_labels); ?>;
         window.monthlyCounts = <?php echo json_encode($monthly_counts); ?>;
+        
+        // User selected careers data
+        window.userSelectedCareerLabels = <?php echo json_encode($user_selected_career_labels); ?>;
+        window.userSelectedCareerCounts = <?php echo json_encode($user_selected_career_counts); ?>;
+        window.fullUserSelectedCareerNames = <?php echo json_encode($full_user_selected_career_names ?? []); ?>;
     </script>
 
     <!-- Load modules in order -->

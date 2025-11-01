@@ -5,11 +5,18 @@ class ChartManager {
     this.currentChart = null;
     this.selectedCareersChart = null;
     this.trendsChart = null;
+    this.userSelectedChart = null;
 
     // Canvas contexts
     this.careerCtx = document.getElementById("careerChart");
     this.selectedCtx = document.getElementById("selectedCareersChart");
     this.trendsCtx = document.getElementById("careerTrendsChart");
+    this.userSelectedCtx = document.getElementById("userSelectedCareersChart");
+
+    // Store full names for tooltips
+    this.fullCareerNames = window.fullCareerNames || [];
+    this.fullSelectedCareerNames = window.fullSelectedCareerNames || [];
+    this.fullUserSelectedCareerNames = window.fullUserSelectedCareerNames || [];
   }
 
   // Career Distribution Charts
@@ -34,7 +41,7 @@ class ChartManager {
           },
         ],
       },
-      options: this.getBarChartOptions(),
+      options: this.getBarChartOptions(this.fullCareerNames),
     });
   }
 
@@ -58,7 +65,7 @@ class ChartManager {
           },
         ],
       },
-      options: this.getPieChartOptions(),
+      options: this.getPieChartOptions(this.fullCareerNames),
     });
   }
 
@@ -84,7 +91,7 @@ class ChartManager {
           },
         ],
       },
-      options: this.getSelectedBarChartOptions(),
+      options: this.getSelectedBarChartOptions(this.fullSelectedCareerNames),
     });
   }
 
@@ -108,12 +115,16 @@ class ChartManager {
           },
         ],
       },
-      options: this.getDoughnutChartOptions(),
+      options: this.getDoughnutChartOptions(this.fullSelectedCareerNames),
     });
   }
 
-  // Trends Chart
+  // NEW: Career Trends Chart
   createTrendsChart() {
+    if (this.trendsChart) {
+      this.trendsChart.destroy();
+    }
+
     const data = this.dataManager.getMonthlyTrendsData();
 
     this.trendsChart = new Chart(this.trendsCtx, {
@@ -125,7 +136,7 @@ class ChartManager {
             label: "Quiz Completions",
             data: data.counts,
             borderColor: "#3B82F6",
-            backgroundColor: "#3B82F610",
+            backgroundColor: "rgba(59, 130, 246, 0.1)",
             borderWidth: 3,
             fill: true,
             tension: 0.4,
@@ -140,79 +151,161 @@ class ChartManager {
     });
   }
 
-  // Chart Options
-  getBarChartOptions() {
+  // User Selected Careers Charts
+  createUserSelectedBarChart() {
+    if (this.userSelectedChart) {
+      this.userSelectedChart.destroy();
+    }
+
+    const data = this.dataManager.getUserSelectedCareersData();
+
+    this.userSelectedChart = new Chart(this.userSelectedCtx, {
+      type: "bar",
+      data: {
+        labels: data.labels,
+        datasets: [
+          {
+            label: "Times Selected",
+            data: data.counts,
+            backgroundColor: data.colors,
+            borderRadius: 8,
+            barThickness: 30,
+          },
+        ],
+      },
+      options: this.getSelectedBarChartOptions(
+        this.fullUserSelectedCareerNames
+      ),
+    });
+  }
+
+  createUserSelectedPieChart() {
+    if (this.userSelectedChart) {
+      this.userSelectedChart.destroy();
+    }
+
+    const data = this.dataManager.getUserSelectedCareersData();
+
+    this.userSelectedChart = new Chart(this.userSelectedCtx, {
+      type: "pie",
+      data: {
+        labels: data.labels,
+        datasets: [
+          {
+            data: data.counts,
+            backgroundColor: data.colors,
+            borderWidth: 2,
+            borderColor: "#ffffff",
+          },
+        ],
+      },
+      options: this.getPieChartOptions(this.fullUserSelectedCareerNames),
+    });
+  }
+
+  // Chart Options with Full Names in Tooltips
+  getBarChartOptions(fullNames = []) {
     return {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { display: false },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 1,
-            callback: function (value) {
-              return Math.floor(value);
-            },
-          },
-          grid: { color: "#f3f4f6" },
-        },
-        x: {
+        legend: {
           display: false,
-          grid: { display: false },
         },
-      },
-    };
-  }
-
-  getPieChartOptions() {
-    return {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: "right",
-          labels: {
-            boxWidth: 12,
-            padding: 20,
-            font: { size: 12 },
+        tooltip: {
+          callbacks: {
+            title: function (context) {
+              const index = context[0].dataIndex;
+              return fullNames[index] || context[0].label;
+            },
+            label: function (context) {
+              return `Results: ${context.parsed.y}`;
+            },
           },
         },
-      },
-    };
-  }
-
-  getSelectedBarChartOptions() {
-    return {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
       },
       scales: {
         y: {
           beginAtZero: true,
           ticks: {
             stepSize: 1,
-            callback: function (value) {
-              return Math.floor(value);
-            },
           },
-          grid: { color: "#f3f4f6" },
         },
         x: {
           ticks: {
-            maxRotation: 45,
-            font: { size: 10 },
+            display: false,
           },
         },
       },
     };
   }
 
-  getDoughnutChartOptions() {
+  getPieChartOptions(fullNames = []) {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: {
+            padding: 20,
+            usePointStyle: true,
+          },
+        },
+        tooltip: {
+          callbacks: {
+            title: function (context) {
+              const index = context[0].dataIndex;
+              return fullNames[index] || context[0].label;
+            },
+            label: function (context) {
+              const total = context.dataset.data.reduce((a, b) => a + b, 0);
+              const percentage = ((context.parsed / total) * 100).toFixed(1);
+              return `${context.parsed} (${percentage}%)`;
+            },
+          },
+        },
+      },
+    };
+  }
+
+  getSelectedBarChartOptions(fullNames = []) {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            title: function (context) {
+              const index = context[0].dataIndex;
+              return fullNames[index] || context[0].label;
+            },
+            label: function (context) {
+              return `Selected: ${context.parsed.y} times`;
+            },
+          },
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+          },
+        },
+        x: {
+          ticks: {
+            display: false,
+          },
+        },
+      },
+    };
+  }
+
+  getDoughnutChartOptions(fullNames = []) {
     return {
       responsive: true,
       maintainAspectRatio: false,
@@ -220,9 +313,21 @@ class ChartManager {
         legend: {
           position: "right",
           labels: {
-            boxWidth: 12,
             padding: 15,
-            font: { size: 11 },
+            usePointStyle: true,
+          },
+        },
+        tooltip: {
+          callbacks: {
+            title: function (context) {
+              const index = context[0].dataIndex;
+              return fullNames[index] || context[0].label;
+            },
+            label: function (context) {
+              const total = context.dataset.data.reduce((a, b) => a + b, 0);
+              const percentage = ((context.parsed / total) * 100).toFixed(1);
+              return `${context.parsed} selections (${percentage}%)`;
+            },
           },
         },
       },
@@ -234,21 +339,28 @@ class ChartManager {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { display: false },
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              return `Completions: ${context.parsed.y}`;
+            },
+          },
+        },
       },
       scales: {
         y: {
           beginAtZero: true,
           ticks: {
             stepSize: 1,
-            callback: function (value) {
-              return Math.floor(value);
-            },
           },
-          grid: { color: "#f3f4f6" },
         },
         x: {
-          grid: { display: false },
+          grid: {
+            display: false,
+          },
         },
       },
     };
@@ -264,6 +376,12 @@ class ChartManager {
     }
     if (this.trendsCtx) {
       this.createTrendsChart();
+    }
+    if (
+      this.userSelectedCtx &&
+      this.dataManager.userSelectedCareerLabels.length > 0
+    ) {
+      this.createUserSelectedBarChart();
     }
   }
 }

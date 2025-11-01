@@ -19,15 +19,29 @@ $stats = $dashboardStats->getStatsSummary();
 $chart_data = $dashboardStats->getChartData();
 $recent_users = $userStats->getUsersForPage($current_page, $users_per_page);
 $total_pages = $userStats->getTotalPages($users_per_page);
-$total_users = $userStats->getTotalUsers(); // Add this line
+$total_users = $userStats->getTotalUsers();
+
+// Get user selections data
+$user_selections_data = $dashboardStats->getUserSelectionsData();
 
 // Extract chart data for backward compatibility
 $career_labels = $chart_data['career_distribution']['labels'];
 $career_counts = $chart_data['career_distribution']['counts'];
+$full_career_names = $chart_data['career_distribution']['fullNames']; // NEW
+
 $selected_career_labels = $chart_data['selected_careers']['labels'];
 $selected_career_counts = $chart_data['selected_careers']['counts'];
+$full_selected_career_names = $chart_data['selected_careers']['fullNames']; // NEW
+
 $monthly_labels = $chart_data['monthly_trend']['labels'];
 $monthly_counts = $chart_data['monthly_trend']['counts'];
+
+// Extract user selected careers data
+$user_selected_career_labels = $chart_data['user_selected_careers']['labels'] ?? [];
+$user_selected_career_counts = $chart_data['user_selected_careers']['counts'] ?? [];
+$full_user_selected_career_names = $chart_data['user_selected_careers']['fullNames'] ?? []; // NEW
+
+$recent_user_selections = $user_selections_data['recent_selections'];
 
 // Sample courses data (keep as is for now)
 $courses = [

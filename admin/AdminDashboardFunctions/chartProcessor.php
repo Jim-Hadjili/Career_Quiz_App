@@ -4,13 +4,15 @@ class ChartProcessor {
     public static function formatCareerLabels($career_data, $max_length = 15) {
         $labels = [];
         $counts = [];
+        $fullNames = [];
         
         foreach ($career_data as $title => $count) {
             $labels[] = strlen($title) > $max_length ? substr($title, 0, $max_length) . '...' : $title;
             $counts[] = $count;
+            $fullNames[] = $title; // Store full name
         }
         
-        return ['labels' => $labels, 'counts' => $counts];
+        return ['labels' => $labels, 'counts' => $counts, 'fullNames' => $fullNames];
     }
     
     public static function getMonthlyTrendData($monthly_data, $months_back = 6) {

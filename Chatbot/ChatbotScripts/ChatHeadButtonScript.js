@@ -216,6 +216,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
     } else {
+      // Format AI messages with better structure
+      const formattedMessage = formatAIMessage(message);
       messageDiv.innerHTML = `
                 <div class="flex items-start space-x-3">
                     <div class="w-8 h-8 bg-lime rounded-full flex items-center justify-center flex-shrink-0">
@@ -224,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         </svg>
                     </div>
                     <div class="bg-white rounded-lg p-3 max-w-[80%] shadow-sm">
-                        <p class="text-sm text-dark">${message}</p>
+                        <div class="text-sm text-dark formatted-content">${formattedMessage}</div>
                         <span class="text-xs text-gray-500 mt-1 block">${currentTime}</span>
                     </div>
                 </div>
@@ -236,6 +238,83 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Store in chat history
     chatHistory.push({ message, sender, timestamp: currentTime });
+  }
+
+  // New function to format AI messages with better structure
+  function formatAIMessage(message) {
+    // Convert markdown-like formatting to HTML
+    let formatted = message;
+
+    // Handle headers (lines starting with # or ##)
+    formatted = formatted.replace(
+      /^### (.*$)/gm,
+      '<h4 class="font-semibold text-base text-dark mb-2 mt-3 first:mt-0">🎯 $1</h4>'
+    );
+    formatted = formatted.replace(
+      /^## (.*$)/gm,
+      '<h3 class="font-semibold text-lg text-dark mb-2 mt-3 first:mt-0">📚 $1</h3>'
+    );
+    formatted = formatted.replace(
+      /^# (.*$)/gm,
+      '<h2 class="font-bold text-xl text-dark mb-3 mt-4 first:mt-0">🎓 $1</h2>'
+    );
+
+    // Handle emoji headers (lines starting with emoji and text)
+    formatted = formatted.replace(
+      /^(🎓|📚|🎯|🧭|💼|📋|⭐|🌟|💡|🔍|📊|🎪|🏢|📖) (.*$)/gm,
+      '<h4 class="font-semibold text-base text-dark mb-2 mt-3 first:mt-0 flex items-center gap-2"><span>$1</span><span>$2</span></h4>'
+    );
+
+    // Handle bold text
+    formatted = formatted.replace(
+      /\*\*(.*?)\*\*/g,
+      '<strong class="font-semibold text-dark">$1</strong>'
+    );
+
+    // Handle bullet points (lines starting with - or *)
+    formatted = formatted.replace(
+      /^[\-\*] (.*$)/gm,
+      '<li class="ml-4 mb-1">• $1</li>'
+    );
+
+    // Handle numbered lists
+    formatted = formatted.replace(
+      /^\d+\. (.*$)/gm,
+      '<li class="ml-4 mb-1 list-decimal">$1</li>'
+    );
+
+    // Wrap consecutive list items in ul tags
+    formatted = formatted.replace(/(<li.*?<\/li>\s*)+/g, function (match) {
+      if (match.includes("list-decimal")) {
+        return '<ol class="mb-2 ml-2">' + match + "</ol>";
+      }
+      return '<ul class="mb-2 ml-2">' + match + "</ul>";
+    });
+
+    // Handle course/program details with special formatting
+    formatted = formatted.replace(
+      /Course: (.*$)/gm,
+      '<div class="bg-lime bg-opacity-20 px-2 py-1 rounded text-sm mb-1"><strong>Course:</strong> $1</div>'
+    );
+    formatted = formatted.replace(
+      /Details: (.*$)/gm,
+      '<div class="text-sm text-gray-600 mb-2 pl-2"><strong>Details:</strong> $1</div>'
+    );
+
+    // Handle line breaks and paragraphs
+    formatted = formatted.replace(/\n\n/g, '</p><p class="mb-2">');
+    formatted = '<p class="mb-2">' + formatted + "</p>";
+
+    // Clean up empty paragraphs
+    formatted = formatted.replace(/<p class="mb-2"><\/p>/g, "");
+
+    // Handle steps or numbered instructions with better styling
+    formatted = formatted.replace(
+      /^Step \d+: (.*$)/gm,
+      '<div class="bg-gray-50 border-l-4 border-lime pl-3 py-2 mb-2 rounded-r"><strong>$&</strong></div>'
+    );
+
+    return formatted;
   }
 
   function showTypingIndicator() {

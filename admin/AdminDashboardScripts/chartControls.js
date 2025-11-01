@@ -8,6 +8,7 @@ class ChartControls {
   initializeControls() {
     this.setupCareerDistributionControls();
     this.setupSelectedCareersControls();
+    this.setupUserSelectedCareersControls(); // NEW
   }
 
   setupCareerDistributionControls() {
@@ -40,6 +41,24 @@ class ChartControls {
       selectedDoughnutBtn.addEventListener("click", () => {
         this.chartManager.createSelectedDoughnutChart();
         this.toggleButtonState(selectedDoughnutBtn, selectedBarBtn);
+      });
+    }
+  }
+
+  // NEW: Setup user selected careers controls
+  setupUserSelectedCareersControls() {
+    const userSelectedBarBtn = document.getElementById("userSelectedBarBtn");
+    const userSelectedPieBtn = document.getElementById("userSelectedPieBtn");
+
+    if (userSelectedBarBtn && userSelectedPieBtn) {
+      userSelectedBarBtn.addEventListener("click", () => {
+        this.chartManager.createUserSelectedBarChart();
+        this.toggleButtonState(userSelectedBarBtn, userSelectedPieBtn);
+      });
+
+      userSelectedPieBtn.addEventListener("click", () => {
+        this.chartManager.createUserSelectedPieChart();
+        this.toggleButtonState(userSelectedPieBtn, userSelectedBarBtn);
       });
     }
   }

@@ -38,10 +38,23 @@ class DashboardStats {
         $selected_chart = ChartProcessor::formatCareerLabels($selected_data['selected_careers'], 20);
         $monthly_trend = ChartProcessor::getMonthlyTrendData($selected_data['monthly_data']);
         
+        // NEW: User selected careers data
+        $user_selected_careers = $this->quizResults->getUserSelectedCareers();
+        $user_selected_chart = ChartProcessor::formatCareerLabels($user_selected_careers, 20);
+        
         return [
             'career_distribution' => $career_chart,
             'selected_careers' => $selected_chart,
-            'monthly_trend' => $monthly_trend
+            'monthly_trend' => $monthly_trend,
+            'user_selected_careers' => $user_selected_chart
+        ];
+    }
+    
+    // NEW: Get user selections data
+    public function getUserSelectionsData() {
+        return [
+            'user_selected_careers' => $this->quizResults->getUserSelectedCareers(),
+            'recent_selections' => $this->quizResults->getRecentUserSelections()
         ];
     }
 }

@@ -66,5 +66,63 @@ class QuizResults {
             'monthly_data' => $monthly_data
         ];
     }
+    
+    // NEW: Get user selected careers from selected_career_tb
+    public function getUserSelectedCareers($user_id = null) {
+        if ($user_id) {
+            $query = "SELECT career_selected, COUNT(*) as selection_count 
+                      FROM selected_career_tb 
+                      WHERE user_id = ? 
+                      GROUP BY career_selected 
+                      ORDER BY selection_count DESC";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        } else {
+            $query = "SELECT career_selected, COUNT(*) as selection_count 
+                      FROM selected_career_tb 
+                      GROUP BY career_selected 
+                      ORDER BY selection_count DESC";
+            $result = $this->conn->query($query);
+        }
+        
+        $user_selected_careers = [];
+        
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $user_selected_careers[$row['career_selected']] = $row['selection_count'];
+            }
+        }
+        
+        return $user_selected_careers;
+    }
+    
+    // NEW: Get recent user selections
+    public function getRecentUserSelections($limit = 10) {
+        $query = "SELECT sct.career_selected, u.userName, sct.user_id 
+                  FROM selected_career_tb sct 
+                  LEFT JOIN users_tb u ON sct.user_id = u.user_id 
+                  ORDER BY sct.selectedCareer_id DESC 
+                  LIMIT ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $recent_selections = [];
+        
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $recent_selections[] = [
+                    'career' => $row['career_selected'],
+                    'user' => $row['userName'] ?: 'Unknown User',
+                    'user_id' => $row['user_id']
+                ];
+            }
+        }
+        
+        return $recent_selections;
+    }
 }
 ?>

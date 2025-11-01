@@ -85,3 +85,35 @@
              style="border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 12px solid white; transform: translateY(100%) rotate(45deg); opacity: 0;"></div>
     </div>
 </div>
+
+<style>
+.formatted-content h2, 
+.formatted-content h3, 
+.formatted-content h4 {
+    color: #1f2937;
+    line-height: 1.3;
+}
+
+.formatted-content ul, 
+.formatted-content ol {
+    padding-left: 1rem;
+}
+
+.formatted-content li {
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+}
+
+.formatted-content p {
+    line-height: 1.5;
+}
+
+.formatted-content strong {
+    font-weight: 600;
+}
+
+.formatted-content .bg-lime {
+    background-color: rgba(132, 204, 22, 0.1);
+    border-radius: 0.25rem;
+}
+</style>

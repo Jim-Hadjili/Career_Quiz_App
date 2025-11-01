@@ -65,13 +65,6 @@
                             placeholder="Create a secure password"
                         >
                         <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <button 
-                            type="button" 
-                            id="toggle-password" 
-                            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-dark transition-colors focus:outline-none"
-                        >
-                            <i class="fas fa-eye"></i>
-                        </button>
                     </div>
                 </div>
 

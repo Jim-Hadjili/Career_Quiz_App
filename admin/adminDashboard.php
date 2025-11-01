@@ -12,10 +12,11 @@ include "AdminDashboardFunctions/adminDashboardFunctions.php"
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="../Assets/Scripts/tailwindConfig.js"></script>
     <link rel="icon" type="image/png" href="../Assets/Images/logo.png">
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-gray-200">
     <div class="flex h-screen overflow-hidden">
 
         <!-- Main Content -->
@@ -55,7 +56,7 @@ include "AdminDashboardFunctions/adminDashboardFunctions.php"
     </div>
 
     <!-- Include Logout Modal -->
-    <?php include_once '../Assets/Components/logoutModal.php'; ?>
+    <?php include_once '../Assets/Components/adminLogoutModal.php'; ?>
 
     <script>
         window.careerLabels = <?php echo json_encode($career_labels); ?>;

@@ -5,9 +5,8 @@
                 <div class="flex-1 min-w-0">
                     <p class="text-gray-600 text-sm font-medium"><?php echo $stat['title']; ?></p>
                     <p class="text-2xl font-bold text-gray-900 mt-2 <?php echo ($stat['title'] === 'Popular Career') ? 'text-lg break-words' : ''; ?>"><?php echo $stat['value']; ?></p>
-                    <p class="text-xs text-gray-500 mt-2"><?php echo $stat['change']; ?></p>
                 </div>
-                <div class="text-2xl text-blue-400 flex-shrink-0 ml-3">
+                <div class="text-2xl text-lime flex-shrink-0 ml-3">
                     <i class="fas <?php echo $stat['icon']; ?>"></i>
                 </div>
             </div>

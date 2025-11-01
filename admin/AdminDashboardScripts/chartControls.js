@@ -65,11 +65,11 @@ class ChartControls {
 
   toggleButtonState(activeBtn, inactiveBtn) {
     // Activate selected button
-    activeBtn.classList.add("bg-blue-500", "text-white");
+    activeBtn.classList.add("bg-lime", "text-dark");
     activeBtn.classList.remove("text-gray-600");
 
     // Deactivate other button
-    inactiveBtn.classList.remove("bg-blue-500", "text-white");
+    inactiveBtn.classList.remove("bg-lime", "text-dark");
     inactiveBtn.classList.add("text-gray-600");
   }
 }

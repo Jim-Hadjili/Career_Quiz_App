@@ -13,8 +13,8 @@
         <?php if (!empty($recent_users)): ?>
             <?php foreach ($recent_users as $user): ?>
                 <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-user text-blue-600 text-sm"></i>
+                    <div class="w-10 h-10 bg-lime rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-user text-dark text-sm"></i>
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium text-gray-900 truncate">

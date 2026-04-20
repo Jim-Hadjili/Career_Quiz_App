@@ -9,7 +9,7 @@ echo "<h3>1. Checking API Key Status</h3>\n";
 
 try {
     // Load config directly to check the key
-    $envFile = '../../../Config/API/.env';
+    $envFile = file_exists('../../../.env') ? '../../../.env' : '../../../Config/API/.env';
     $config = [];
     if (file_exists($envFile)) {
         $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);

@@ -39,10 +39,10 @@ function loadEnv($filePath) {
 
 // Try multiple paths for environment file
 $envPaths = [
-    __DIR__ . '/../API/.env',
+    __DIR__ . '/../../.env',
+    $_SERVER['DOCUMENT_ROOT'] . '/Career_Quiz_App/.env',
     __DIR__ . '/../../Config/API/.env',
     $_SERVER['DOCUMENT_ROOT'] . '/Config/API/.env',
-    dirname($_SERVER['DOCUMENT_ROOT']) . '/Config/API/.env',
     __DIR__ . '/.env'
 ];
 

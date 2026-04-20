@@ -7,7 +7,7 @@ class CareerAnalysisAPI {
     private $retryDelaySeconds = 1;
 
     public function __construct() {
-        $envFile = '../../../Config/API/.env';
+        $envFile = file_exists('../../../.env') ? '../../../.env' : '../../../Config/API/.env';
         $config = $this->loadEnv($envFile);
         
         $this->apiKey = $config['GROQ_API_KEY'];

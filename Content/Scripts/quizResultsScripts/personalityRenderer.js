@@ -415,10 +415,10 @@ export class PersonalityRenderer {
         <div class="trait-item bg-gray-50 rounded-xl p-4 border border-gray-200 mb-4">
           <div class="flex justify-between items-center mb-2">
             <span class="font-semibold text-gray-800">${trait.name}</span>
-            <span class="text-sm font-bold text-lime">${trait.percentage}%</span>
+            <span class="text-sm font-bold text-navy_blue">${trait.percentage}%</span>
           </div>
           <div class="w-full bg-gray-200 rounded-full h-3">
-            <div class="bg-lime h-3 rounded-full transition-all duration-500" style="width: ${trait.percentage}%"></div>
+            <div class="bg-navy_blue h-3 rounded-full transition-all duration-500" style="width: ${trait.percentage}%"></div>
           </div>
           <div class="flex justify-between text-xs text-gray-500 mt-2">
             <span class="font-medium">${trait.name}</span>

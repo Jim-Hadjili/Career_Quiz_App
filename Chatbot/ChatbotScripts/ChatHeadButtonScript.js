@@ -204,12 +204,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (sender === "user") {
       messageDiv.innerHTML = `
                 <div class="flex items-start space-x-3 flex-row-reverse w-full ">
-                    <div class="w-8 h-8 ml-2 bg-dark rounded-full flex items-center justify-center flex-shrink-0">
-                        <svg class="w-4 h-4 text-lime" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="w-8 h-8 ml-2 bg-navy_blue rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                         </svg>
                     </div>
-                    <div class="bg-lime text-dark rounded-lg p-3 max-w-[80%] shadow-sm ml-auto">
+                    <div class="bg-navy_blue text-white rounded-lg p-3 max-w-[80%] shadow-sm ml-auto">
                         <p class="text-sm">${message}</p>
                         <span class="text-xs opacity-70 mt-1 block">${currentTime}</span>
                     </div>
@@ -220,8 +220,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const formattedMessage = formatAIMessage(message);
       messageDiv.innerHTML = `
                 <div class="flex items-start space-x-3">
-                    <div class="w-8 h-8 bg-lime rounded-full flex items-center justify-center flex-shrink-0">
-                        <svg class="w-4 h-4 text-dark" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="w-8 h-8 bg-navy_blue rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                         </svg>
                     </div>

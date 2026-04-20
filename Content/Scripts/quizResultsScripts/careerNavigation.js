@@ -65,7 +65,7 @@ export class CareerNavigation {
     document.querySelectorAll("#progress-dots button").forEach((dot, index) => {
       if (index === activeIndex) {
         dot.classList.remove("bg-gray-300", "hover:bg-gray-400");
-        dot.classList.add("bg-lime", "w-10");
+        dot.classList.add("bg-navy_blue", "w-10");
       } else {
         dot.classList.remove("bg-lime", "w-10");
         dot.classList.add("bg-gray-300", "hover:bg-gray-400");

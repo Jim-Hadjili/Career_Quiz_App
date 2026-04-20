@@ -1,26 +1,23 @@
-<section
-    class="pt-24 pb-2 bg-white"
-    id="Personality-Traits">
+<section class="pt-24 pb-2 bg-white" id="Personality-Traits">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center mb-8">
             <div
-                class="w-14 h-14 bg-lime rounded-full flex items-center justify-center mr-6 font-bold text-dark text-xl shadow-lg">
+                class="w-14 h-14 bg-crimson_red text-white rounded-full flex items-center justify-center mr-6 font-bold text-dark text-xl shadow-lg">
                 3
             </div>
-            <h2
-                class="section-title text-3xl lg:text-5xl font-bold text-gray-800">
+            <h2 class="section-title text-3xl lg:text-5xl font-bold text-gray-800">
                 Comprehensive Personality Analysis
             </h2>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Traits Visualization -->
-            <div
-                class="lg:col-span-2 bg-white rounded-3xl p-10 shadow-md border-2 border-gray-100">
+            <div class="lg:col-span-2 bg-white rounded-3xl p-10 shadow-md border-2 border-gray-100">
                 <div class="mb-6">
                     <h3 class="text-xl font-bold text-gray-800 mb-2">Personality Traits Spectrum</h3>
                     <p class="text-gray-600 text-sm">
-                        Based on your responses across all assessment categories: personality, interests, values, and skills.
+                        Based on your responses across all assessment categories: personality, interests, values, and
+                        skills.
                     </p>
                 </div>
                 <div id="traits-container">
@@ -32,12 +29,11 @@
                 </div>
             </div>
 
-        
+
         </div>
 
         <!-- Description Text -->
-        <div
-            class="mt-8 bg-white rounded-3xl p-10 shadow-md border-2 border-gray-100">
+        <div class="mt-8 bg-white rounded-3xl p-10 shadow-md border-2 border-gray-100">
             <div class="mb-4">
                 <h3 class="text-lg font-bold text-gray-800 mb-2">Your Comprehensive Profile</h3>
             </div>

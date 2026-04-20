@@ -1,23 +1,18 @@
-<section
-    class="py-24 pb-2 bg-white"
-    id="Career-path">
+<section class="py-24 pb-2 bg-white" id="Career-path">
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center mb-16">
             <div
-                class="w-14 h-14 bg-lime rounded-full flex items-center justify-center mr-6 font-bold text-dark text-xl shadow-lg">
+                class="w-14 h-14 bg-crimson_red text-white rounded-full flex items-center justify-center mr-6 font-bold text-dark text-xl shadow-lg">
                 1
             </div>
-            <h2
-                class="section-title text-3xl lg:text-5xl font-bold text-gray-800">
+            <h2 class="section-title text-3xl lg:text-5xl font-bold text-gray-800">
                 Your Career Path
             </h2>
         </div>
 
         <div class="flex flex-col lg:flex-row items-center lg:items-start space-y-8 lg:space-y-0 lg:space-x-8">
             <!-- Illustration -->
-            <img
-                src="https://illustrations.popsy.co/amber/paper-documents.svg"
-                alt="Career Path Illustration"
+            <img src="https://illustrations.popsy.co/amber/paper-documents.svg" alt="Career Path Illustration"
                 class="w-full h-auto max-h-96 object-contain rounded-2xl" />
 
             <!-- Career Description -->

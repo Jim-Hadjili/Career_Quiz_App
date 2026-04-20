@@ -153,8 +153,8 @@ $messages[] = [
 ];
 
 // Check if API credentials are available
-if (!isset($_ENV['api_key']) || empty($_ENV['api_key'])) {
-    error_log("API key not found in environment variables");
+if (!isset($_ENV['GROQ_API_KEY']) || empty($_ENV['GROQ_API_KEY'])) {
+    error_log("Groq API key not found in environment variables");
     echo json_encode([
         'success' => true,
         'response' => "I'd be happy to help you with career guidance! While I'm experiencing some technical connectivity issues, I can still provide general advice. What specific career questions do you have?"
@@ -164,7 +164,7 @@ if (!isset($_ENV['api_key']) || empty($_ENV['api_key'])) {
 
 // Prepare API request
 $apiData = [
-    "model" => $_ENV['model'] ?? "mistralai/mistral-7b-instruct:free",
+    "model" => $_ENV['GROQ_CHAT_MODEL'] ?? "llama-3.1-8b-instant",
     "messages" => $messages,
     "max_tokens" => 500,
     "temperature" => 0.7
@@ -177,14 +177,12 @@ $domain = $protocol . '://' . $_SERVER['HTTP_HOST'];
 // Make API request
 $ch = curl_init();
 curl_setopt_array($ch, [
-    CURLOPT_URL => $_ENV['api_url'] ?? 'https://openrouter.ai/api/v1/chat/completions',
+    CURLOPT_URL => $_ENV['GROQ_API_URL'] ?? 'https://api.groq.com/openai/v1/chat/completions',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_POST => true,
     CURLOPT_HTTPHEADER => [
         'Content-Type: application/json',
-        'Authorization: Bearer ' . $_ENV['api_key'],
-        'HTTP-Referer: ' . $domain,
-        'X-Title: CareerPath AI Chatbot'
+        'Authorization: Bearer ' . $_ENV['GROQ_API_KEY']
     ],
     CURLOPT_POSTFIELDS => json_encode($apiData),
     CURLOPT_TIMEOUT => 30,
@@ -207,10 +205,17 @@ if ($error) {
 }
 
 if ($httpCode !== 200) {
-    error_log("API Error: HTTP " . $httpCode . " - " . $response);
+    $errorBody = json_decode($response, true);
+    $errorDetail = isset($errorBody['error']['message']) ? $errorBody['error']['message'] : $response;
+    error_log("Groq API Error: HTTP " . $httpCode . " - " . $errorDetail);
+    error_log("Groq API Key used (first 10 chars): " . substr($_ENV['GROQ_API_KEY'] ?? '', 0, 10));
+    error_log("Groq API URL: " . ($_ENV['GROQ_API_URL'] ?? 'not set'));
+    error_log("Groq Model: " . ($_ENV['GROQ_CHAT_MODEL'] ?? 'not set'));
     echo json_encode([
-        'success' => true, 
-        'response' => "I'm experiencing some technical difficulties, but I'm here to help! What career questions can I assist you with today?"
+        'success' => false,
+        'debug_http_code' => $httpCode,
+        'debug_error' => $errorDetail,
+        'response' => "I'm experiencing some technical difficulties (HTTP $httpCode). Please try again."
     ]);
     exit;
 }

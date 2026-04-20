@@ -10,9 +10,9 @@ class CareerAnalysisAPI {
         $envFile = '../../../Config/API/.env';
         $config = $this->loadEnv($envFile);
         
-        $this->apiKey = $config['api_key'];
-        $this->apiUrl = $config['api_url'];
-        $this->model = $config['model'];
+        $this->apiKey = $config['GROQ_API_KEY'];
+        $this->apiUrl = $config['GROQ_API_URL'] ?? 'https://api.groq.com/openai/v1/chat/completions';
+        $this->model = $config['GROQ_ANALYSIS_MODEL'] ?? 'llama-3.3-70b-versatile';
     }
 
     private function loadEnv($filepath) {
